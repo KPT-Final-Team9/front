@@ -22,5 +22,15 @@
   "[scss]": {
     "editor.formatOnSave": true,
     "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "material-icon-theme.folders.associations": {
+    "_components": "components",
+    "_constants": "constant",
+    "_hooks": "hook",
+    "_service": "Services",
+    "_store": "store",
+    "_types": "Typescript",
+    "_utils": "Utils",
+    "(route)": "Routes"
   }
 }
