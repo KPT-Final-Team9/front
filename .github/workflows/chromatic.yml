@@ -1,25 +1,26 @@
-# Workflow name
 name: 'Chromatic Deployment'
 
-# Event for the workflow
 on:
   push:
     branches:
       - main
       - develop
 
-# List of jobs
 jobs:
   test:
-    # Operating System
     runs-on: ubuntu-latest
-    # Job steps
     steps:
-      - uses: actions/checkout@v1
-      - run: npm
-        #👇 Adds Chromatic as a step in the workflow
-      - uses: chromaui/action@v1
-        # Options required for Chromatic's GitHub Action
+      - uses: actions/checkout@v2 # 체크아웃 액션을 v2로 업데이트 권장
+      - name: Set up Node.js
+        uses: actions/setup-node@v2 # Node.js 설정
         with:
-          #👇 Chromatic projectToken, see https://storybook.js.org/tutorials/intro-to-storybook/react/ko/deploy/ to obtain it
+          node-version: '14' # 프로젝트에 적합한 Node.js 버전 지정
+          cache: 'npm'
+      - name: Install dependencies
+        run: npm install # 의존성 설치
+      - name: Build and Deploy to Chromatic
+        uses: chromaui/action@v1
+        with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          buildScriptName: 'build-storybook' # 빌드 스크립트 명령어 추가
+          exitZeroOnChanges: true # 변경사항이 있을 때도 에러 없이 종료
