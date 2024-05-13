@@ -79,8 +79,13 @@ html {
   --font-pretendard: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto,
     'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Apple Color Emoji',
     'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif;
-  font-family: var(--font-pretendard);
 }
 body * {
   font-family: var(--font-pretendard);
+}
+
+.btn-icon {
+  &:hover {
+    background-image: radial-gradient(#60606020 20%, #f1f1f19e 30%, #d1d1d122 50%);
+  }
 }
