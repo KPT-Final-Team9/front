@@ -1,26 +1,20 @@
-name: 'Chromatic Deployment'
+name: 'Chromatic'
 
-on:
-  push:
-    branches:
-      - main
-      - develop
+on: push
 
 jobs:
-  test:
+  chromatic-deployment:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v2 # 체크아웃 액션을 v2로 업데이트 권장
-      - name: Set up Node.js
-        uses: actions/setup-node@v2 # Node.js 설정
-        with:
-          node-version: '14' # 프로젝트에 적합한 Node.js 버전 지정
-          cache: 'npm'
+      - uses: actions/checkout@v1
+
       - name: Install dependencies
-        run: npm install # 의존성 설치
-      - name: Build and Deploy to Chromatic
+        run: yarn
+        working-directory: storybook-app
+
+      - name: Publish to Chromatic
         uses: chromaui/action@v1
         with:
+          workingDir: storybook-app
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
-          buildScriptName: 'build-storybook' # 빌드 스크립트 명령어 추가
-          exitZeroOnChanges: true # 변경사항이 있을 때도 에러 없이 종료
