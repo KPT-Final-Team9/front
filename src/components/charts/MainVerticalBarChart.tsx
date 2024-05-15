@@ -40,7 +40,7 @@ export default function MainVerticalBarChart({
       <ResponsiveContainer
         width="100%"
         height={500}>
-        {/* Fixme: type error, 동작함 */}
+        {/* FIXME: type error, 동작함 */}
         <BarChart
           overflow="visible"
           data={chartData}

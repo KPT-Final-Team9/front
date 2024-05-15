@@ -12,6 +12,7 @@ interface HalfCircleProgressBar {
   color?: string | undefined;
 }
 
+// NOTE: 반응형 추가했으나 크기 너무 작은문제
 export default function HalfCircleProgressBar({ percent = 50, color = '#000000' }: HalfCircleProgressBar) {
   const result = CircleProgressBarSchema.safeParse({ percent, color });
   // 검증 실패 시 기본값
