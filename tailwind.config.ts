@@ -20,7 +20,7 @@ const config = {
         notoSansKr: ['var(--font-notoSansKr)'],
       },
       colors: {
-        'font-disabled': '#D1D5DB4D',
+        'text-secondary': '#6B7280',
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
