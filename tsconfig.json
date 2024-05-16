@@ -17,7 +17,14 @@
         "name": "next"
       }
     ],
+    "baseUrl": "./",
     "paths": {
+      "@Atoms/*": ["./src/components/common/#Atoms/*"],
+      "@Monocles/*": ["./src/components/common/#Monocles/*"],
+      "@Organisms/*": ["./src/components/common/#Organisms/*"],
+      "@common/*": ["./src/components/common/*"],
+      "@icon/*": ["./src/components/icon/*"],
+      "@chart/*": ["./src/components/charts/*"],
       "@/*": ["./src/*"]
     }
   },

@@ -1,9 +1,9 @@
+import CircularProgressRating from '@Monocles/progress-bar/CircularProgressRating';
 import type { Meta, StoryObj } from '@storybook/react';
-import CircleProgressBar from '@/components/common/CircleProgressBar';
 
 const meta = {
-  title: 'Common/ProgressBar/Circles',
-  component: CircleProgressBar,
+  title: 'Common/ProgressBar/HalfCircles',
+  component: CircularProgressRating,
   parameters: {
     layout: 'centered',
   },
@@ -12,7 +12,7 @@ const meta = {
     color: { type: 'string', description: 'progressbar의 색상을 지정' },
     percent: { type: 'number', description: 'progressbar의 퍼센트' },
   },
-} satisfies Meta<typeof CircleProgressBar>;
+} satisfies Meta<typeof CircularProgressRating>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -24,7 +24,7 @@ export const Row: Story = {
   },
 };
 
-export const Middle: Story = {
+export const Medium: Story = {
   args: {
     color: '#ffb775',
     percent: 80,

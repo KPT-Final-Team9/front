@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
-import IconButton from './IconButton';
-import { XIcon } from '../icon/Icons';
-import ErrorMessage from './ErrorMessage';
+
+import { XIcon } from '@/components/icon';
+
 import { cn } from '@/lib/utils';
 import { FieldErrors, UseFormRegister, UseFormResetField, UseFormSetFocus, UseFormWatch } from 'react-hook-form';
+
+import IconButton from '@Atoms/buttons/IconButton';
+import ErrorMessage from '@Atoms/text/ErrorMessage';
 
 interface CommonTextField {
   errorMessage: FieldErrors<any>;
