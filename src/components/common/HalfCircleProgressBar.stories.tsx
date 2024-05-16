@@ -1,9 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import HalfCircleProgressBar from '@/components/common/HalfCircleProgressBar';
 
-// More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
-  title: 'ProgressBar/HalfCircles',
+  title: 'Common/ProgressBar/HalfCircles',
   component: HalfCircleProgressBar,
   parameters: {
     layout: 'centered',
@@ -25,7 +24,7 @@ export const Row: Story = {
   },
 };
 
-export const Middle: Story = {
+export const Medium: Story = {
   args: {
     color: '#ffb775',
     percent: 80,

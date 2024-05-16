@@ -52,7 +52,7 @@ const CommonTextFieldStory = ({
 };
 
 const meta = {
-  title: 'Components/TextField/CommonTextField',
+  title: 'Common/TextField/CommonTextField',
   component: CommonTextFieldStory,
   argTypes: {
     placeholder: { type: 'string', description: 'Placeholder' },

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import ErrorMessage from './ErrorMessage';
 
 const meta = {
-  title: 'Text/ErrorMessage',
+  title: 'Common/Text/ErrorMessage',
   component: ErrorMessage,
   parameters: {
     layout: 'centered',

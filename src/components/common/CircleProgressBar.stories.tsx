@@ -1,9 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import CircleProgressBar from '@/components/common/CircleProgressBar';
 
-// More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
-  title: 'ProgressBar/Circles',
+  title: 'Common/ProgressBar/Circles',
   component: CircleProgressBar,
   parameters: {
     layout: 'centered',
