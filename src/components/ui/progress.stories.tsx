@@ -11,13 +11,12 @@ const examProgress = ({ indicatorInlineColor, value, indicatorColor }: CustomPro
     <Progress
       value={value}
       indicatorColor={indicatorColor}
-      indicatorInlineStyle={{ backgroundColor: indicatorInlineColor }}
     />
   );
 };
 
 const meta = {
-  title: 'Common/ProgressBar/CommonBarProgress',
+  title: 'ui/ProgressBar/CommonBarProgress',
   component: examProgress,
   parameters: {
     layout: 'centered',
@@ -25,7 +24,6 @@ const meta = {
   tags: ['autodocs'],
   argTypes: {
     value: { type: 'number', description: 'progressbar의 값' },
-    indicatorInlineColor: { control: 'color', description: '인라인 스타일 조정기' },
     indicatorColor: { type: 'string', description: 'progressbar의 tailwind color' },
   },
 } satisfies Meta<typeof examProgress>;

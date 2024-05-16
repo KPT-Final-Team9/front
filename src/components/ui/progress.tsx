@@ -14,18 +14,17 @@ interface CustomProgressProps extends React.ComponentPropsWithoutRef<typeof Prog
    * Tailwind CSS 클래스 이름을 나타내는 문자열입니다.
    */
   indicatorColor?: string | null | undefined;
-  indicatorInlineStyle?: object | null | undefined;
 }
 
 const Progress = React.forwardRef<React.ElementRef<typeof ProgressPrimitive.Root>, CustomProgressProps>(
-  ({ className, value, indicatorColor, indicatorInlineStyle, ...props }, ref) => (
+  ({ className, value, indicatorColor, ...props }, ref) => (
     <ProgressPrimitive.Root
       ref={ref}
       className={cn('relative h-4 w-full overflow-hidden rounded-full bg-secondary', className)}
       {...props}>
       <ProgressPrimitive.Indicator
         className={`h-full w-full flex-1 transition-all ${indicatorColor}`}
-        style={{ transform: `translateX(-${100 - (value || 0)}%)`, ...indicatorInlineStyle }}
+        style={{ transform: `translateX(-${100 - (value || 0)}%)` }}
       />
     </ProgressPrimitive.Root>
   ),

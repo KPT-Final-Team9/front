@@ -3,7 +3,7 @@ import { fn } from '@storybook/test';
 import { Label } from '@radix-ui/react-label';
 
 const meta = {
-  title: 'Common/Text/Label',
+  title: 'ui/Text/Label',
   component: Label,
   parameters: {
     layout: 'centered',

@@ -4,7 +4,7 @@ import { XIcon } from '@/components/icon';
 import React from 'react';
 
 const meta: Meta<typeof IconButton> = {
-  title: 'Common/Button/IconButton',
+  title: 'Atoms/Button/IconButton',
   component: IconButton,
   parameters: {
     layout: 'centered',

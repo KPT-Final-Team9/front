@@ -5,10 +5,6 @@ import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-// inputField는 react-hook-form을 사용하기때문에
-// story로 만들기 어려운 부분이 존재함
-// zodResolver만 객체로 받게해서
-// 에러메세지를 커스텀 할 수 있게 했음
 const User = z.object({
   firstName: z.string().min(1, { message: '이름은 필수' }).min(6, { message: '6이상' }).max(12, { message: '12이하' }),
 });
@@ -42,7 +38,7 @@ const CommonTextFieldStory = ({ placeholder }: { placeholder: string }) => {
 };
 
 const meta = {
-  title: 'Common/TextField/CommonTextField',
+  title: 'Monocles/TextField/CommonTextField',
   component: CommonTextFieldStory,
   argTypes: {
     placeholder: { type: 'string', description: 'Placeholder' },
