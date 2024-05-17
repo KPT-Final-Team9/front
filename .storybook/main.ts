@@ -40,6 +40,12 @@ const config: StorybookConfig = {
       config.resolve.alias = {
         ...config.resolve.alias,
         '@': path.resolve(__dirname, '../src'),
+        '@common': path.resolve(__dirname, '../src/components/common'),
+        '@icon': path.resolve(__dirname, '../src/components/icon'),
+        '@chart': path.resolve(__dirname, '../src/components/charts'),
+        '@Monocles': path.resolve(__dirname, '../src/components/common/Monocles'),
+        '@Atoms': path.resolve(__dirname, '../src/components/common/Atoms'),
+        '@Organisms': path.resolve(__dirname, '../src/components/common/Organisms'),
       };
     }
     return config;

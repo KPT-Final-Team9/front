@@ -19,8 +19,19 @@ const config = {
         roboto: ['var(--font-roboto)'],
         notoSansKr: ['var(--font-notoSansKr)'],
       },
+      screens: {
+        desktop: '430px',
+      },
       colors: {
-        'font-disabled': '#D1D5DB4D',
+        Primary: '#2563eb',
+        Background: '#f2f5fc',
+        'Container-bg': '#ffffff',
+        'Header-bg': '#ffffff',
+        Stroke: '#d1d5db',
+        'Text-disabled': '#d1d5db',
+        'Text-primary': '#111827',
+        'Text-secondary': '#6b7280',
+
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
@@ -59,6 +70,8 @@ const config = {
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 2px)',
         sm: 'calc(var(--radius) - 4px)',
+        card: '20px',
+        base: '10px',
       },
       keyframes: {
         'accordion-down': {
