@@ -1,3 +1,4 @@
+import HalfCircleProgressBar from '@Atoms/progress-bar/HalfCircleProgressBar';
 import React from 'react';
 import { z } from 'zod';
 
@@ -6,20 +7,20 @@ const CircleProgressBarSchema = z.object({
   percent: z.number().min(0).max(100).default(50),
   color: z.string().default('#000000'),
 });
-interface CircularProgressRating {
+interface HalfCircularProgressRating {
   percent?: number | undefined;
   color?: string | undefined;
 }
 
 // NOTE: 반응형 추가했으나 크기 너무 작은문제
-export default function CircularProgressRating({ percent = 50, color = '#000000' }: CircularProgressRating) {
+export default function HalfCircularProgressRating({ percent = 50, color = '#000000' }: HalfCircularProgressRating) {
   const result = CircleProgressBarSchema.safeParse({ percent, color });
   // 검증 실패 시 기본값
   const validatedData = result.success ? result.data : { percent: 50, color: '#000000' };
   return (
     <>
-      <div className="half-circle-progress relative w-[85px] md:w-[249px]">
-        <CircularProgressRating
+      <div className="half-circle-progress relative w-[249px]">
+        <HalfCircleProgressBar
           percent={validatedData.percent}
           color={validatedData.color}
         />

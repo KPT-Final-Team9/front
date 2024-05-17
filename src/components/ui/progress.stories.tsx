@@ -16,7 +16,7 @@ const examProgress = ({ indicatorInlineColor, value, indicatorColor }: CustomPro
 };
 
 const meta = {
-  title: 'ui/ProgressBar/CommonBarProgress',
+  title: 'ui/ProgressBar/Progress',
   component: examProgress,
   parameters: {
     layout: 'centered',
