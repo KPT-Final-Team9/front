@@ -1,0 +1,45 @@
+{
+  "name": "@alptugidin/react-circular-progress-bar",
+  "version": "1.1.2",
+  "author": "Alptuğ İdin",
+  "description": "A customizable circular progress bar for React.",
+  "homepage": "https://github.com/alptugidin/react-circular-progress-bar#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alptugidin/react-circular-progress-bar.git"
+  },
+  "keywords": [
+    "react",
+    "progress bar",
+    "circular progress bar",
+    "nested progress bar",
+    "progress"
+  ],
+  "main": "./index.js",
+  "module": "./index.esm.js",
+  "types": "./index.d.ts",
+  "files": [
+    "./index.d.ts",
+    "./index.esm.js",
+    "./index.js",
+    "./package.json",
+    "README.md"
+  ],
+  "license": "MIT",
+  "peerDependencies": {
+    "react": ">=18.0.0",
+    "react-dom": ">=18.0.0"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
