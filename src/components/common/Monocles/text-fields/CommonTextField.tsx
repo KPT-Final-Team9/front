@@ -1,12 +1,8 @@
 import React, { useState } from 'react';
-
-import { XIcon } from '@/components/icon';
-
 import { cn } from '@/lib/utils';
 import { FieldErrors, UseFormRegister, UseFormResetField, UseFormSetFocus, UseFormWatch } from 'react-hook-form';
-
-import IconButton from '@Atoms/buttons/IconButton';
 import ErrorMessage from '@Atoms/text/ErrorMessage';
+import { LocalIcon } from '@icon/index';
 
 interface CommonTextField {
   errorMessage: FieldErrors<any>;
@@ -52,9 +48,10 @@ export default function CommonTextField({
         />
 
         {inputValue && (
-          <IconButton onClick={onIconClick}>
-            <XIcon />
-          </IconButton>
+          <LocalIcon
+            name="XIcon"
+            onClick={onIconClick}
+          />
         )}
       </div>
       <ErrorMessage className="min-h-[40px]">{errorMessage[id]?.message as string}</ErrorMessage>
