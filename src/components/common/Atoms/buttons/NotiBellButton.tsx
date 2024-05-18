@@ -2,6 +2,13 @@ import React from 'react';
 import { Button } from '@/components/ui/button';
 import { LocalIcon } from '@icon/index';
 
+/**
+ *  알림 개수를 표시하는 벨 아이콘 버튼 컴포넌트
+ *
+ * @param {{ notificationCount: number }} notificationCount 알림 갯수
+ * @param {{}} ...props 추가로 전달할 속성들
+ * @returns {*}
+ */
 export function NotiBellButton({ notificationCount, ...props }: { notificationCount: number }) {
   const displayCount = notificationCount >= 100 ? '99+' : notificationCount;
 
