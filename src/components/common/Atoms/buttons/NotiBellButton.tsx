@@ -18,7 +18,11 @@ export function NotiBellButton({ notificationCount, ...props }: { notificationCo
         {...props}
         variant={'icon'}
         className="m-0 p-0">
-        <LocalIcon name="BellIcon" />
+        <LocalIcon
+          name="BellIcon"
+          width={32}
+          height={32}
+        />
       </Button>
       {notificationCount > 0 && (
         <span className="absolute bottom-8 left-3 min-w-[30px] rounded-3xl bg-[#FF4848;] text-center text-[12px] leading-4 text-white">
