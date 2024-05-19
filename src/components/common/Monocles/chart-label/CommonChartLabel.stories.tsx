@@ -28,17 +28,3 @@ export const Default: Story = {
     color: 'primary',
   },
 };
-
-// export const Claim: Story = {
-//   args: {
-//     children: '보통 수준',
-//     type: 'claim',
-//   },
-// };
-
-// export const Facility: Story = {
-//   args: {
-//     children: '보통 수준',
-//     type: 'facility',
-//   },
-// };
