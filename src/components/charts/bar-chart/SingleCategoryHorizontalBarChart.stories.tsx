@@ -1,11 +1,11 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import HorizontalBarChart from '@chart/HorizontalBarChart';
+import SingleCategoryVerticalBarChart from '@chart/bar-chart/SingleCategoryVerticalBarChart';
+import { Meta, StoryObj } from '@storybook/react';
 
 const chartData = [{ name: 'January', rent: 100, price: 20 }];
 
-const meta: Meta<typeof HorizontalBarChart> = {
-  title: 'chart/HorizontalBarChart',
-  component: HorizontalBarChart,
+const meta: Meta<typeof SingleCategoryVerticalBarChart> = {
+  title: 'chart/SingleCategoryHorizontalBarChart',
+  component: SingleCategoryVerticalBarChart,
   parameters: {
     layout: 'centered',
   },
@@ -31,8 +31,8 @@ const meta: Meta<typeof HorizontalBarChart> = {
 
 export default meta;
 
-export const Default: StoryObj<typeof HorizontalBarChart> = {
-  args: { chartData: chartData, accentColor: '#6bb9d1' },
+export const Default: StoryObj<typeof SingleCategoryVerticalBarChart> = {
+  args: { chartData: chartData, categoryKey: 'name' },
   decorators: [
     Story => (
       <div className="h-[200px]">
