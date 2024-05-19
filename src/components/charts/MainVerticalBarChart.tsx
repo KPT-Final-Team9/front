@@ -1,7 +1,8 @@
 'use client';
 import React from 'react';
-import { XAxis, YAxis, ResponsiveContainer, BarChart, Bar, LabelList } from 'recharts';
-import { Props as LabelListProp } from '@/../node_modules/recharts/types/component/Label.js';
+
+import { Props as LabelListProp } from 'node_modules/recharts/types/component/Label.js';
+import { Bar, BarChart, LabelList, ResponsiveContainer, XAxis, YAxis } from 'recharts';
 
 // 가로 막대 차트의 커스텀 라벨
 const CustomLabel = (props: LabelListProp) => {
