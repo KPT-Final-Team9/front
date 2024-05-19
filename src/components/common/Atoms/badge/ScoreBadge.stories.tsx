@@ -1,6 +1,5 @@
+import ScoreBadge from '@Atoms/badge/ScoreBadge';
 import type { Meta, StoryObj } from '@storybook/react';
-
-import ScoreBadge from './ScoreBadge';
 
 const meta = {
   title: 'Atoms/Badge/ScoreBadge',

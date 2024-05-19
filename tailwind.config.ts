@@ -37,6 +37,9 @@ const config = {
         'Secondary-claim': '#FFF0D0',
         'Primary-facility': '#2563EB',
         'Secondary-facility': '#E6EEFF',
+        'Primary-contract': '#67E8F9',
+        'Primary-rent': '#2563EB',
+        'Primary-empty': '#FFB775',
 
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
