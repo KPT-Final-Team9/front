@@ -11,10 +11,11 @@ const meta = {
   argTypes: {
     text: { control: 'text', description: 'text 내용' },
     size: { control: 'select', options: ['sm', 'md'] },
-    color: {
+    boxColor: {
       control: 'select',
       options: ['primary', 'lightBlue', 'claim', 'empty'],
     },
+    textType: { control: 'select', options: ['default', 'gray'] },
   },
 } satisfies Meta<typeof CommonChartLabel>;
 
@@ -25,6 +26,7 @@ export const Default: Story = {
   args: {
     text: '임대료',
     size: 'md',
-    color: 'primary',
+    boxColor: 'primary',
+    textType: 'default',
   },
 };

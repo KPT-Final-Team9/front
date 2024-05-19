@@ -8,10 +8,10 @@ import { cn } from '@/lib/utils';
 const CommonChartLabelVariants = cva('rounded-[2px]', {
   variants: {
     size: {
-      md: 'w-[14px] h-[14px]',
+      md: 'min-w-[12px] min-h-[12px] desktop:w-[14px] desktop:h-[14px]',
       sm: 'w-[12px] h-[12px]',
     },
-    color: {
+    boxColor: {
       primary: 'bg-Primary',
       lightBlue: 'bg-blue-200',
       contract: 'bg-Primary-contract',
@@ -20,15 +20,26 @@ const CommonChartLabelVariants = cva('rounded-[2px]', {
   },
 });
 
-interface CommonChartLabelProps extends VariantProps<typeof CommonChartLabelVariants> {
+const TextVariants = cva('', {
+  variants: {
+    textType: {
+      default: 'text-[14px] desktop:text-[16px]',
+      gray: 'text-gray-400 text-[12px] desktop:text-[14px]',
+    },
+  },
+});
+
+interface CommonChartLabelProps
+  extends VariantProps<typeof CommonChartLabelVariants>,
+    VariantProps<typeof TextVariants> {
   text: string;
 }
 
-export default function CommonChartLabel({ text, color, size }: CommonChartLabelProps) {
+export default function CommonChartLabel({ text, boxColor, size, textType }: CommonChartLabelProps) {
   return (
     <div className="flex items-center space-x-[8px]">
-      <div className={cn(CommonChartLabelVariants({ color, size }))}></div>
-      <Label className={cn(size === 'sm' ? 'text-[14px] text-gray-400' : 'text-[16px]')}>{text}</Label>
+      <div className={cn(CommonChartLabelVariants({ boxColor, size }))}></div>
+      <Label className={cn(TextVariants({ textType }))}>{text}</Label>
     </div>
   );
 }
