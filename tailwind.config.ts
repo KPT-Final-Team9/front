@@ -31,6 +31,12 @@ const config = {
         'Text-disabled': '#d1d5db',
         'Text-primary': '#111827',
         'Text-secondary': '#6b7280',
+        'Primary-management': '#77D276',
+        'Secondary-management': '#CDF4CD',
+        'Primary-claim': '#FFB775',
+        'Secondary-claim': '#FFF0D0',
+        'Primary-facility': '#2563EB',
+        'Secondary-facility': '#E6EEFF',
 
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
