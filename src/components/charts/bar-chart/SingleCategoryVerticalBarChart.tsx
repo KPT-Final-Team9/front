@@ -1,8 +1,6 @@
 'use client';
 import React, { useId } from 'react';
-
-import { Bar, BarChart, LabelList, ResponsiveContainer, XAxis, YAxis } from 'recharts';
-
+import { XAxis, YAxis, ResponsiveContainer, BarChart, Bar, LabelList } from 'recharts';
 import { SpeechBubbleCustomLabel as CustomLabel } from '@chart/CustomLables';
 
 // BUG: Rechart 내부에서 defaultProps 사용으로 인한 error

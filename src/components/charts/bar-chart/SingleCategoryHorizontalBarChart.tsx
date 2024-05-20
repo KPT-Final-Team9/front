@@ -1,9 +1,7 @@
 'use client';
-import React, { useId } from 'react';
-
-import { Bar, BarChart, LabelList, ResponsiveContainer, XAxis, YAxis } from 'recharts';
-
-import { SpeechBubbleCustomLabel as CustomLabel } from '@chart/CustomLables';
+import React from 'react';
+import { XAxis, YAxis, ResponsiveContainer, BarChart, Bar, LabelList } from 'recharts';
+import { TextCustomLabel as CustomLabel } from '@chart/CustomLables';
 
 // BUG: Rechart 내부에서 defaultProps 사용으로 인한 error
 
@@ -18,7 +16,7 @@ import { SpeechBubbleCustomLabel as CustomLabel } from '@chart/CustomLables';
  * @param {string} param0.categoryKey 위 예시의 name에 해당되는 값을 인자로 받음
  * @param {string} [param0.accentColor='#ffb775']
  */
-export default function SingleCategoryVerticalBarChart({
+export default function SingleCategoryHorizontalBarChart({
   chartData,
   categoryKey,
   accentColor = '#ffb775',
@@ -27,49 +25,42 @@ export default function SingleCategoryVerticalBarChart({
   accentColor?: string;
   categoryKey: string;
 }) {
-  const varChartId = useId();
   const filteredChartData = chartData.length ? Object.keys(chartData[0]).filter(key => key !== categoryKey) : [];
+  console.log('chartDatafilter: ', filteredChartData);
+
+  const DEFAULT_RADIUS: [number, number, number, number] = [4, 4, 4, 4];
   return (
-    <div className="h-[150px] w-[394px]">
+    <div className="w-[233px]">
       <ResponsiveContainer
         width="100%"
-        height="100%">
+        height={500}>
         <BarChart
-          margin={{ top: 60, right: 0, bottom: 0, left: 0 }}
+          margin={{ top: 0, right: 50, bottom: 0, left: 0 }}
           data={chartData}
-          layout="horizontal"
-          barGap={13}>
+          layout="vertical"
+          barGap={16}>
           <XAxis
+            type="number"
+            hide
+          />
+          <YAxis
             type="category"
             dataKey={categoryKey}
             hide
           />
-          <YAxis
-            type="number"
-            domain={[0, 100]}
-            hide
-          />
           {filteredChartData.map((val, index) => {
-            console.log(val);
-            const barColor = (index + 1) % 2 !== 0 ? accentColor : '#e5e7eb';
+            const barColor = index === 0 ? accentColor : '#e5e7eb';
             return (
               <Bar
-                key={`${varChartId}-${index}`}
+                key={index}
                 dataKey={val}
                 fill={barColor}
-                radius={[4, 4, 4, 4]}
+                radius={DEFAULT_RADIUS}
                 barSize={34}>
-                {(index + 1) % 2 !== 0 ? (
-                  <LabelList
-                    dataKey={val}
-                    content={props => (
-                      <CustomLabel
-                        fill={barColor}
-                        {...props}
-                      />
-                    )}
-                  />
-                ) : null}
+                <LabelList
+                  dataKey="diff"
+                  content={props => <CustomLabel {...props} />}
+                />
               </Bar>
             );
           })}
