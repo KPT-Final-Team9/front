@@ -12,12 +12,12 @@ import {
 } from '@Atoms/seletbox/CustomSelect';
 import { LocalIcon } from '@icon/index';
 import { BuildingSelectboxProps } from '@/types/common/selectbox';
-import sortedLists from '../../../../lib/sortedLists';
+import sortedLists from '@/lib/sortedLists';
 
 export function BuildingSelectbox({ lists, onChange }: BuildingSelectboxProps) {
   const [isOpen, setIsOpen] = useState(false);
 
-  const sortedData = sortedLists(lists);
+  const sortedData = sortedLists(lists, 'buildingName');
 
   return (
     <Select

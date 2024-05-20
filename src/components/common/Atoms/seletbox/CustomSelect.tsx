@@ -19,7 +19,7 @@ const selectVariants = cva(
     variants: {
       size: {
         building: 'w-[171px] h-7 desktop:w-[217px] desktop:h-10 text-body1 desktop:text-body1',
-        quarter: 'w-[101px] h-[30px] desktop:w-[116px]',
+        quarter: 'w-[116px] h-[30px] text-body1',
       },
     },
     defaultVariants: {
