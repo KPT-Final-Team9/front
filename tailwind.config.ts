@@ -109,7 +109,7 @@ const config = {
         background: '#f2f5fc',
         'background-modal': '#111827',
         'vontainer-bg': '#ffffff',
-        ' header-bg': '#ffffff',
+        'header-bg': '#ffffff',
         stroke: '#d1d5db',
         'text-disabled': '#d1d5db',
         'text-primary': '#111827',
