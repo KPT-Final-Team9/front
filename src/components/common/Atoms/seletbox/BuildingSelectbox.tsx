@@ -2,7 +2,14 @@
 
 import { useState } from 'react';
 
-import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@Atoms/seletbox/select';
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@Atoms/seletbox/CustomSelect';
 import { LocalIcon } from '@icon/index';
 import { BuildingSelectboxProps } from '@/types/common/selectbox';
 
