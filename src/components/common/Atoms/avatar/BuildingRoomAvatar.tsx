@@ -1,4 +1,8 @@
 import { AVATAR_BUILDING_COLORS } from '@/constants';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+
+import { cva, VariantProps } from 'class-variance-authority';
+import { cn } from '@/lib/utils';
 import { LocalIcon } from '@icon/index';
 
 export function BuildingRoomAvatar({ idx }: { idx: number }) {
@@ -7,14 +11,16 @@ export function BuildingRoomAvatar({ idx }: { idx: number }) {
 
   return (
     <>
-      <div className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full ${color}`}>
-        <LocalIcon
-          width={16}
-          height={16}
-          name={'BuildingIcon'}
-          className="fill-white"
-        />
-      </div>
+      <Avatar className="h-8 w-8">
+        <AvatarFallback className={`flex items-center justify-center ${color}`}>
+          <LocalIcon
+            width={16}
+            height={16}
+            name={'BuildingIcon'}
+            className="fill-white"
+          />
+        </AvatarFallback>
+      </Avatar>
     </>
   );
 }
