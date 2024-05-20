@@ -7,12 +7,12 @@ const CircleProgressBarSchema = z.object({
   percent: z.number().min(0).max(100).default(50),
   color: z.string().default('#000000'),
 });
-interface HalfCircleProgressBar {
+interface CircleProgressBar {
   percent?: number | undefined;
   color?: string | undefined;
 }
 
-export default function HalfCircleProgressBar({ percent = 50, color = '#000000' }: HalfCircleProgressBar) {
+export default function CircleProgressBar({ percent = 50, color = '#000000' }: CircleProgressBar) {
   const result = CircleProgressBarSchema.safeParse({ percent, color });
   // 검증 실패 시 기본값
   const validatedData = result.success ? result.data : { percent: 50, color: '#000000' };
@@ -25,8 +25,7 @@ export default function HalfCircleProgressBar({ percent = 50, color = '#000000' 
         sx={{
           strokeColor: validatedData.color,
           bgStrokeColor: '#f3f4f6',
-          barWidth: 6,
-          shape: 'half',
+          barWidth: 8,
         }}
       />
     </>

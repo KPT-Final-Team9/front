@@ -26,11 +26,10 @@ export default function SingleCategoryHorizontalBarChart({
   categoryKey: string;
 }) {
   const filteredChartData = chartData.length ? Object.keys(chartData[0]).filter(key => key !== categoryKey) : [];
-  console.log('chartDatafilter: ', filteredChartData);
 
   const DEFAULT_RADIUS: [number, number, number, number] = [4, 4, 4, 4];
   return (
-    <div className="w-[233px]">
+    <div className="w-[175px] desktop:w-[233px]">
       <ResponsiveContainer
         width="100%"
         height={500}>
@@ -58,7 +57,7 @@ export default function SingleCategoryHorizontalBarChart({
                 radius={DEFAULT_RADIUS}
                 barSize={34}>
                 <LabelList
-                  dataKey="diff"
+                  dataKey={val}
                   content={props => <CustomLabel {...props} />}
                 />
               </Bar>
