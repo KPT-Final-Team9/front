@@ -1,93 +1,100 @@
 'use client';
-import React from 'react';
+import React, { useState } from 'react';
 
-import { Area, AreaChart, ResponsiveContainer, Tooltip } from 'recharts';
+import { Area, AreaChart, ResponsiveContainer, Tooltip, YAxis } from 'recharts';
 
-import { LocalIcon } from '@icon/index';
+import GradientTooltip from '@chart/GradientTooltip';
 
-const data = [
+interface dataType {
+  name: string;
+  uv: number;
+}
+
+const data: dataType[] = [
   {
     name: 'Jan',
-    uv: 4000,
-    pv: 2400,
-    amt: 2400,
+    uv: 40,
   },
   {
     name: 'Fed',
-    uv: 3000,
-    pv: 1398,
-    amt: 2210,
+    uv: 30,
   },
   {
     name: 'Mar',
-    uv: 2000,
-    pv: 9800,
-    amt: 2290,
+    uv: 20,
   },
   {
     name: 'Apr',
-    uv: 2780,
-    pv: 3908,
-    amt: 2000,
+    uv: 40,
   },
   {
     name: 'Jun',
-    uv: 1890,
-    pv: 4800,
-    amt: 2181,
+    uv: 18,
   },
   {
     name: 'Jul',
-    uv: 2390,
-    pv: 3800,
-    amt: 2500,
+    uv: 23,
   },
   {
     name: 'Aug',
-    uv: 3490,
-    pv: 4300,
-    amt: 2100,
+    uv: 34,
   },
   {
     name: 'Sep',
-    uv: 4000,
-    pv: 2400,
-    amt: 2400,
+    uv: 40,
   },
   {
     name: 'Oct',
-    uv: 3000,
-    pv: 1398,
-    amt: 2210,
+    uv: 30,
   },
   {
     name: 'Nov',
-    uv: 2000,
-    pv: 9800,
-    amt: 2290,
+    uv: 20,
   },
   {
     name: 'Dec',
-    uv: 2780,
-    pv: 3908,
-    amt: 2000,
+    uv: 27,
   },
 ];
 
+const getMedianValueData = (data: dataType[]) => {
+  const sortedData = [...data].sort((a, b) => a.uv - b.uv);
+  const middleIndex = Math.floor(sortedData.length / 2);
+  return sortedData[middleIndex];
+};
+
+const medianValueData = getMedianValueData(data);
+
+interface CustomizedLabelProps {
+  viewBox: {
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+  };
+}
+
 export default function GradientChart({ text }: { text: string }) {
+  const [tooltipPosition, setTooltipPosition] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
+
+  React.useEffect(() => {
+    const xIndex = data.findLastIndex(d => d.uv === medianValueData.uv);
+    const x = (xIndex / data.length) * 230; // 너비 237
+    const y = ((100 - medianValueData.uv) / 100) * 86 - 35; // 높이 86
+    console.log('index', y);
+    setTooltipPosition({ x, y });
+  }, []);
+
   return (
-    <div className="h-[86px] w-[237px]">
-      <span>{text}</span>
+    <div className="h-[86px] w-[237px] rounded-[10px] bg-gray-50">
       <ResponsiveContainer
         width="100%"
         height="100%">
         <AreaChart
-          width={500}
-          height={400}
           data={data}
           margin={{
-            top: 10,
-            right: 30,
+            top: 0,
+            right: 0,
             left: 0,
             bottom: 0,
           }}>
@@ -105,37 +112,29 @@ export default function GradientChart({ text }: { text: string }) {
               />
             </linearGradient>
           </defs>
-          {/* <CartesianGrid strokeDasharray="3 3" /> */}
-          {/* <XAxis dataKey="name" />
-          <YAxis /> */}
-          <Tooltip
-            content={
-              <LocalIcon
-                name="TooltipIcon"
-                width={48}
-                height={27}
-              />
-            }
+          <YAxis
+            hide={true}
+            domain={[0, 100]}
           />
-          {/* <Tooltip content={<CustomTooltip />} /> */}
+          <Tooltip
+            active={false}
+            cursor={false}
+            allowEscapeViewBox={{ x: true, y: true }}
+            wrapperStyle={{ visibility: 'visible' }}
+            content={<GradientTooltip value={medianValueData.uv} />}
+            position={{ x: tooltipPosition.x, y: tooltipPosition.y }}
+          />
+
           <Area
-            type="monotone"
+            activeDot={true}
+            type="monotoneY"
             dataKey="uv"
             stroke="#1D4ED8"
             fillOpacity={1}
             fill="url(#colorPv)"
-            // fill="#1D4ED8"
           />
         </AreaChart>
       </ResponsiveContainer>
     </div>
   );
 }
-
-const CustomTooltip = () => {
-  return (
-    <div className="custom-tooltip">
-      <p className="desc">Anything you want can be displayed here.</p>
-    </div>
-  );
-};
