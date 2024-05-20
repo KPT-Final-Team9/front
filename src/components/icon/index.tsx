@@ -18,7 +18,6 @@ interface LocalIconProps {
  */
 export function LocalIcon({ width = 16, height = 16, name, ...props }: LocalIconProps) {
   const SelectedIcon = LocalIcons[name];
-  console.log(SelectedIcon);
   if (!SelectedIcon) {
     return null;
   }
