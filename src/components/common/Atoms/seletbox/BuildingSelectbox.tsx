@@ -12,15 +12,16 @@ import {
 } from '@Atoms/seletbox/CustomSelect';
 import { LocalIcon } from '@icon/index';
 import { BuildingSelectboxProps } from '@/types/common/selectbox';
+import sortedLists from '../../../../lib/sortedLists';
 
 export function BuildingSelectbox({ lists, onChange }: BuildingSelectboxProps) {
   const [isOpen, setIsOpen] = useState(false);
 
-  const sortedLists = lists.sort((a, b) => (a.buildingName < b.buildingName ? -1 : 0));
+  const sortedData = sortedLists(lists);
 
   return (
     <Select
-      defaultValue={sortedLists[0].buildingName}
+      defaultValue={sortedData[0].buildingName}
       onOpenChange={setIsOpen}
       onValueChange={onChange}>
       <SelectTrigger
@@ -42,7 +43,7 @@ export function BuildingSelectbox({ lists, onChange }: BuildingSelectboxProps) {
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
-          {sortedLists.map(item => (
+          {sortedData.map(item => (
             <SelectItem
               key={item.id}
               value={item.buildingName}>
