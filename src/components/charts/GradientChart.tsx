@@ -105,10 +105,10 @@ export default function GradientChart({ text }: { text: string }) {
               y1="0"
               x2="0"
               y2="1">
-              <stop stop-color="#D9E5FF" />
+              <stop stopColor="#D9E5FF" />
               <stop
                 offset="1"
-                stop-color="white"
+                stopColor="white"
               />
             </linearGradient>
           </defs>
@@ -138,3 +138,74 @@ export default function GradientChart({ text }: { text: string }) {
     </div>
   );
 }
+
+const PrimaryGradient = () => {
+  return (
+    <linearGradient
+      id="colorPv"
+      x1="0"
+      y1="0"
+      x2="0"
+      y2="1">
+      <stop stopColor="#D9E5FF" />
+      <stop
+        offset="1"
+        stopColor="white"
+      />
+    </linearGradient>
+  );
+};
+
+const lightBlueGradient = () => {
+  return (
+    <linearGradient
+      id="paint0_linear_1587_4260"
+      x1="119.5"
+      y1="24.6593"
+      x2="119.5"
+      y2="68"
+      gradientUnits="userSpaceOnUse">
+      <stop stop-color="#D7F8FF" />
+      <stop
+        offset="1"
+        stop-color="white"
+      />
+    </linearGradient>
+  );
+};
+
+const orangeGradient = () => {
+  return (
+    <linearGradient
+      id="paint0_linear_1587_4285"
+      x1="119.5"
+      y1="42.6593"
+      x2="119.5"
+      y2="86"
+      gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFDBBA" />
+      <stop
+        offset="1"
+        stop-color="white"
+      />
+    </linearGradient>
+  );
+};
+
+const greenGradient = () => {
+  return (
+    <linearGradient
+      id="paint0_linear_1671_6038"
+      x1="110.5"
+      y1="23.6912"
+      x2="110.5"
+      y2="64.0081"
+      gradientUnits="userSpaceOnUse">
+      <stop stop-color="#BBE3BB" />
+      <stop
+        offset="1"
+        stop-color="white"
+      />
+    </linearGradient>
+  );
+};
