@@ -4,13 +4,14 @@ import { Progress } from './progress';
 interface CustomProgressProps {
   indicatorColor?: string | null | undefined;
   value?: number | null | undefined;
-  indicatorInlineColor?: string | null | undefined;
+  className?: string;
 }
-const examProgress = ({ indicatorInlineColor, value, indicatorColor }: CustomProgressProps) => {
+const examProgress = ({ value, indicatorColor, className }: CustomProgressProps) => {
   return (
     <Progress
       value={value}
       indicatorColor={indicatorColor}
+      className={className}
     />
   );
 };
@@ -31,10 +32,11 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {
+export const EvaluationGradient100: Story = {
   args: {
-    value: 60,
-    indicatorColor: 'bg-blue-300',
+    value: 100,
+    className: 'h-[16px] ',
+    indicatorColor: 'evaluation-gradient',
   },
   decorators: [
     Story => (
@@ -45,10 +47,26 @@ export const Default: Story = {
   ],
 };
 
-export const Gradient: Story = {
+export const EvaluationGradient60: Story = {
   args: {
-    value: 80,
-    indicatorColor: 'bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 ',
+    value: 60,
+    className: 'h-[16px] ',
+    indicatorColor: 'evaluation-gradient',
+  },
+  decorators: [
+    Story => (
+      <div className="w-[500px]">
+        <Story />
+      </div>
+    ),
+  ],
+};
+
+export const EvaluationGradient20: Story = {
+  args: {
+    value: 20,
+    className: 'h-[16px] ',
+    indicatorColor: 'evaluation-gradient',
   },
   decorators: [
     Story => (
@@ -77,6 +95,20 @@ export const Gradient3: Story = {
   args: {
     value: 80,
     indicatorColor: 'bg-gradient-to-r from-cyan-500 to-blue-500',
+  },
+  decorators: [
+    Story => (
+      <div className="w-[500px]">
+        <Story />
+      </div>
+    ),
+  ],
+};
+
+export const Default: Story = {
+  args: {
+    value: 60,
+    indicatorColor: 'bg-blue-300',
   },
   decorators: [
     Story => (
