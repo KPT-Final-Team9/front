@@ -7,7 +7,7 @@ export function BuildingRoomAvatar({ idx }: { idx: number }) {
 
   return (
     <>
-      <div className={`flex h-8 w-8 items-center justify-center rounded-full ${color}`}>
+      <div className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full ${color}`}>
         <LocalIcon
           width={16}
           height={16}
