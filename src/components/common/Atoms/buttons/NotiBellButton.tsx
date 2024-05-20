@@ -20,12 +20,11 @@ export function NotiBellButton({ notificationCount, ...props }: { notificationCo
         className="m-0 p-0">
         <LocalIcon
           name="BellIcon"
-          width={32}
-          height={32}
+          className="h-[21px] w-[21px] desktop:h-[32px] desktop:w-[32px]"
         />
       </Button>
       {notificationCount > 0 && (
-        <span className="absolute bottom-8 left-3 min-w-[30px] rounded-3xl bg-[#FF4848;] text-center text-[12px] leading-4 text-white">
+        <span className="absolute bottom-5 left-2 min-w-[24px] rounded-3xl bg-[#FF4848] text-center text-[10px] leading-[13px] text-white desktop:bottom-[34px] desktop:left-3 desktop:min-w-[30px] desktop:text-[12px]">
           {displayCount}
         </span>
       )}
