@@ -7,80 +7,76 @@ import GradientTooltip from '@chart/GradientTooltip';
 
 interface dataType {
   name: string;
-  uv: number;
+  score: number;
 }
 
 const data: dataType[] = [
   {
     name: 'Jan',
-    uv: 40,
+    score: 40,
   },
   {
     name: 'Fed',
-    uv: 30,
+    score: 30,
   },
   {
     name: 'Mar',
-    uv: 20,
+    score: 20,
   },
   {
     name: 'Apr',
-    uv: 40,
+    score: 40,
   },
   {
     name: 'Jun',
-    uv: 18,
+    score: 18,
   },
   {
     name: 'Jul',
-    uv: 23,
+    score: 23,
   },
   {
     name: 'Aug',
-    uv: 34,
+    score: 34,
   },
   {
     name: 'Sep',
-    uv: 40,
+    score: 40,
   },
   {
     name: 'Oct',
-    uv: 30,
+    score: 30,
   },
   {
     name: 'Nov',
-    uv: 20,
+    score: 20,
   },
   {
     name: 'Dec',
-    uv: 27,
+    score: 27,
   },
 ];
 
 const getMedianValueData = (data: dataType[]) => {
-  const sortedData = [...data].sort((a, b) => a.uv - b.uv);
+  const sortedData = [...data].sort((a, b) => a.score - b.score);
   const middleIndex = Math.floor(sortedData.length / 2);
   return sortedData[middleIndex];
 };
 
 const medianValueData = getMedianValueData(data);
 
-interface CustomizedLabelProps {
-  viewBox: {
-    x: number;
-    y: number;
-    width: number;
-    height: number;
-  };
+interface GradientChartProps {
+  strokeColor: string;
+  gradientColor: string;
 }
 
-export default function GradientChart({ text }: { text: string }) {
+export default function GradientChart({ strokeColor = '#1D4ED8', gradientColor = '#D9E5FF' }: GradientChartProps) {
   const [tooltipPosition, setTooltipPosition] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
 
   React.useEffect(() => {
-    const xIndex = data.findLastIndex(d => d.uv === medianValueData.uv);
+    const xIndex = data.findLastIndex(d => d.score === medianValueData.score);
     const x = (xIndex / data.length) * 230; // 너비 237
-    const y = ((100 - medianValueData.uv) / 100) * 86 - 35; // 높이 86
+    const y = ((100 - medianValueData.score) / 100) * 86 - 35; // 높이 86
     console.log('index', y);
     setTooltipPosition({ x, y });
   }, []);
@@ -105,7 +101,7 @@ export default function GradientChart({ text }: { text: string }) {
               y1="0"
               x2="0"
               y2="1">
-              <stop stopColor="#D9E5FF" />
+              <stop stopColor={gradientColor} />
               <stop
                 offset="1"
                 stopColor="white"
@@ -121,15 +117,15 @@ export default function GradientChart({ text }: { text: string }) {
             cursor={false}
             allowEscapeViewBox={{ x: true, y: true }}
             wrapperStyle={{ visibility: 'visible' }}
-            content={<GradientTooltip value={medianValueData.uv} />}
+            content={<GradientTooltip value={medianValueData.score} />}
             position={{ x: tooltipPosition.x, y: tooltipPosition.y }}
           />
 
           <Area
-            activeDot={true}
+            activeDot={false}
             type="monotoneY"
-            dataKey="uv"
-            stroke="#1D4ED8"
+            dataKey="score"
+            stroke={strokeColor}
             fillOpacity={1}
             fill="url(#colorPv)"
           />
