@@ -20,9 +20,8 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body className={clsx(roboto.variable, notoSansKr.variable)}>
-        <MSWComponent>
-          <Theme>{children}</Theme>
-        </MSWComponent>
+        <MSWComponent />
+        <Theme>{children}</Theme>
       </body>
     </html>
   );
