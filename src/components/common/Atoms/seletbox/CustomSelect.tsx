@@ -18,8 +18,8 @@ const selectVariants = cva(
   {
     variants: {
       size: {
-        building: 'w-[171px] h-7 desktop:w-[217px] desktop:h-10 text-body1 desktop:text-body1',
-        quarter: 'w-[116px] h-[30px] text-body2 rounded-mobile-stroke',
+        building: 'w-[171px] h-7 desktop:w-[217px] desktop:h-10 text-body1',
+        quarter: 'w-[116px] h-[30px] rounded-mobile-stroke leading-6 text-body2',
       },
     },
     defaultVariants: {
@@ -29,12 +29,12 @@ const selectVariants = cva(
 );
 
 const selectItemVariants = cva(
-  'relative flex h-8 w-full cursor-pointer select-none items-center rounded-desktop-stroke py-1.5 pl-10 pr-11 text-[17px] font-medium text-text-primary outline-none focus:bg-gray-100 focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50 ',
+  'relative flex h-8 w-full cursor-pointer select-none items-center rounded-desktop-stroke py-1.5 pl-10 pr-11 text-[17px] font-weight-600 text-text-primary outline-none focus:bg-gray-100 focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50 ',
   {
     variants: {
       size: {
-        building: 'desktop:h-10',
-        quarter: 'text-body2 font-normal pl-7',
+        building: 'text-body1 desktop:h-10',
+        quarter: 'text-body2 pl-7',
       },
     },
     defaultVariants: {
