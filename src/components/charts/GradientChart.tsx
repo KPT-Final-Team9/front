@@ -5,72 +5,30 @@ import { Area, AreaChart, ResponsiveContainer, Tooltip, YAxis } from 'recharts';
 
 import GradientTooltip from '@chart/GradientTooltip';
 
-interface dataType {
-  name: string;
+interface chartDataType {
+  month: string;
   score: number;
 }
-
-const data: dataType[] = [
-  {
-    name: 'Jan',
-    score: 40,
-  },
-  {
-    name: 'Fed',
-    score: 30,
-  },
-  {
-    name: 'Mar',
-    score: 20,
-  },
-  {
-    name: 'Apr',
-    score: 40,
-  },
-  {
-    name: 'Jun',
-    score: 18,
-  },
-  {
-    name: 'Jul',
-    score: 23,
-  },
-  {
-    name: 'Aug',
-    score: 34,
-  },
-  {
-    name: 'Sep',
-    score: 40,
-  },
-  {
-    name: 'Oct',
-    score: 30,
-  },
-  {
-    name: 'Nov',
-    score: 20,
-  },
-  {
-    name: 'Dec',
-    score: 27,
-  },
-];
-
-const getMedianValueData = (data: dataType[]) => {
-  const sortedData = [...data].sort((a, b) => a.score - b.score);
-  const middleIndex = Math.floor(sortedData.length / 2);
-  return sortedData[middleIndex];
-};
-
-const medianValueData = getMedianValueData(data);
 
 interface GradientChartProps {
   strokeColor: string;
   gradientColor: string;
+  data: chartDataType[];
 }
 
-export default function GradientChart({ strokeColor = '#1D4ED8', gradientColor = '#D9E5FF' }: GradientChartProps) {
+export default function GradientChart({
+  strokeColor = '#1D4ED8',
+  gradientColor = '#D9E5FF',
+  data,
+}: GradientChartProps) {
+  const getMedianValueData = (data: chartDataType[]) => {
+    const sortedData = [...data].sort((a, b) => a.score - b.score);
+    const middleIndex = Math.floor(sortedData.length / 2);
+    return sortedData[middleIndex];
+  };
+
+  const medianValueData = getMedianValueData(data);
+
   const [tooltipPosition, setTooltipPosition] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
 
   React.useEffect(() => {
@@ -82,7 +40,7 @@ export default function GradientChart({ strokeColor = '#1D4ED8', gradientColor =
   }, []);
 
   return (
-    <div className="h-[86px] w-[237px] rounded-[10px] bg-gray-50">
+    <div className="h-[77px] w-[220px] rounded-[10px] bg-gray-50 desktop:h-[86px] desktop:w-[237px]">
       <ResponsiveContainer
         width="100%"
         height="100%">
@@ -117,7 +75,12 @@ export default function GradientChart({ strokeColor = '#1D4ED8', gradientColor =
             cursor={false}
             allowEscapeViewBox={{ x: true, y: true }}
             wrapperStyle={{ visibility: 'visible' }}
-            content={<GradientTooltip value={medianValueData.score} />}
+            content={
+              <GradientTooltip
+                value={medianValueData.score}
+                fill={strokeColor}
+              />
+            }
             position={{ x: tooltipPosition.x, y: tooltipPosition.y }}
           />
 
