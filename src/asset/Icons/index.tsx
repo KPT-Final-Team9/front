@@ -5,6 +5,8 @@ import TooltipIconComp from '@/asset/Icons/ic-tooltip.svg';
 import XIconComp from '@/asset/Icons/ic-x.svg';
 import BellIconComp from '@/asset/Icons/icon_alarm.svg';
 import StarIconComp from '@/asset/Icons/icon_star.svg';
+import DefaultAvatarIconComp from '@/asset/Icons/account.svg';
+import BuildingIconComp from '@/asset/Icons/building.svg';
 
 export function XIcon({ ...props }) {
   return <XIconComp {...props} />;
@@ -37,4 +39,12 @@ export function SpeechBubbleIcon({ ...props }) {
 
 export function TooltipIcon({ ...props }) {
   return <TooltipIconComp {...props} />;
+}
+
+export function AccountIcon({ ...props }) {
+  return <DefaultAvatarIconComp {...props} />;
+}
+
+export function BuildingIcon({ ...props }) {
+  return <BuildingIconComp {...props} />;
 }
