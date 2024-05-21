@@ -1,4 +1,5 @@
-import { Flat } from '@/lib/@alptugidin/react-circular-progress-bar';
+// FIXME: 라이브러리 인식하지 못하는문제, 정상작동
+import { Flat } from '@ajvls98/react-circular-progress-bar-fork-lamyzm';
 import React from 'react';
 import { z } from 'zod';
 

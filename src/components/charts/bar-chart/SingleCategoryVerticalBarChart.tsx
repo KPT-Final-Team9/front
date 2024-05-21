@@ -48,7 +48,6 @@ export default function SingleCategoryVerticalBarChart({
             hide
           />
           {filteredChartData.map((val, index) => {
-            console.log(val);
             const barColor = (index + 1) % 2 !== 0 ? accentColor : '#e5e7eb';
             return (
               <Bar
