@@ -1,5 +1,6 @@
-import { Props as LabelListProp } from '../../../node_modules/recharts/types/component/Label.js';
 import { LocalIcon } from '@icon/index';
+
+import { Props as LabelListProp } from '../../../node_modules/recharts/types/component/Label.js';
 
 /**
  * Description placeholder
