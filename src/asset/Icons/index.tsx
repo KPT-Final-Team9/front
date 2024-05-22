@@ -7,7 +7,7 @@ import BellIconComp from '@/asset/Icons/icon_alarm.svg';
 import StarIconComp from '@/asset/Icons/icon_star.svg';
 import DefaultAvatarIconComp from '@/asset/Icons/account.svg';
 import BuildingIconComp from '@/asset/Icons/building.svg';
-
+import DashLineIconComp from '@/asset/Icons/dash-line.svg';
 export function XIcon({ ...props }) {
   return <XIconComp {...props} />;
 }
@@ -47,4 +47,8 @@ export function AccountIcon({ ...props }) {
 
 export function BuildingIcon({ ...props }) {
   return <BuildingIconComp {...props} />;
+}
+
+export function DashLineIcon({ ...props }) {
+  return <DashLineIconComp {...props} />;
 }
