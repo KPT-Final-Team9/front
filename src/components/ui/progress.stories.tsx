@@ -118,3 +118,18 @@ export const Default: Story = {
     ),
   ],
 };
+
+export const SlashProgress: Story = {
+  args: {
+    value: 60,
+
+    className: 'slash-progress',
+  },
+  decorators: [
+    Story => (
+      <div className="w-[500px]">
+        <Story />
+      </div>
+    ),
+  ],
+};
