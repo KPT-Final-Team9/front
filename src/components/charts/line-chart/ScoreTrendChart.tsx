@@ -1,8 +1,8 @@
 'use client';
 import React from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
-import { filterChartData } from '@/lib/utils';
 import { ScoreTrendChartCustomTooltip } from '@chart/CustomTooltip';
+import { filterChartData } from '@/utils';
 
 export default function ScoreTrendChart({ dateKey, chartData }: { dateKey: string; chartData: any }) {
   const tickStyle = { fill: '#9b9b9b', fontSize: 14, fontWeight: 400 };
@@ -13,7 +13,7 @@ export default function ScoreTrendChart({ dateKey, chartData }: { dateKey: strin
       <ResponsiveContainer
         width="100%"
         height="100%">
-        <LineChart data={filteredChartData}>
+        <LineChart data={chartData}>
           <CartesianGrid vertical={false} />
           <XAxis
             tickLine={false}
