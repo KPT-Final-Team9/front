@@ -6,8 +6,10 @@ import XIconComp from '@/asset/Icons/ic-x.svg';
 import BellIconComp from '@/asset/Icons/icon_alarm.svg';
 import StarIconComp from '@/asset/Icons/icon_star.svg';
 import DefaultAvatarIconComp from '@/asset/Icons/account.svg';
-import BuildingIconComp from '@/asset/Icons/building.svg';
+import BuildingIconComp from '@/asset/Icons/icon_building.svg';
 import DashLineIconComp from '@/asset/Icons/dash-line.svg';
+import CalendarIconComp from '@/asset/Icons/icon_calendar.svg';
+import RoomgIconComp from '@/asset/Icons/icon_room.svg';
 export function XIcon({ ...props }) {
   return <XIconComp {...props} />;
 }
@@ -51,4 +53,12 @@ export function BuildingIcon({ ...props }) {
 
 export function DashLineIcon({ ...props }) {
   return <DashLineIconComp {...props} />;
+}
+
+export function CalendarIcon({ ...props }) {
+  return <CalendarIconComp {...props} />;
+}
+
+export function RoomIcon({ ...props }) {
+  return <RoomgIconComp {...props} />;
 }
