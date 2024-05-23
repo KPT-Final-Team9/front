@@ -20,51 +20,52 @@ export default function SingleCategoryHorizontalBarChart({
   chartData,
   categoryKey,
   accentColor = '#ffb775',
+  size = 34,
 }: {
   chartData: object[];
   accentColor?: string;
   categoryKey: string;
+  size?: number;
 }) {
-  const filteredChartData = chartData.length ? Object.keys(chartData[0]).filter(key => key !== categoryKey) : [];
+  const filteredChartData = chartData?.length ? Object.keys(chartData[0]).filter(key => key !== categoryKey) : [];
 
   const DEFAULT_RADIUS: [number, number, number, number] = [4, 4, 4, 4];
   return (
-    <div className="w-[175px] desktop:w-[233px]">
-      <ResponsiveContainer
-        width="100%"
-        height={500}>
-        <BarChart
-          margin={{ top: 0, right: 50, bottom: 0, left: 0 }}
-          data={chartData}
-          layout="vertical"
-          barGap={16}>
-          <XAxis
-            type="number"
-            hide
-          />
-          <YAxis
-            type="category"
-            dataKey={categoryKey}
-            hide
-          />
-          {filteredChartData.map((val, index) => {
-            const barColor = index === 0 ? accentColor : '#e5e7eb';
-            return (
-              <Bar
-                key={index}
+    <ResponsiveContainer
+      width="100%"
+      height="100%">
+      <BarChart
+        margin={{ top: 0, right: 50, bottom: 0, left: 0 }}
+        data={chartData}
+        layout="vertical"
+        barGap={16}>
+        <XAxis
+          type="number"
+          domain={[0, 100]}
+          hide
+        />
+        <YAxis
+          type="category"
+          dataKey={categoryKey}
+          hide
+        />
+        {filteredChartData.map((val, index) => {
+          const barColor = (index + 1) % 2 !== 0 ? accentColor : '#e5e7eb';
+          return (
+            <Bar
+              key={index}
+              dataKey={val}
+              fill={barColor}
+              radius={DEFAULT_RADIUS}
+              barSize={size}>
+              <LabelList
                 dataKey={val}
-                fill={barColor}
-                radius={DEFAULT_RADIUS}
-                barSize={34}>
-                <LabelList
-                  dataKey={val}
-                  content={props => <CustomLabel {...props} />}
-                />
-              </Bar>
-            );
-          })}
-        </BarChart>
-      </ResponsiveContainer>
-    </div>
+                content={props => <CustomLabel {...props} />}
+              />
+            </Bar>
+          );
+        })}
+      </BarChart>
+    </ResponsiveContainer>
   );
 }
