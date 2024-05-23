@@ -3,15 +3,18 @@
 import React, { useCallback, useState } from 'react';
 import { Cell, PieChart, Pie, ResponsiveContainer, Sector } from 'recharts';
 
-const dummyData = [
-  { name: '시설 점수', value: 45 },
-  { name: '관리 점수', value: 80 },
-  { name: '민원 점수', value: 30 },
-];
+interface ScorePieChartData {
+  name?: string;
+  value: number;
+}
+
+export interface ScorePieChartProps {
+  scoreData: ScorePieChartData[];
+}
 
 const COLORS = ['#2563EB', '#7DCB70', '#F3B570'];
 
-export default function ScorePieChart() {
+export default function ScorePieChart({ scoreData }: ScorePieChartProps) {
   const [activeIndex, setActiveIndex] = useState(1);
   const onPieEnter = useCallback(
     (_: unknown, index: number) => {
@@ -31,7 +34,7 @@ export default function ScorePieChart() {
             activeIndex={activeIndex}
             activeShape={PieActiveShape}
             paddingAngle={5}
-            data={dummyData}
+            data={scoreData}
             cx="50%"
             cy="50%"
             innerRadius={55}
@@ -40,7 +43,7 @@ export default function ScorePieChart() {
             labelLine={PieTextCustomizedLabelLine}
             label={PieTextCustomizedLabel}
             onMouseEnter={onPieEnter}>
-            {dummyData.map((_, index) => (
+            {scoreData?.map((_: unknown, index: number) => (
               <Cell
                 key={`cell-${index}`}
                 fill={COLORS[index % COLORS.length]}
