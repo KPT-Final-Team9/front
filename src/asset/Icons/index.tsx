@@ -7,6 +7,8 @@ import BellIconComp from '@/asset/Icons/icon_alarm.svg';
 import StarIconComp from '@/asset/Icons/icon_star.svg';
 import DefaultAvatarIconComp from '@/asset/Icons/account.svg';
 import BuildingIconComp from '@/asset/Icons/building.svg';
+import ExclamationMarkComp from '@/asset/Icons/exclamation-mark.svg';
+import RoundStarIconComp from '@/asset/Icons/ic-star.svg';
 
 export function XIcon({ ...props }) {
   return <XIconComp {...props} />;
@@ -47,4 +49,12 @@ export function AccountIcon({ ...props }) {
 
 export function BuildingIcon({ ...props }) {
   return <BuildingIconComp {...props} />;
+}
+
+export function ExclamationMark({ ...props }) {
+  return <ExclamationMarkComp {...props} />;
+}
+
+export function RoundStarIcon({ ...props }) {
+  return <RoundStarIconComp {...props} />;
 }
