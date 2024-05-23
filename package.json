@@ -15,7 +15,7 @@
     "local": "powershell -File ./start.ps1"
   },
   "dependencies": {
-    "@ajvls98/react-circular-progress-bar-fork-lamyzm": "^0.0.8",
+    "@ajvls98/react-circular-progress-bar-fork-lamyzm": "^0.0.10",
     "@alptugidin/react-circular-progress-bar": "^1.1.2",
     "@hookform/resolvers": "^3.3.4",
     "@mswjs/http-middleware": "^0.10.1",
