@@ -1,20 +1,16 @@
+'use client';
 import CircleProgressRating from '@Monocles/progress-bar/CircleProgressRating';
 import SelectComp from '@/app/(after-login)/dashboard/@evercomp/_components/SelectComp';
 import CommonChartLabel from '@Monocles/chart-label/CommonChartLabel';
 import HalfCircleProgress from '@/app/(after-login)/dashboard/@evercomp/_components/HalfCircleProgress';
 import BarChart from '@/app/(after-login)/dashboard/@evercomp/_components/BarChart';
 
-export default async function Page() {
-  const awaitTime = new Promise((resolve, reject) => {
-    setTimeout(() => {
-      resolve('hello');
-    }, 3000);
-  });
-  // const message = await awaitTime;
+export default function Page() {
+  // NOTE: 리엑트 쿼리로 기본 데이터 패칭, selectBox에서 바뀔때마다 쿼리로 패칭
   return (
     <section className="box-border flex w-[343px] flex-row flex-wrap justify-center rounded-container border-2 border-black bg-white px-[24px] py-[32px] desktop:w-[920px] desktop:gap-0 desktop:px-[40px]">
+      {/* 서클 프로그래스 */}
       <div className="mb-[47px] w-[320px] items-center justify-center text-nowrap">
-        {/* 서클 프로그래스 */}
         <p className="text-body2 text-text-secondary ">이번 분기에 진행된 미왕빌딩</p>
         <h4 className="mb-[32px] text-h4 text-text-primary">내 소유 호실들의 평균 호실 점수는</h4>
         <div className=" mb-5 desktop:hidden">
