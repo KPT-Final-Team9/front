@@ -33,12 +33,22 @@ interface CommonChartLabelProps
     VariantProps<typeof TextVariants> {
   text: string;
   className?: string;
+  inlienBarColor?: string;
 }
 
-export default function CommonChartLabel({ text, boxColor, size, textType, className }: CommonChartLabelProps) {
+export default function CommonChartLabel({
+  text,
+  boxColor,
+  size,
+  textType,
+  inlienBarColor,
+  className,
+}: CommonChartLabelProps) {
   return (
     <div className={cn('flex items-center  space-x-[8px]', className)}>
-      <div className={cn(CommonChartLabelVariants({ boxColor, size }))}></div>
+      <div
+        style={{ backgroundColor: inlienBarColor }}
+        className={cn(CommonChartLabelVariants({ boxColor, size }))}></div>
       <Label className={cn(TextVariants({ textType }))}>{text}</Label>
     </div>
   );
