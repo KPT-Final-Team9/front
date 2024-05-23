@@ -17,10 +17,10 @@ export default async function Page() {
         {/* 서클 프로그래스 */}
         <p className="text-body2 text-text-secondary ">이번 분기에 진행된 미왕빌딩</p>
         <h4 className="mb-[32px] text-h4 text-text-primary">내 소유 호실들의 평균 호실 점수는</h4>
-        <div className=" desktop:hidden">
+        <div className=" mb-5 desktop:hidden">
           <SelectComp />
         </div>
-        <div className="mt-[16px] flex justify-center">
+        <div className=" flex justify-center">
           <CircleProgressRating
             percent={79}
             color="#1D4ED8"
@@ -30,20 +30,20 @@ export default async function Page() {
 
       {/* 바 차트 */}
       <div className="w-full desktop:w-[504px]">
-        <div className="flex flex-row justify-end gap-3">
+        <div className="mb-1 flex flex-row items-center justify-end gap-3">
           <CommonChartLabel
-            text="지난분기"
+            text="지난 분기"
             boxColor="lightBlue"
             size="md"
             textType="gray"
           />
           <CommonChartLabel
-            text="지난분기"
+            text="이번 분기"
             boxColor="primary"
             size="md"
             textType="gray"
           />
-          <div className="mb-[16px]  hidden  desktop:block">
+          <div className="mb-[16px] hidden  desktop:mb-0  desktop:block">
             <SelectComp />
           </div>
         </div>
