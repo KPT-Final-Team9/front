@@ -113,7 +113,7 @@ const config = {
         stroke: '#d1d5db',
         'text-disabled': '#d1d5db',
         'text-primary': '#111827',
-        'text-secondary': '#6b7280',
+        'text-secondary': '#6B7280',
         'icon-bg': '#f2f6ff',
         'primary-management': '#77d276',
         'secondary-management': '#cdf4cd',
