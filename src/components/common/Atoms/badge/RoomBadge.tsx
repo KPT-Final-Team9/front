@@ -5,10 +5,10 @@ import { LocalIcon } from '@icon/index';
 
 export default function RoomBadge({ roomName }: { roomName: string }) {
   return (
-    <Badge className="rounded-[10px] bg-blue-50 px-[8px] py-[4px] text-[14px] font-medium leading-[24px] text-primary">
+    <Badge className="item-center flex rounded-[10px] bg-blue-50 px-[10px] py-[4px] text-[14px] font-medium leading-[24px] text-primary">
       <LocalIcon
         className="mr-[6px]"
-        name="StarIcon"
+        name="RoundStarIcon"
         width={20}
         height={20}
       />
