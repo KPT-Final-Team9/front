@@ -1,13 +1,8 @@
-import axios, { AxiosRequestHeaders } from "axios";
+import axios from 'axios';
 
-export const Api = axios.create({
-  baseURL: "https://example.com:8080/api",
+const useMockServer = process.env.NEXT_PUBLIC_API_ROUTER_MOCK_SERVER === 'true';
+const baseURL = useMockServer ? 'http://localhost:3000' : process.env.NEXT_PUBLIC_API_BASE_URL;
+
+export const axiosInstance = axios.create({
+  baseURL,
 });
-
-
-export const authApi = axios.create({
-    baseURL: "https://example.com:8080/api/auth",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });

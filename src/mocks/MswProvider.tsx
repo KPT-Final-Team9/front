@@ -1,20 +1,17 @@
+// MSWComponent.tsx
 'use client';
-import { useState, useEffect } from 'react';
 
-export const MSWComponent = ({ children }: { children: React.ReactNode }) => {
-  const [mswReady, setMSWReady] = useState(false);
+import { useEffect } from 'react';
 
+const isMockingMode = process.env.NEXT_PUBLIC_API_MOCKING === 'enabled';
+
+export const MSWComponent = () => {
   useEffect(() => {
-    if (!mswReady) {
-      const init = async () => {
-        const { initMocks } = await import('./index');
-        await initMocks();
-        setMSWReady(true);
-      };
-
-      init();
+    if (!isMockingMode) return;
+    if (typeof window !== 'undefined') {
+      require('@/mocks/browser');
     }
-  }, [mswReady]);
+  }, []);
 
-  return mswReady ? children : <div>msw Loading...</div>;
+  return null;
 };

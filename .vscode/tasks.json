@@ -1,0 +1,34 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Next.js Dev Server",
+      "type": "shell",
+      "command": "npm run dev",
+      "group": "build",
+      "isBackground": true,
+      "problemMatcher": []
+    },
+    {
+      "label": "Storybook",
+      "type": "shell",
+      "command": "npm run storybook",
+      "group": "build",
+      "isBackground": true,
+      "problemMatcher": []
+    },
+    {
+      "label": "msw",
+      "type": "shell",
+      "command": "npm run mock",
+      "group": "build",
+      "isBackground": true,
+      "problemMatcher": []
+    },
+    {
+      "label": "Run All",
+      "dependsOn": ["Next.js Dev Server", "Storybook", "msw"],
+      "group": "build"
+    }
+  ]
+}

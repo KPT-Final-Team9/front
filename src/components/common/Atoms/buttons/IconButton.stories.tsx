@@ -1,27 +1,21 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import IconButton from './IconButton';
-import { XIcon } from '@/components/icon';
-import React from 'react';
+import { XIconButton } from '@Atoms/buttons/IconButtons';
+import { Meta, StoryObj } from '@storybook/react';
 
-const meta: Meta<typeof IconButton> = {
+const meta: Meta = {
   title: 'Atoms/Button/IconButton',
-  component: IconButton,
   parameters: {
     layout: 'centered',
   },
   tags: ['autodocs'],
-  argTypes: {
-    onClick: { action: 'clicked' },
-  },
 };
 
 export default meta;
 
-export const Default: StoryObj<typeof IconButton> = {
+export const XButton: StoryObj<typeof XIconButton> = {
   args: {
-    children: <XIcon />,
     onClick: () => {
       console.log('hi');
     },
   },
+  render: ({ ...args }) => <XIconButton {...args} />,
 };

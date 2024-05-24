@@ -1,80 +1,78 @@
 'use client';
-import React from 'react';
-import { XAxis, YAxis, ResponsiveContainer, BarChart, Bar, LabelList } from 'recharts';
-import { Props as LabelListProp } from '@/../node_modules/recharts/types/component/Label.js';
+import React, { useId } from 'react';
 
-// 가로 막대 차트의 커스텀 라벨
-const CustomLabel = (props: LabelListProp) => {
-  const { x, y, width, height, value } = props;
+import { Bar, BarChart, LabelList, ResponsiveContainer, XAxis, YAxis } from 'recharts';
 
-  const parsedX = typeof x === 'number' ? x : parseFloat(x || '0');
-  const parsedY = typeof y === 'number' ? y : parseFloat(y || '0');
-  const parsedWidth = typeof width === 'number' ? width : parseFloat(width || '0');
-  const parsedHeight = typeof height === 'number' ? height : parseFloat(height || '0');
+import { SpeechBubbleCustomLabel as CustomLabel } from '@chart/CustomLables';
 
-  return (
-    <text
-      x={parsedX + parsedWidth + 10}
-      y={parsedY + parsedHeight / 2}
-      dy={5}
-      dx={5}
-      fill="#000"
-      textAnchor="start"
-      fontSize={17}
-      style={{ fontFamily: 'var(--font-pretendard)', fontWeight: '600' }}
-      fontWeight={'600'}>
-      {value}
-    </text>
-  );
-};
+// BUG: Rechart 내부에서 defaultProps 사용으로 인한 error
 
-export default function MainVerticalBarChart({
+/**
+ * chartData를 인자로 받아 수평 막대그래프차트를 반환
+
+ * @param {*} param0.chartData *   data ex):
+ * [{ name: 'Page1', rent: 90, diff: 40.5 },
+ * { name: 'Page2', rent: 80, diff: 20.5 }
+ * { name: 'Page3', rent: 70, diff: 60.5 }];
+ * }}
+ * @param {string} param0.categoryKey 위 예시의 name에 해당되는 값을 인자로 받음
+ * @param {string} [param0.accentColor='#ffb775']
+ */
+export default function SingleCategoryVerticalBarChart({
   chartData,
-  accentColor = '#8884d8',
+  categoryKey,
+  accentColor = '#ffb775',
 }: {
-  chartData: any;
+  chartData: object[];
   accentColor?: string;
+  categoryKey: string;
 }) {
+  const varChartId = useId();
+  const filteredChartData = chartData.length ? Object.keys(chartData[0]).filter(key => key !== categoryKey) : [];
   return (
-    <div className="w-[394px]">
+    <div className="h-[150px] w-[394px]">
       <ResponsiveContainer
         width="100%"
-        height={500}>
+        height="100%">
         <BarChart
-          margin={{ top: 0, right: 50, bottom: 0, left: 0 }}
+          margin={{ top: 60, right: 0, bottom: 0, left: 0 }}
           data={chartData}
-          layout="vertical"
-          barGap={16}>
+          layout="horizontal"
+          barGap={13}>
           <XAxis
-            type="number"
+            type="category"
+            dataKey={categoryKey}
             hide
           />
           <YAxis
-            type="category"
-            dataKey="name"
+            type="number"
+            domain={[0, 100]}
             hide
           />
-          <Bar
-            dataKey="rent"
-            fill={accentColor}
-            radius={[0, 2, 2, 0]}
-            barSize={20} // 막대 크기 조절
-          >
-            <LabelList
-              dataKey="rent"
-              content={props => <CustomLabel {...props} />}
-            />
-          </Bar>
-          <Bar
-            dataKey="diff"
-            fill="#e5e7eb"
-            radius={[0, 2, 2, 0]}
-            barSize={20}>
-            <LabelList
-              dataKey="diff"
-              content={props => <CustomLabel {...props} />}
-            />
-          </Bar>
+          {filteredChartData.map((val, index) => {
+            console.log(val);
+            const barColor = (index + 1) % 2 !== 0 ? accentColor : '#e5e7eb';
+            return (
+              <Bar
+                key={`${varChartId}-${index}`}
+                dataKey={val}
+                fill={barColor}
+                radius={[4, 4, 4, 4]}
+                barSize={34}>
+                {(index + 1) % 2 !== 0 ? (
+                  <LabelList
+                    dataKey={val}
+                    content={props => (
+                      <CustomLabel
+                        fill={barColor}
+                        {...props}
+                      />
+                    )}
+                  />
+                ) : null}
+              </Bar>
+            );
+          })}
         </BarChart>
       </ResponsiveContainer>
     </div>
