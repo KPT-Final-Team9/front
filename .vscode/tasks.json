@@ -27,7 +27,7 @@
     },
     {
       "label": "Run All",
-      "dependsOn": ["Next.js Dev Server", "Storybook", "TSX Watch"],
+      "dependsOn": ["Next.js Dev Server", "Storybook", "msw"],
       "group": "build"
     }
   ]

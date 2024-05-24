@@ -20,7 +20,7 @@ const config = {
         notoSansKr: ['var(--font-notoSansKr)'],
       },
       screens: {
-        desktop: '430px',
+        desktop: '768px',
       },
       backgroundImage: {
         'evaluation-gradient': 'linear-gradient(90deg, #FFA3A3 0%, #FFCB96 35.5%, #FFE49D 65.5%, #77D276 99%',
@@ -113,7 +113,7 @@ const config = {
         stroke: '#d1d5db',
         'text-disabled': '#d1d5db',
         'text-primary': '#111827',
-        'text-secondary': '#6b7280',
+        'text-secondary': '#6B7280',
         'icon-bg': '#f2f6ff',
         'primary-management': '#77d276',
         'secondary-management': '#cdf4cd',

@@ -4,6 +4,7 @@ import { MSWComponent } from '@/mocks/MswProvider';
 import { roboto, notoSansKr } from '@/style/font';
 import 'pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css';
 import clsx from 'clsx';
+import ReactQueryProviders from '@/contexts/ReactQueryProvider';
 import './globals.scss';
 import '@radix-ui/themes/styles.css';
 
@@ -21,7 +22,9 @@ export default function RootLayout({
     <html lang="ko">
       <body className={clsx(roboto.variable, notoSansKr.variable)}>
         <MSWComponent />
-        <Theme>{children}</Theme>
+        <ReactQueryProviders>
+          <Theme>{children}</Theme>
+        </ReactQueryProviders>
       </body>
     </html>
   );

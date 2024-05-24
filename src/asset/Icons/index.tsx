@@ -8,6 +8,10 @@ import StarIconComp from '@/asset/Icons/icon_star.svg';
 import DefaultAvatarIconComp from '@/asset/Icons/account.svg';
 import BuildingIconComp from '@/asset/Icons/icon_building.svg';
 import DashLineIconComp from '@/asset/Icons/dash-line.svg';
+import ExclamationMarkComp from '@/asset/Icons/exclamation-mark.svg';
+import RoundStarIconComp from '@/asset/Icons/ic-star.svg';
+import RoundUnselectedStarIconComp from '@/asset/Icons/ic-start-unselected.svg';
+
 import CalendarIconComp from '@/asset/Icons/icon_calendar.svg';
 import RoomgIconComp from '@/asset/Icons/icon_room.svg';
 export function XIcon({ ...props }) {
@@ -53,6 +57,18 @@ export function BuildingIcon({ ...props }) {
 
 export function DashLineIcon({ ...props }) {
   return <DashLineIconComp {...props} />;
+}
+
+export function ExclamationMark({ ...props }) {
+  return <ExclamationMarkComp {...props} />;
+}
+
+export function RoundStarIcon({ ...props }) {
+  return <RoundStarIconComp {...props} />;
+}
+
+export function RoundUnselectedStarIcon({ ...props }) {
+  return <RoundUnselectedStarIconComp {...props} />;
 }
 
 export function CalendarIcon({ ...props }) {

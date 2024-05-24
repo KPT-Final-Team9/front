@@ -43,7 +43,9 @@ export default function GradientChart({
     <div className="h-[77px] w-[220px] rounded-[10px] bg-gray-50 desktop:h-[86px] desktop:w-[237px]">
       <ResponsiveContainer
         width="100%"
-        height="100%">
+        height="100%"
+        minWidth={50}
+        minHeight={50}>
         <AreaChart
           data={data}
           margin={{
@@ -86,7 +88,7 @@ export default function GradientChart({
 
           <Area
             activeDot={false}
-            type="monotoneY"
+            type="linear"
             dataKey="score"
             stroke={strokeColor}
             fillOpacity={1}
