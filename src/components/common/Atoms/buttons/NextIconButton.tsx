@@ -4,7 +4,7 @@ import { LocalIcon } from '@icon/index';
 import { VariantProps, cva } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
 
-const buttonVariants = cva('m-0 box-border bg-blue-200 fill-blue-500 p-0', {
+const buttonVariants = cva('m-0 box-border bg-[#f2f6ff] fill-blue-500 p-0', {
   variants: {
     shape: {
       square: 'h-[20px] w-[20px] rounded-[2px]',

@@ -1,5 +1,4 @@
 'use client';
-
 import React, { useEffect } from 'react';
 import SingleCategoryHorizontalBarChart from '@chart/bar-chart/SingleCategoryHorizontalBarChart';
 import CommonChartLabel from '@Monocles/chart-label/CommonChartLabel';
@@ -14,7 +13,7 @@ const Box = ({ chartData, text, accentColor }: { chartData: any; text: string; a
       <div className="flex flex-row ">
         <div className="mr-2 flex flex-col justify-between py-[16px] desktop:py-2">
           <CommonChartLabel
-            inlienBarColor={accentColor}
+            inlineBarColor={accentColor}
             size={'md'}
             textType={'default'}
             text="내호실"
@@ -39,7 +38,7 @@ const Box = ({ chartData, text, accentColor }: { chartData: any; text: string; a
   );
 };
 
-export default function RowBarComp({ chartData }: { chartData: object[]; isLoading: boolean }) {
+export default function RowBarComp({ chartData }: { chartData: object[] }) {
   useEffect(() => {
     const awaitTime = new Promise<string>(resolve => {
       setTimeout(() => {

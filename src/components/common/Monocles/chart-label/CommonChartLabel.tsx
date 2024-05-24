@@ -33,7 +33,7 @@ interface CommonChartLabelProps
     VariantProps<typeof TextVariants> {
   text: string;
   className?: string;
-  inlienBarColor?: string;
+  inlineBarColor?: string;
 }
 
 export default function CommonChartLabel({
@@ -41,13 +41,13 @@ export default function CommonChartLabel({
   boxColor,
   size,
   textType,
-  inlienBarColor,
+  inlineBarColor,
   className,
 }: CommonChartLabelProps) {
   return (
     <div className={cn('flex items-center  space-x-[8px]', className)}>
       <div
-        style={{ backgroundColor: inlienBarColor }}
+        style={{ backgroundColor: inlineBarColor }}
         className={cn(CommonChartLabelVariants({ boxColor, size }))}></div>
       <Label className={cn(TextVariants({ textType }))}>{text}</Label>
     </div>

@@ -33,7 +33,9 @@ export default function SingleCategoryHorizontalBarChart({
   return (
     <ResponsiveContainer
       width="100%"
-      height="100%">
+      height="100%"
+      minWidth={50}
+      minHeight={50}>
       <BarChart
         margin={{ top: 0, right: 50, bottom: 0, left: 0 }}
         data={chartData}

@@ -10,6 +10,7 @@ import BuildingIconComp from '@/asset/Icons/building.svg';
 import DashLineIconComp from '@/asset/Icons/dash-line.svg';
 import ExclamationMarkComp from '@/asset/Icons/exclamation-mark.svg';
 import RoundStarIconComp from '@/asset/Icons/ic-star.svg';
+import RoundUnselectedStarIconComp from '@/asset/Icons/ic-start-unselected.svg';
 
 export function XIcon({ ...props }) {
   return <XIconComp {...props} />;
@@ -62,4 +63,8 @@ export function ExclamationMark({ ...props }) {
 
 export function RoundStarIcon({ ...props }) {
   return <RoundStarIconComp {...props} />;
+}
+
+export function RoundUnselectedStarIcon({ ...props }) {
+  return <RoundUnselectedStarIconComp {...props} />;
 }

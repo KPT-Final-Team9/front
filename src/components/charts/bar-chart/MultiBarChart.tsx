@@ -29,7 +29,9 @@ export default function MultiBarChart({
   return (
     <ResponsiveContainer
       width="100%"
-      height="100%">
+      height="100%"
+      minWidth={50}
+      minHeight={50}>
       <BarChart
         margin={{ top: 10, right: 10, bottom: 10, left: 0 }}
         data={chartData}

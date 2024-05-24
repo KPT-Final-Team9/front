@@ -12,10 +12,10 @@ export default async function Page() {
   const awaitTime = new Promise<string>(resolve => {
     setTimeout(() => {
       resolve('hello');
-    }, 3000);
+    }, 1000);
   });
 
-  // const result = await awaitTime;
+  const result = await awaitTime;
 
   return (
     <div className="flex w-[343px] flex-col  gap-3 rounded-container bg-white px-[24px] py-[32px] desktop:min-h-[250px] desktop:w-full desktop:px-[40px]">
@@ -30,10 +30,7 @@ export default async function Page() {
         <RoomBadge roomName="미왕빌딩 A동 201호" />
       </div>
       <div>
-        <RowBarComp
-          isLoading={false}
-          chartData={chartData}
-        />
+        <RowBarComp chartData={chartData} />
       </div>
     </div>
   );

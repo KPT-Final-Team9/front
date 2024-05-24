@@ -1,6 +1,6 @@
 import LineChartComp from '@/app/(after-login)/dashboard/@RightSection/_components/LineChartComp';
 
-export default function Page() {
+export default async function Page() {
   return (
     <div className=" flex flex-col gap-6">
       <LineChartComp mainRoom={true}></LineChartComp>

@@ -12,3 +12,26 @@ export function XIconButton({ ...props }) {
     </Button>
   );
 }
+
+export function StarIconButton({ toggle = false, ...props }: { toggle?: boolean }) {
+  return (
+    <Button
+      {...props}
+      variant={'icon'}
+      className="xbtn-icon m-0 p-0">
+      {toggle ? (
+        <LocalIcon
+          width={24}
+          height={24}
+          name="RoundStarIcon"
+        />
+      ) : (
+        <LocalIcon
+          width={24}
+          height={24}
+          name="RoundUnselectedStarIcon"
+        />
+      )}
+    </Button>
+  );
+}
