@@ -8,7 +8,8 @@ const meta: Meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: '다양한 조합으로 selectbox를 사용할 수 있습니다.',
+        component:
+          '⚠️ optionKey 변경시 선택창은 빈값으로 보이지만, 셀렉트 박스 클릭하면 변경된 리스트 확인 가능합니다.',
       },
     },
   },

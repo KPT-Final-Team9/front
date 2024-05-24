@@ -24,9 +24,10 @@ export function Selectbox({ lists, optionKey, size, icon, showIcon, onChange }: 
 
   const isShowIcon = showIcon ? '' : 'hidden';
 
+  // FIXME: optionKey를 바꾸면 브라우저에서 렌더링될 때 trigger에서 변경된 defaultValue가 바로 반영안되고 빈값으로 렌더링되는 이슈(SelectContent는 제대로 반영됨)
   return (
     <Select
-      value={sortedData[0][optionKey] as string}
+      defaultValue={sortedData[0][optionKey] as string}
       onOpenChange={setIsOpen}
       onValueChange={onChange}>
       <SelectTrigger
