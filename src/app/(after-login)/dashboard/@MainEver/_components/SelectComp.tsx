@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import { QuarterSelectbox } from '@Atoms/seletbox/QuarterSelectbox';
+import { Selectbox } from '@Atoms/seletbox/Selectbox';
 
 export default function SelectComp() {
   const SelectData = [
@@ -33,8 +33,12 @@ export default function SelectComp() {
     console.log('hi');
   };
   return (
-    <QuarterSelectbox
+    <Selectbox
       lists={SelectData}
+      optionKey={'quarter'}
+      icon={'CalendarIcon'}
+      size={'quarter'}
+      showIcon={false}
       onChange={testFunc}
     />
   );
