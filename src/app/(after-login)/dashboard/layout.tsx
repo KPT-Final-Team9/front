@@ -1,18 +1,28 @@
-export default function Layout({ evercomp, barservice }: { evercomp: React.ReactNode; barservice: React.ReactNode }) {
+import React from 'react';
+
+export default function Layout({
+  MainEver,
+  MainRoomCompare,
+  RightSection,
+}: {
+  MainEver: React.ReactNode;
+  MainRoomCompare: React.ReactNode;
+  RightSection: React.ReactNode;
+}) {
   return (
-    <div className="flex bg-background">
-      <section className="mx-auto flex max-w-[1440px] flex-col items-start justify-center">
-        <div className="flex flex-row desktop:gap-14">
-          <div className="mx-auto mb-[30px] flex">{evercomp}</div>
-          <div className="relative hidden w-[336px] desktop:block">
-            <div className="absolute h-[700px] w-[inherit] bg-white">
-              <div>123123</div>
+    <div className="mt-10 flex bg-background">
+      <main className="mx-auto flex max-w-[1440px] flex-col items-start justify-center">
+        <section className="flex  flex-col desktop:flex-row desktop:gap-14">
+          <article className="mx-auto mb-[30px] flex">{MainEver}</article>
+          <aside className="relative mb-[70px]  h-[400px] w-[336px] desktop:mb-[30px] desktop:block desktop:h-[700px]">
+            <div className="scrollbar-hide absolute h-[400px] w-[inherit] overflow-x-hidden overflow-y-scroll desktop:h-[700px]">
+              {RightSection}
             </div>
-          </div>
-        </div>
-        <div className="mb-4 block h-[281px] w-full bg-white desktop:hidden"></div>
-        <div className="w-full">{barservice}</div>
-      </section>
+            <div className="sidebar-gradient absolute  bottom-0 h-0 w-full desktop:h-40"></div>
+          </aside>
+        </section>
+        <section className="z-20 w-full">{MainRoomCompare}</section>
+      </main>
     </div>
   );
 }

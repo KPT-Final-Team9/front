@@ -1,6 +1,6 @@
 import { LocalIcon } from '@icon/index';
 import RoomBadge from '@Atoms/badge/RoomBadge';
-import RowBarComp from '@/app/(after-login)/dashboard/@barservice/_components/RowBarComp';
+import RowBarComp from '@/app/(after-login)/dashboard/@MainRoomCompare/_components/RowBarComp';
 
 const chartData = [
   { name: '임대', myRoom: 100, diff: 20 },
@@ -15,7 +15,7 @@ export default async function Page() {
     }, 3000);
   });
 
-  const result = await awaitTime;
+  // const result = await awaitTime;
 
   return (
     <div className="flex w-[343px] flex-col  gap-3 rounded-container bg-white px-[24px] py-[32px] desktop:min-h-[250px] desktop:w-full desktop:px-[40px]">

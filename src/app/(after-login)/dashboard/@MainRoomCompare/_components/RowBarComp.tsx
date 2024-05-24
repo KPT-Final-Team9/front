@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import SingleCategoryHorizontalBarChart from '@chart/bar-chart/SingleCategoryHorizontalBarChart';
 import CommonChartLabel from '@Monocles/chart-label/CommonChartLabel';
 import { UseMediaQuery } from '@/hooks/index';
@@ -9,7 +9,7 @@ const Box = ({ chartData, text, accentColor }: { chartData: any; text: string; a
   const barChartSize = UseMediaQuery({ defaultSize: 27, changedSize: 21 });
 
   return (
-    <div className="flex w-[295px] grow  flex-col rounded-box border-[0.74px] p-4 desktop:w-[394px] ">
+    <div className="flex w-[295px] grow  flex-col rounded-box border-[1.5px] p-4 desktop:w-[394px] ">
       <p className="mb-2 text-body1">{text}</p>
       <div className="flex flex-row ">
         <div className="mr-2 flex flex-col justify-between py-[16px] desktop:py-2">
@@ -26,7 +26,7 @@ const Box = ({ chartData, text, accentColor }: { chartData: any; text: string; a
             text="타호실"
           />
         </div>
-        <div className="h-[90px] grow">
+        <div className="h-[90px] min-h-[40px] grow">
           <SingleCategoryHorizontalBarChart
             size={barChartSize}
             chartData={chartData}
