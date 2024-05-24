@@ -11,7 +11,7 @@ export function BuildingRoomAvatar({ idx }: { idx: number }) {
 
   return (
     <>
-      <Avatar className="h-8 w-8">
+      <Avatar className="h-[32px] w-[32px]">
         <AvatarFallback className={`flex items-center justify-center ${color}`}>
           <LocalIcon
             width={16}

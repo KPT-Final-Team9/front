@@ -75,10 +75,38 @@
   }
 }
 
+@layer utilities {
+  .scrollbar-hide {
+    /* IE and Edge */
+    -ms-overflow-style: none;
+
+    /* Firefox */
+    scrollbar-width: none;
+
+    /* Safari and Chrome */
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+  .scrollbar-default {
+    /* IE and Edge */
+    -ms-overflow-style: auto;
+
+    /* Firefox */
+    scrollbar-width: auto;
+
+    /* Safari and Chrome */
+    &::-webkit-scrollbar {
+      display: block;
+    }
+  }
+}
+
 html {
   --font-pretendard: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto,
     'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Apple Color Emoji',
     'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif;
+  scroll-behavior: smooth;
 }
 body * {
   font-family: var(--font-pretendard);
@@ -110,4 +138,8 @@ body * {
     transparent 100%
   );
   background-size: calc(var(--bs-progress-height) * 4) calc(var(--bs-progress-height) * 4);
+}
+
+.sidebar-gradient {
+  background: linear-gradient(to bottom, rgba(128, 128, 128, 0) 0%, #f2f5fc 100%);
 }
