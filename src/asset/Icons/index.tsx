@@ -11,7 +11,7 @@ import DashLineIconComp from '@/asset/Icons/dash-line.svg';
 import ExclamationMarkComp from '@/asset/Icons/exclamation-mark.svg';
 import RoundStarIconComp from '@/asset/Icons/ic-star.svg';
 import RoundUnselectedStarIconComp from '@/asset/Icons/ic-start-unselected.svg';
-
+import ReviewTrackCircleIconComp from '@/asset/Icons/ic-reviewTrackCircle.svg';
 export function XIcon({ ...props }) {
   return <XIconComp {...props} />;
 }
@@ -67,4 +67,8 @@ export function RoundStarIcon({ ...props }) {
 
 export function RoundUnselectedStarIcon({ ...props }) {
   return <RoundUnselectedStarIconComp {...props} />;
+}
+
+export function ReviewTrackCircleIcon({ ...props }) {
+  return <ReviewTrackCircleIconComp {...props} />;
 }
