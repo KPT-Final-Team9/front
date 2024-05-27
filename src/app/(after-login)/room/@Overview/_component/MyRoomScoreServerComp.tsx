@@ -1,5 +1,5 @@
 import React from 'react';
-import MyRoomScoreClientComp from './MyRoomScoreClientComp';
+import MyRoomScoreClientComp from '@/app/(after-login)/room/@Overview/_component/MyRoomScoreClientComp';
 
 // 레이아웃 시프트를 최소화하기 위헤 서버 컴포넌트와 클라이언트 컴포넌트를 분리함.
 export default function MyRoomScoreServerComp() {
