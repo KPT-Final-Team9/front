@@ -20,12 +20,12 @@ export default function CircleProgressRating({ percent = 50, color = '#000000' }
 
   return (
     <>
-      <div className="half-circle-progress relative h-[120px] w-[120px] desktop:h-[206px] desktop:w-[206px]">
+      <div className="half-circle-progress relative h-[150px] w-[150px] desktop:h-[206px] desktop:w-[206px]">
         <CircleProgressBar
           percent={validatedData.percent}
           color={validatedData.color}
         />
-        <div className="absolute left-1/2 top-1/2 flex w-fit -translate-x-1/2 -translate-y-3 transform flex-col items-center justify-center desktop:-translate-y-5 ">
+        <div className="absolute left-1/2 top-1/2 flex w-fit -translate-x-1/2 -translate-y-4 transform flex-col items-center justify-center desktop:-translate-y-5 ">
           <p
             style={{ color: color }}
             className="text-nowrap text-h3 font-extrabold desktop:text-h1">
