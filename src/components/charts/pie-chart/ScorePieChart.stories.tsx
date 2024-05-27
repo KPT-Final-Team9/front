@@ -2,7 +2,7 @@ import { Meta, StoryObj } from '@storybook/react';
 import ScorePieChart from '@chart/pie-chart/ScorePieChart';
 
 const meta: Meta = {
-  title: 'chart/pieChart',
+  title: 'chart/PieChart',
   component: ScorePieChart,
   parameters: {
     layout: 'centered',
