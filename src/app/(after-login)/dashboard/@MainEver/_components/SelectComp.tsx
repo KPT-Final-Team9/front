@@ -29,9 +29,9 @@ export default function SelectComp() {
       quarter: '4분기',
     },
   ];
-  const testFunc = () => {
-    console.log('hi');
-  };
+  // 셀렉트박스 onChange 함수
+  const testFunc = () => {};
+
   return (
     <QuarterSelectbox
       lists={SelectData}
