@@ -10,10 +10,10 @@ import React, { useEffect, useState } from 'react';
 const MOCK_SCORE = 63;
 const EMOJI_DEFAULT_SIZE = '60px';
 
-export default function MyRoomScoreComp() {
+export default function MyRoomScoreClientComp() {
   // TODO: React Query로 점수 받아오는 API 로직 따라서 React Query onSuccess로 넘기거나 SSR로 처리하기
   const [roomScore, setRoomScore] = useState<number | undefined>(undefined);
-  const [scoreEmoji, setScoreEmoji] = useState<RoomScoreGradeEmoji | undefined>(undefined);
+  const [roomScoreEmoji, setRoomScoreEmoji] = useState<RoomScoreGradeEmoji | undefined>(undefined);
 
   // TODO: 서버에서 데이터 fetching 하는 동작을 Mocking 해둠.
   useEffect(() => {
@@ -27,15 +27,15 @@ export default function MyRoomScoreComp() {
     if (roomScore === undefined) return;
 
     if (roomScore >= 81) {
-      setScoreEmoji(RoomScoreGradeEmoji.EXCELLENT);
+      setRoomScoreEmoji(RoomScoreGradeEmoji.EXCELLENT);
     } else if (roomScore >= 61) {
-      setScoreEmoji(RoomScoreGradeEmoji.GOOD);
+      setRoomScoreEmoji(RoomScoreGradeEmoji.GOOD);
     } else if (roomScore >= 41) {
-      setScoreEmoji(RoomScoreGradeEmoji.NORMAL);
+      setRoomScoreEmoji(RoomScoreGradeEmoji.NORMAL);
     } else if (roomScore >= 21) {
-      setScoreEmoji(RoomScoreGradeEmoji.NOT_BAD);
+      setRoomScoreEmoji(RoomScoreGradeEmoji.NOT_BAD);
     } else {
-      setScoreEmoji(RoomScoreGradeEmoji.BAD);
+      setRoomScoreEmoji(RoomScoreGradeEmoji.BAD);
     }
   }, [roomScore]);
 
@@ -53,10 +53,10 @@ export default function MyRoomScoreComp() {
       </div>
       <div className="relative flex h-[90px] w-[90px] self-end">
         <div className="icon-wrapper absolute top-[25%] z-10">
-          {scoreEmoji ? (
+          {roomScoreEmoji ? (
             <img
-              src={ROOM_SCORE_EMOJI[scoreEmoji].src}
-              alt={ROOM_SCORE_EMOJI[scoreEmoji].alt}
+              src={ROOM_SCORE_EMOJI[roomScoreEmoji].src}
+              alt={ROOM_SCORE_EMOJI[roomScoreEmoji].alt}
               width={EMOJI_DEFAULT_SIZE}
               height={EMOJI_DEFAULT_SIZE}
             />
