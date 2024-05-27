@@ -8,19 +8,6 @@ const DUMMY_MONTHLY = 80;
 const DUMMY_START_DATE = '2023-05-07';
 const DUMMY_END_DATE = '2025-05-07';
 
-// 경과된 진행율 계산 함수
-export const calculateDateProgress = (start: Date, end: Date, current: Date | undefined): number => {
-  if (!current) current = new Date();
-
-  // 1. 기간 계산 (밀리초 단위로 계산)
-  const totalTime = end.getTime() - start.getTime(); // 전체 기간
-  const elapsed = current.getTime() - start.getTime(); // 현재까지의 경과 기간
-
-  // 2. 진행률 계산
-  const progress = (elapsed / totalTime) * 100; // 진행률 계산 (백분율로 표현)
-  return Math.round(progress); // 소수점 첫째 자리까지 반올림
-};
-
 // 컴포넌트 분리할 수 있을 것 같아서 분리해서 작성함.
 export function ContractRentInfo({
   roomDeposit,
