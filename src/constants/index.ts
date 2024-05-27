@@ -1,12 +1,13 @@
 export const AVATAR_BUILDING_COLORS = ['bg-blue-700', 'bg-cyan-400', 'bg-orange-300', 'bg-green-500'];
 
-export type RoomScoreEmojiName =
-  | 'UnamusedFace'
-  | 'ExpressionlessFace'
-  | 'SlightlySmilingFace'
-  | 'SmilingFaceWithSmilingEyes'
-  | 'GrinningSquintingFace';
-export type RoomScoreEmoji = Record<RoomScoreEmojiName, { src: string; alt: string }>;
+export enum RoomScoreGradeEmoji {
+  BAD = 'UnamusedFace',
+  NOT_BAD = 'ExpressionlessFace',
+  NORMAL = 'SlightlySmilingFace',
+  GOOD = 'SmilingFaceWithSmilingEyes',
+  EXCELLENT = 'GrinningSquintingFace',
+}
+export type RoomScoreEmoji = Record<RoomScoreGradeEmoji, { src: string; alt: string }>;
 
 export const ROOM_SCORE_EMOJI: RoomScoreEmoji = {
   ExpressionlessFace: {
