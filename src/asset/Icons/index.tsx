@@ -13,7 +13,7 @@ import RoundStarIconComp from '@/asset/Icons/ic-star.svg';
 import RoundUnselectedStarIconComp from '@/asset/Icons/ic-start-unselected.svg';
 
 import CalendarIconComp from '@/asset/Icons/icon_calendar.svg';
-import RoomgIconComp from '@/asset/Icons/icon_room.svg';
+import RoomIconComp from '@/asset/Icons/icon_room.svg';
 export function XIcon({ ...props }) {
   return <XIconComp {...props} />;
 }
@@ -76,5 +76,5 @@ export function CalendarIcon({ ...props }) {
 }
 
 export function RoomIcon({ ...props }) {
-  return <RoomgIconComp {...props} />;
+  return <RoomIconComp {...props} />;
 }
