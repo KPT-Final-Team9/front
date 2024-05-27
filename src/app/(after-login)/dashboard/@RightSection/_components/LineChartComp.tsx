@@ -53,7 +53,7 @@ const chartData = [
 
 export default function LineChartComp({ mainRoom = false }: { mainRoom?: boolean }) {
   return (
-    <div className="h-[193px] w-[336px] rounded-container bg-white py-[16px] pl-[23px] pr-[40px]">
+    <div className=" rounded-container bg-white py-[16px] pl-[23px] pr-[40px]">
       <div className="mb-[24px] flex flex-row gap-1">
         <BuildingRoomAvatar idx={0} />
         <div className="flex grow flex-col">
