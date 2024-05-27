@@ -2,9 +2,9 @@ import { LocalIcon } from '@icon/index';
 import RoomBadge from '@Atoms/badge/RoomBadge';
 export default function Layout() {
   return (
-    <div className="flex w-[343px] flex-col  gap-3 rounded-container bg-white px-[24px] py-[32px]  desktop:w-full desktop:px-[40px]">
+    <div className="flex flex-col  gap-3 rounded-container bg-white px-[24px] py-[32px]  desktop:w-full desktop:px-[40px]">
       <div className="flex w-[240px] flex-row items-center justify-between">
-        <p className=" text-h4">대표 호실 비교분석 서비스</p>
+        <h4 className=" text-h4">대표 호실 비교분석 서비스</h4>
         <LocalIcon
           name="ExclamationMark"
           className="h-[24px] w-[24px]"

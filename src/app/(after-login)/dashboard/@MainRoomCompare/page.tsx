@@ -18,7 +18,7 @@ export default async function Page() {
   const result = await awaitTime;
 
   return (
-    <div className="flex w-[343px] flex-col  gap-3 rounded-container bg-white px-[24px] py-[32px] desktop:min-h-[250px] desktop:w-full desktop:px-[40px]">
+    <div className="flex flex-col  gap-3 rounded-container bg-white px-[24px] py-[32px] desktop:min-h-[250px] desktop:w-full desktop:px-[40px]">
       <div className="flex w-[240px] flex-row items-center justify-between">
         <p className=" text-h4">대표 호실 비교분석 서비스</p>
         <LocalIcon

@@ -4,11 +4,17 @@ import SingleCategoryHorizontalBarChart from '@chart/bar-chart/SingleCategoryHor
 import CommonChartLabel from '@Monocles/chart-label/CommonChartLabel';
 import { UseMediaQuery } from '@/hooks/index';
 
+const textArray = [
+  { title: '임대료', color: '#2461e6' },
+  { title: '재계약률', color: '#67e8f9' },
+  { title: '공실률', color: '#ffb775' },
+];
+
 const Box = ({ chartData, text, accentColor }: { chartData: any; text: string; accentColor: string }) => {
   const barChartSize = UseMediaQuery({ defaultSize: 27, changedSize: 21 });
 
   return (
-    <div className="flex w-[295px] grow  flex-col rounded-box border-[1.5px] p-4 desktop:w-[394px] ">
+    <div className="flex grow  flex-col rounded-box border-[1.5px] p-4">
       <p className="mb-2 text-body1">{text}</p>
       <div className="flex flex-row ">
         <div className="mr-2 flex flex-col justify-between py-[16px] desktop:py-2">
@@ -52,11 +58,6 @@ export default function RowBarComp({ chartData }: { chartData: object[] }) {
 
     fetchData();
   }, []);
-  const textArray = [
-    { title: '임대료', color: '#2461e6' },
-    { title: '재계약률', color: '#67e8f9' },
-    { title: '공실률', color: '#ffb775' },
-  ];
 
   return (
     <div>
