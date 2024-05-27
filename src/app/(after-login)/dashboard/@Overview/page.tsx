@@ -1,9 +1,9 @@
 'use client';
 import CircleProgressRating from '@Monocles/progress-bar/CircleProgressRating';
 import CommonChartLabel from '@Monocles/chart-label/CommonChartLabel';
-import SelectComp from '@/app/(after-login)/dashboard/@MainEver/_components/SelectComp';
-import BarChart from '@/app/(after-login)/dashboard/@MainEver/_components/BarChart';
-import HalfCircleProgress from '@/app/(after-login)/dashboard/@MainEver/_components/HalfCircleProgress';
+import SelectComp from '@/app/(after-login)/dashboard/@Overview/_components/SelectComp';
+import BarChart from '@/app/(after-login)/dashboard/@Overview/_components/BarChart';
+import HalfCircleProgress from '@/app/(after-login)/dashboard/@Overview/_components/HalfCircleProgress';
 
 export default function Page() {
   // NOTE: 리엑트 쿼리로 기본 데이터 패칭, selectBox에서 바뀔때마다 쿼리로 패칭

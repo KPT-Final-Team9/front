@@ -2,24 +2,24 @@ import React from 'react';
 import DocumentStorageBox from '@/app/(after-login)/dashboard/_components/DocumentStorageBox';
 
 export default function Layout({
-  MainEver,
+  Overview,
   MainRoomCompare,
-  RightSection,
+  RatingTrends,
   MainRoomSchedule,
 }: {
-  MainEver: React.ReactNode;
+  Overview: React.ReactNode;
   MainRoomCompare: React.ReactNode;
-  RightSection: React.ReactNode;
+  RatingTrends: React.ReactNode;
   MainRoomSchedule: React.ReactNode;
 }) {
   return (
     <>
       <main className="flex flex-col items-center pt-10 desktop:justify-start ">
         <section className="flex w-full flex-row max-[1330px]:flex-col desktop:gap-14">
-          <article className="mb-[30px] flex w-full">{MainEver}</article>
+          <article className="mb-[30px] flex w-full">{Overview}</article>
           <aside className="relative mb-[70px] w-full desktop:mb-[30px] desktop:block desktop:h-[700px] min-[1330px]:max-w-[336px]">
             <div className="scrollbar-hide overflow-y-scroll desktop:h-[700px] desktop:overflow-x-hidden">
-              {RightSection}
+              {RatingTrends}
             </div>
             <div className="sidebar-gradient absolute  bottom-0 h-0 w-full desktop:h-40"></div>
           </aside>
