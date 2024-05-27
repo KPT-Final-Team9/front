@@ -1,9 +1,10 @@
 import { LocalIcon } from '@icon/index';
 import RoomBadge from '@Atoms/badge/RoomBadge';
 import RowBarComp from '@/app/(after-login)/dashboard/@MainRoomCompare/_components/RowBarComp';
+import { ChartDataItem } from '@/types/api';
 
-const chartData = [
-  { name: '임대', myRoom: 100, diff: 20 },
+const chartData: ChartDataItem[] = [
+  { name: '임대료', myRoom: 100, diff: 20 },
   { name: '재계약률', myRoom: 20, diff: 60 },
   { name: '공실률', myRoom: 80, diff: 20 },
 ];
