@@ -42,6 +42,7 @@ export default function ContractInfoClientComp() {
   const [currentDate, setCurrentDate] = useState<Date | undefined>(undefined);
   const [contractProgressValue, setContractProgressValue] = useState<number | undefined>(undefined);
 
+  // TODO: 이후 진행율 컴포넌트 확인 & API 명세 나오면 되돌리기
   useEffect(() => {
     setTimeout(() => {
       setRoomName(DUMMY_ROOM_NAME);
