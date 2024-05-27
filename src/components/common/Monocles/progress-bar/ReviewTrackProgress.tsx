@@ -1,7 +1,7 @@
 import React from 'react';
-import { Progress } from '@/components/ui/progress';
 import { LocalIcon } from '@icon/index';
 import { cn } from '@/lib/utils';
+import { ReverseProgress } from '@/components/ui/reverseProgress';
 
 type ProgressStep = {
   color: string;
@@ -33,7 +33,7 @@ export default function ReviewTrackProgress({
   const reviewTrackFontClass = cn('text-caption', trackFontClass);
   return (
     <>
-      <Progress
+      <ReverseProgress
         value={value}
         className="h-[13px]"
         indicatorColor="evaluation-gradient"
