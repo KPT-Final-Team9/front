@@ -10,14 +10,6 @@ const DUMMY_MONTHLY = 80;
 const DUMMY_START_DATE = '2023-05-07';
 const DUMMY_END_DATE = '2025-05-07';
 
-export function ContractBadge() {
-  return (
-    <div className="flex h-[19px] w-[60px] items-center justify-center rounded-full bg-white text-overline text-primary">
-      계약 기간
-    </div>
-  );
-}
-
 export function DummyChart({
   start,
   end,
@@ -76,7 +68,9 @@ export default function ContractInfoClientComp() {
         roomMonthly={roomMonthly}
       />
       <div>
-        <ContractBadge />
+        <div className="flex h-[19px] w-[60px] items-center justify-center rounded-full bg-white text-overline text-primary">
+          계약 기간
+        </div>
         <DummyChart
           start={contractStartDate}
           end={contractEndDate}
