@@ -15,6 +15,7 @@ interface ToggleSwitchProps {
   handleToggleChange: () => void;
 }
 
+// TODO: 토글버튼 상태값에 따른 기능은 API 나온 이후 연결하기
 export default function ToggleSwitch({ isActive, handleToggleChange }: ToggleSwitchProps) {
   return (
     <>
