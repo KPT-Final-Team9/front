@@ -30,6 +30,7 @@
     "@tanstack/react-query-devtools": "^5.37.1",
     "@tanstack/react-query-next-experimental": "^5.37.1",
     "axios": "^1.6.8",
+    "ci": "^2.3.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "cors": "^2.8.5",
