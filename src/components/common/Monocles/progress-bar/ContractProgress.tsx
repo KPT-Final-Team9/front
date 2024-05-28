@@ -2,7 +2,7 @@ import { Progress } from '@/components/ui/progress';
 import { DashLineIcon } from '@/asset/Icons/index';
 import { z } from 'zod';
 import { VariantProps, cva } from 'class-variance-authority';
-import { cn } from '@/lib/utils';
+import clsx from 'clsx';
 
 // NOTE: api완성전이라 텍스트 고정으로, 추후 기간 계산로직 추가
 
@@ -37,14 +37,13 @@ export function ContractProgress({
 }: ContractProgressProps) {
   const parsedValue = valueSchema.safeParse(value);
   const validValue = parsedValue.success ? parsedValue.data : 0;
-  const progressPeriodFont = cn('text-overline', periodFontClassName);
+  const progressPeriodFont = clsx('text-overline', periodFontClassName);
   return (
     <div className="mb-[30px] mr-5">
       <div className="mr-5 flex flex-row justify-between">
         <p className={progressPeriodFont}>{contractDate?.start}</p>
         <p className={progressPeriodFont}>{contractDate?.end}</p>
       </div>
-
       <div className="flex flex-row items-center justify-center">
         <div className="relative w-full">
           <Progress
@@ -58,12 +57,12 @@ export function ContractProgress({
             <div className="flex w-[32px] -translate-y-[10px] justify-start">
               <DashLineIcon className="h-5" />
             </div>
-            <p className={cn('-translate-x-1/2 -translate-y-2 whitespace-nowrap', progressPeriodFont)}>
+            <p className={clsx('-translate-x-1/2 -translate-y-2 whitespace-nowrap', progressPeriodFont)}>
               {contractDate?.current}
             </p>
           </div>
         </div>
-        <div className={cn(progressPercentageFont({ percentageFont }), percentageFontClassName)}>
+        <div className={clsx(progressPercentageFont({ percentageFont }), percentageFontClassName)}>
           <p>{value}%</p>
         </div>
       </div>
