@@ -39,7 +39,7 @@ export function ContractProgress({
   const validValue = parsedValue.success ? parsedValue.data : 0;
   const progressPeriodFont = clsx('text-overline', periodFontClassName);
   return (
-    <div className="mb-[30px] mr-5">
+    <div className="mb-[30px] mr-5 flex flex-col gap-1">
       <div className="mr-5 flex flex-row justify-between">
         <p className={progressPeriodFont}>{contractDate?.start}</p>
         <p className={progressPeriodFont}>{contractDate?.end}</p>
