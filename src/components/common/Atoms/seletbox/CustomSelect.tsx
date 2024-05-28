@@ -18,27 +18,29 @@ const selectVariants = cva(
   {
     variants: {
       size: {
-        building: 'w-[171px] h-7 desktop:w-[217px] desktop:h-10 text-body1',
-        quarter: 'w-[116px] h-[30px] rounded-mobile-stroke leading-6 text-body2',
+        addIconLarge: 'w-[171px] h-7 desktop:w-[217px] desktop:h-10 text-body1',
+        addIconShort: 'w-[150px] h-7 desktop:w-[158px] desktop:h-10 text-body1',
+        quarter: 'w-[123px] h-[30px] rounded-mobile-stroke leading-6 text-body2',
       },
     },
     defaultVariants: {
-      size: 'building',
+      size: 'addIconLarge',
     },
   },
 );
 
 const selectItemVariants = cva(
-  'relative flex h-8 w-full cursor-pointer select-none items-center rounded-desktop-stroke py-1.5 pl-10 pr-11 text-[17px] font-weight-600 text-text-primary outline-none focus:bg-gray-100 focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50 ',
+  'relative flex h-8 w-full cursor-pointer select-none items-center rounded-desktop-stroke py-1.5 pl-10 pr-11 text-body1 outline-none focus:bg-gray-100 focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50 ',
   {
     variants: {
       size: {
-        building: 'text-body1 desktop:h-10',
+        addIconLarge: 'text-body1 desktop:h-10',
+        addIconShort: 'text-body1 desktop:h-10',
         quarter: 'text-body2 pl-7',
       },
     },
     defaultVariants: {
-      size: 'building',
+      size: 'addIconLarge',
     },
   },
 );
@@ -47,7 +49,7 @@ const SelectTrigger = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Trigger>,
   React.ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger> & {
     isOpen?: boolean;
-    size: 'building' | 'quarter';
+    size: 'addIconLarge' | 'addIconShort' | 'quarter';
   }
 >(({ className, children, isOpen, size, ...props }, ref) => (
   <SelectPrimitive.Trigger
@@ -98,7 +100,7 @@ const SelectContent = React.forwardRef<
     <SelectPrimitive.Content
       ref={ref}
       className={cn(
-        'relative z-50 max-h-96 min-w-[10rem] overflow-hidden rounded-desktop-stroke border border-stroke bg-popover text-popover-foreground shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2',
+        'relative z-50 max-h-96 min-w-[10rem] overflow-hidden rounded-desktop-stroke border border-stroke bg-popover text-body1 text-popover-foreground shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2',
         position === 'popper' &&
           'data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1',
         className,
@@ -126,7 +128,7 @@ const SelectLabel = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <SelectPrimitive.Label
     ref={ref}
-    className={cn('py-1.5 pl-8 pr-2 text-sm font-semibold', className)}
+    className={cn('py-1.5 pl-8 pr-2 text-body1', className)}
     {...props}
   />
 ));
@@ -135,7 +137,7 @@ SelectLabel.displayName = SelectPrimitive.Label.displayName;
 const SelectItem = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Item>,
   React.ComponentPropsWithoutRef<typeof SelectPrimitive.Item> & {
-    size: 'building' | 'quarter';
+    size: 'addIconLarge' | 'addIconShort' | 'quarter';
   }
 >(({ className, size, children, ...props }, ref) => (
   <SelectPrimitive.Item

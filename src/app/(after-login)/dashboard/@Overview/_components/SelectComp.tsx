@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import { QuarterSelectbox } from '@Atoms/seletbox/QuarterSelectbox';
+import { Selectbox } from '@Atoms/seletbox/Selectbox';
 
 export default function SelectComp() {
   const SelectData = [
@@ -29,12 +29,16 @@ export default function SelectComp() {
       quarter: '4분기',
     },
   ];
-  const testFunc = () => {
-    console.log('hi');
-  };
+  // 셀렉트박스 onChange 함수
+  const testFunc = () => {};
+
   return (
-    <QuarterSelectbox
+    <Selectbox
       lists={SelectData}
+      optionKey={'quarter'}
+      icon={'CalendarIcon'}
+      size={'quarter'}
+      showIcon={false}
       onChange={testFunc}
     />
   );

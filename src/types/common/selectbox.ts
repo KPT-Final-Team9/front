@@ -1,11 +1,14 @@
-export interface dummyDataProps {
+import * as LocalIcons from '@/asset/Icons';
+export interface DummyDataProps {
+  [index: string]: any;
   id: number;
-  room: string;
-  buildingName: string;
-  quarter: string;
 }
 
 export interface BuildingSelectboxProps {
-  lists: dummyDataProps[];
+  lists: DummyDataProps[];
+  optionKey: string;
+  size: 'addIconLarge' | 'addIconShort' | 'quarter';
+  icon: 'BuildingIcon' | 'CalendarIcon' | 'RoomIcon';
+  showIcon: boolean;
   onChange: (selectedBuilding: string) => void;
 }
