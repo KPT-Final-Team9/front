@@ -1,3 +1,5 @@
+import RatingDetailDataTable from './_component/RatingDetailDataTable';
+
 export default function Page() {
   return (
     <section className="w-full">
@@ -11,7 +13,9 @@ export default function Page() {
         </div>
         <div className="flex-shrink-0 desktop:ml-12">검색어 입력</div>
       </div>
-      <div className="mb-10">데이터 테이블</div>
+      <div className="mb-10">
+        <RatingDetailDataTable />
+      </div>
       <div>페이지네이션</div>
     </section>
   );
