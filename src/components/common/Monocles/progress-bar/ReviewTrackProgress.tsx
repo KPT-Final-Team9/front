@@ -26,9 +26,11 @@ const ReviewTrackRank: { [key: string]: ProgressStep } = {
 export default function ReviewTrackProgress({
   value,
   trackFontClass,
+  legendClass,
 }: {
   value: number;
   trackFontClass?: 'desktop:text-body4' | 'desktop:text-caption';
+  legendClass?: string;
 }) {
   const reviewTrackFontClass = cn('text-caption', trackFontClass);
   return (
@@ -38,7 +40,7 @@ export default function ReviewTrackProgress({
         className="h-[13px]"
         indicatorColor="evaluation-gradient"
       />
-      <div className="mt-[12px] flex justify-center">
+      <div className={cn('mt-[12px] flex justify-center', legendClass)}>
         <div className="flex flex-row gap-3 self-center">
           {Object.keys(ReviewTrackRank).map((val, index) => {
             return (
