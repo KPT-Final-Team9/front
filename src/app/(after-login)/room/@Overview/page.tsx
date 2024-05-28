@@ -1,3 +1,12 @@
+import ContractInfoComp from '@/app/(after-login)/room/@Overview/_component/ContractInfoComp';
+import MyRoomScoreServerComp from '@/app/(after-login)/room/@Overview/_component/MyRoomScoreServerComp';
+
 export default function Page() {
-  return <>호실별 페이지 개요</>;
+  return (
+    <>
+      호실별 페이지 개요
+      <MyRoomScoreServerComp />
+      <ContractInfoComp />
+    </>
+  );
 }

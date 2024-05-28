@@ -29,7 +29,7 @@ const config = {
 
       fontSize: {
         h1: [
-          '48px',
+          '40px',
           {
             lineHeight: '48px',
             fontWeight: '700',
