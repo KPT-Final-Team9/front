@@ -1,5 +1,3 @@
-'use client';
-import { useState } from 'react';
 import { Switch } from '@/components/ui/switch';
 
 import { cva, VariantProps } from 'class-variance-authority';
