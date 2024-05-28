@@ -1,15 +1,24 @@
 'use client';
 import ToggleSwitch from '@Atoms/switch/ToggleSwitch';
 import ReviewTrackProgress from '@Monocles/progress-bar/ReviewTrackProgress';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+
+const MOCK_RATING_PROGRESS_VALUE = 85;
 
 export default function RatingManagementClientComp() {
   const [isRatingActive, setIsRatingActive] = useState<boolean>(true);
+  const [ratingProgressValue, setRatingPrgressValue] = useState<number | undefined>(undefined);
 
   const handleRatingActiveChange = () => {
     setIsRatingActive(prev => !prev);
     if (window) window.alert('호실 평가 변경됨');
   };
+
+  useEffect(() => {
+    setTimeout(() => {
+      setRatingPrgressValue(MOCK_RATING_PROGRESS_VALUE);
+    }, 100);
+  }, []);
 
   return (
     <div>
@@ -28,7 +37,7 @@ export default function RatingManagementClientComp() {
       <div className="flex flex-col">
         <p className="mb-2 text-body4">평가 진행률</p>
         <ReviewTrackProgress
-          value={40}
+          value={ratingProgressValue}
           trackFontClass="desktop:text-caption"
           legendClass="mt-2"
         />
