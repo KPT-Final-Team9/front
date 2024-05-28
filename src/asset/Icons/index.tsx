@@ -11,6 +11,7 @@ import DashLineIconComp from '@/asset/Icons/dash-line.svg';
 import ExclamationMarkComp from '@/asset/Icons/exclamation-mark.svg';
 import RoundStarIconComp from '@/asset/Icons/ic-star.svg';
 import RoundUnselectedStarIconComp from '@/asset/Icons/ic-start-unselected.svg';
+import ReviewTrackCircleIconComp from '@/asset/Icons/ic-reviewTrackCircle.svg';
 import CalendarIconComp from '@/asset/Icons/icon_calendar.svg';
 import RoomgIconComp from '@/asset/Icons/icon_room.svg';
 import RoomScoreBgComp from '@/asset/Icons/room-score-bg.svg';
@@ -78,6 +79,10 @@ export function CalendarIcon({ ...props }) {
 
 export function RoomIcon({ ...props }) {
   return <RoomgIconComp {...props} />;
+}
+
+export function ReviewTrackCircleIcon({ ...props }) {
+  return <ReviewTrackCircleIconComp {...props} />;
 }
 
 export function RoomScoreBg({ ...props }) {

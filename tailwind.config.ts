@@ -21,10 +21,12 @@ const config = {
       },
       screens: {
         desktop: '768px',
+        desktopMaxW: '1440px',
       },
       backgroundImage: {
         'evaluation-gradient': 'linear-gradient(90deg, #FFA3A3 0%, #FFCB96 35.5%, #FFE49D 65.5%, #77D276 99%',
       },
+
       fontSize: {
         h1: [
           '40px',
@@ -124,9 +126,9 @@ const config = {
         'primary-rent': '#2563eb',
         'primary-contract': '#67e8f9',
         'primary-empty': '#ffb775',
-        'progress bar-step1': '#ffa3a3',
-        'progress bar-step2': '#ffe49d',
-        'progress bar-step3': '#22c55d',
+        'progress-bar-step1': '#ffa3a3',
+        'progress-bar-step2': '#ffe49d',
+        'progress-bar-step3': '#22c55d',
         'primary-badge-new': '#dc2626',
         'green-50': '#F2FFF2',
         'green-300': '#CDF4CD',
