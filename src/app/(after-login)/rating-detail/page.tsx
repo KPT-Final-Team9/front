@@ -1,3 +1,9 @@
 export default function Page() {
-  return <>평가 상세 내용 페이지</>;
+  return (
+    <section>
+      <div className="mb-8">필터, 북마크 등</div>
+      <div className="mb-10">데이터 테이블</div>
+      <div>페이지네이션</div>
+    </section>
+  );
 }
