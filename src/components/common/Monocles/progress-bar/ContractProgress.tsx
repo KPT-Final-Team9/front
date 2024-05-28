@@ -26,6 +26,7 @@ export interface ContractProgressProps extends VariantProps<typeof progressPerce
     end: string;
     current: string;
   };
+  indicatorColor?: 'bg-blue-500' | 'evaluation-gradient';
 }
 
 export function ContractProgress({
@@ -34,6 +35,7 @@ export function ContractProgress({
   percentageFontClassName,
   periodFontClassName,
   contractDate,
+  indicatorColor = 'bg-blue-500', // default bg-blue-500
 }: ContractProgressProps) {
   const parsedValue = valueSchema.safeParse(value);
   const validValue = parsedValue.success ? parsedValue.data : 0;
@@ -48,7 +50,7 @@ export function ContractProgress({
         <div className="relative w-full">
           <Progress
             className="h-[13px]"
-            indicatorColor="bg-blue-500"
+            indicatorColor={indicatorColor}
             value={validValue}
           />
           <div
