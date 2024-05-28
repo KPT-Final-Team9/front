@@ -1,37 +1,14 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import dayjs from 'dayjs';
-import { calculateDateProgress } from '@/utils';
+import { calculateDateProgress, formatDateToYYYY_MM_DD } from '@/utils';
 import ContractRentInfo from './ContractRentInfo';
+import { ContractProgress } from '@Monocles/progress-bar/ContractProgress';
 
 const DUMMY_ROOM_NAME = '미왕빌딩 A동 201호';
 const DUMMY_DEPOSIT = 1000;
 const DUMMY_MONTHLY = 80;
 const DUMMY_START_DATE = '2023-05-07';
 const DUMMY_END_DATE = '2025-05-07';
-
-export function DummyChart({
-  start,
-  end,
-  current,
-  value,
-}: {
-  start: Date | undefined;
-  end: Date | undefined;
-  current: Date | undefined;
-  value: number | undefined;
-}) {
-  return (
-    <div className="flex flex-col">
-      <div className="flex">
-        <span>{start ? dayjs(start).format('YYYY.MM.DD') : '-'}</span>
-        <span>{end ? dayjs(end).format('YYYY.MM.DD') : '-'}</span>
-      </div>
-      <span>{value ? value : '-'}%</span>
-      <span>{current ? dayjs(current).format('YYYY.MM.DD') : '-'}</span>
-    </div>
-  );
-}
 
 export default function ContractInfoClientComp() {
   const [roomName, setRoomName] = useState<string | undefined>(undefined);
@@ -68,15 +45,21 @@ export default function ContractInfoClientComp() {
         roomDeposit={roomDeposit}
         roomMonthly={roomMonthly}
       />
-      <div>
+      <div className="flex flex-col gap-2">
         <div className="flex h-[19px] w-[60px] items-center justify-center rounded-full bg-white text-overline text-primary">
           계약 기간
         </div>
-        <DummyChart
-          start={contractStartDate}
-          end={contractEndDate}
-          current={currentDate}
+        <ContractProgress
           value={contractProgressValue}
+          percentageFont={'body1'}
+          percentageFontClassName="text-white"
+          periodFontClassName="text-gray-200"
+          contractDate={{
+            start: formatDateToYYYY_MM_DD(contractStartDate),
+            end: formatDateToYYYY_MM_DD(contractEndDate),
+            current: formatDateToYYYY_MM_DD(currentDate),
+          }}
+          indicatorColor="evaluation-gradient"
         />
       </div>
     </>
