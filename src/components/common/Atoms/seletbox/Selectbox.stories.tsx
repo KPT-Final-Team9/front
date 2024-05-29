@@ -68,7 +68,7 @@ export const Select: Story = {
     lists: data,
     optionKey: 'month',
     icon: 'CalendarIcon',
-    size: 'quarter',
+    size: 'addIconShort',
     showIcon: true,
     onChange: testFunc,
   },
