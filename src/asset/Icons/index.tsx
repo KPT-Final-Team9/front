@@ -15,6 +15,7 @@ import ReviewTrackCircleIconComp from '@/asset/Icons/ic-reviewTrackCircle.svg';
 import CalendarIconComp from '@/asset/Icons/icon_calendar.svg';
 import RoomIconComp from '@/asset/Icons/icon_room.svg';
 import RoomScoreBgComp from '@/asset/Icons/room-score-bg.svg';
+import BookmarkIconComp from '@/asset/Icons/icon_bookmark.svg';
 
 export function XIcon({ ...props }) {
   return <XIconComp {...props} />;
@@ -87,4 +88,8 @@ export function ReviewTrackCircleIcon({ ...props }) {
 
 export function RoomScoreBg({ ...props }) {
   return <RoomScoreBgComp {...props} />;
+}
+
+export function BookmarkIcon({ ...props }) {
+  return <BookmarkIconComp {...props} />;
 }
