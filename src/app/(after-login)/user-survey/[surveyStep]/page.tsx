@@ -1,3 +1,7 @@
-export default function Page() {
-  return '평가세부';
+export default function Page({ params }: { params: { surveyStep: string } }) {
+  return (
+    <>
+      <div className="px-4">{params.surveyStep}</div>
+    </>
+  );
 }
