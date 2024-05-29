@@ -1,7 +1,5 @@
 'use client';
-
-import { useState } from 'react';
-
+import { useEffect, useRef, useState } from 'react';
 import {
   Select,
   SelectContent,
@@ -11,34 +9,43 @@ import {
   SelectValue,
 } from '@Atoms/seletbox/CustomSelect';
 import { LocalIcon } from '@icon/index';
-import { BuildingSelectboxProps } from '@/types/common/selectbox';
-import sortedLists from '@/lib/sortedLists';
+import { BuildingSelectboxProps, DummyDataProps } from '@/types/common/selectbox';
 
 export function Selectbox({ lists, optionKey, size, icon, showIcon, onChange }: BuildingSelectboxProps) {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-
-  const getSelectBoxOptions = lists.map(item => ({ id: item.id, [optionKey]: item[optionKey] }));
-
-  // FIXME: API 형식에 따라 함수 수정 필요
-  const sortedData = sortedLists(getSelectBoxOptions, optionKey);
-
+  const [buildingList, setBuildingList] = useState<DummyDataProps[] | undefined>(undefined);
+  const [currentOption, setCurrentOption] = useState('');
   const isShowIcon = showIcon ? '' : 'hidden';
 
-  // FIXME: optionKey를 바꾸면 브라우저에서 렌더링될 때 trigger에서 변경된 defaultValue가 바로 반영안되고 빈값으로 렌더링되는 이슈(SelectContent는 제대로 반영됨)
+  // 문자열 정렬
+  useEffect(() => {
+    const sortList = lists.slice().sort((a, b) => a[optionKey]?.localeCompare(b[optionKey]));
+    setBuildingList(sortList);
+  }, [lists]);
+
+  // default value 설정
+  useEffect(() => {
+    if (buildingList?.length) {
+      setCurrentOption(`{"title": "${buildingList[0][optionKey].toString()}", "id": "${buildingList[0].id}"}`);
+    }
+  }, [buildingList]);
+
   return (
     <Select
-      defaultValue={sortedData[0][optionKey] as string}
-      onOpenChange={setIsOpen}
-      onValueChange={onChange}>
-      <SelectTrigger
-        isOpen={isOpen}
-        size={`${size}`}>
+      value={currentOption}
+      defaultValue="-"
+      onValueChange={value => {
+        console.log(JSON.parse(value));
+        console.log(value);
+        setCurrentOption(value);
+        onChange(JSON.parse(value));
+      }}>
+      <SelectTrigger size={size}>
         <div className="flex items-center gap-3 truncate">
           <div className={`${isShowIcon}`}>
             <LocalIcon
               width={20}
               height={20}
-              name={`${icon}`}
+              name={icon}
               className="fill-text-primary desktop:h-[24px] desktop:w-[24px]"
             />
           </div>
@@ -49,10 +56,10 @@ export function Selectbox({ lists, optionKey, size, icon, showIcon, onChange }: 
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
-          {sortedData.map(item => (
+          {buildingList?.map(item => (
             <SelectItem
               key={item.id}
-              value={item[optionKey] as string}
+              value={`{"title": "${item[optionKey].toString()}", "id": "${item.id}"}`}
               size={`${size}`}>
               {item[optionKey]}
             </SelectItem>
