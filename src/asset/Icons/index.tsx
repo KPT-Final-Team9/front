@@ -17,6 +17,7 @@ import RoomIconComp from '@/asset/Icons/icon_room.svg';
 import RoomScoreBgComp from '@/asset/Icons/room-score-bg.svg';
 import OfficenerMainLogoComp from '@/asset/Icons/officener-main-logo.svg';
 import UserIconComp from '@/asset/Icons/ic-user.svg';
+import SurveyIconComp from '@/asset/Icons/icon_survey.svg';
 
 export function XIcon({ ...props }) {
   return <XIconComp {...props} />;
@@ -97,4 +98,8 @@ export function OfficenerMainLogo({ ...props }) {
 
 export function UserIcon({ ...props }) {
   return <UserIconComp {...props} />;
+}
+
+export function SurveyIcon({ ...props }) {
+  return <SurveyIconComp {...props} />;
 }
