@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   Select,
   SelectContent,
@@ -11,10 +11,20 @@ import {
 import { LocalIcon } from '@icon/index';
 import { BuildingSelectboxProps, DummyDataProps } from '@/types/common/selectbox';
 
+/**
+ * @param {string} lists: [{
+ *  optionKey: string
+ *  id: number
+ * }]
+ * 형식의 배열을 받아 셀렉트박스 반환.
+ * @param {string} onChange: 현재 선택되어있는 옵션 {optionKey: string, id: number} 형식으로 반환.
+ * @returns {*}
+ */
 export function Selectbox({ lists, optionKey, size, icon, showIcon, onChange }: BuildingSelectboxProps) {
   const [buildingList, setBuildingList] = useState<DummyDataProps[] | undefined>(undefined);
   const [currentOption, setCurrentOption] = useState('');
   const isShowIcon = showIcon ? '' : 'hidden';
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   // 문자열 정렬
   useEffect(() => {
@@ -33,15 +43,16 @@ export function Selectbox({ lists, optionKey, size, icon, showIcon, onChange }: 
     <Select
       value={currentOption}
       defaultValue="-"
+      onOpenChange={setIsOpen}
       onValueChange={value => {
-        console.log(JSON.parse(value));
-        console.log(value);
         setCurrentOption(value);
         onChange(JSON.parse(value));
       }}>
-      <SelectTrigger size={size}>
+      <SelectTrigger
+        size={size}
+        isOpen={isOpen}>
         <div className="flex items-center gap-3 truncate">
-          <div className={`${isShowIcon}`}>
+          <div className={isShowIcon}>
             <LocalIcon
               width={20}
               height={20}
@@ -60,7 +71,7 @@ export function Selectbox({ lists, optionKey, size, icon, showIcon, onChange }: 
             <SelectItem
               key={item.id}
               value={`{"title": "${item[optionKey].toString()}", "id": "${item.id}"}`}
-              size={`${size}`}>
+              size={size}>
               {item[optionKey]}
             </SelectItem>
           ))}

@@ -94,7 +94,7 @@ function NavListComp() {
   );
 }
 
-// 컴포넌트 렌더링 최적화를 위해 분리
+// 렌더링 최적화를 위해 분리
 function SelectBoxComp() {
   const [selectBuilding, setSelectBuilding] = useState([{ buildingName: '-', id: 1 }]);
   // TODO: 선택된 빌딩 전역 상태로 추가하기
