@@ -28,3 +28,17 @@ export const Primary: Story = {
     ),
   ],
 };
+
+export const indicatorColorGradient: Story = {
+  args: {
+    value: 30,
+    indicatorColor: 'evaluation-gradient',
+  },
+  decorators: [
+    Story => (
+      <div className="w-[591px]">
+        <Story></Story>
+      </div>
+    ),
+  ],
+};
