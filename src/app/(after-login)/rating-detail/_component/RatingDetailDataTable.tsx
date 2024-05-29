@@ -16,6 +16,7 @@ import {
 
 import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { formatDateToYYYY_MM_DD } from '@/utils';
 
 enum RatingCategory {
   FACILITY = '시설 평가',
@@ -141,41 +142,51 @@ export type RatingDetail = {
   ratingDate: Date;
 };
 
+enum RatingDetailTableAccessorKey {
+  CATEGORY = 'category',
+  SCORE = 'score',
+  CONTENT = 'content',
+  BUILDING = 'building',
+  ROOM = 'room',
+  IS_BOOKMARK = 'isBookmark',
+  RATING_DATE = 'ratingDate',
+}
+
 export const columns: ColumnDef<RatingDetail, unknown>[] = [
   {
-    accessorKey: 'category',
+    accessorKey: RatingDetailTableAccessorKey.CATEGORY,
     header: '유형',
-    cell: ({ row }) => <div>{row.getValue('category')}</div>,
+    cell: ({ row }) => <div>{row.getValue(RatingDetailTableAccessorKey.CATEGORY)}</div>,
   },
   {
-    accessorKey: 'score',
+    accessorKey: RatingDetailTableAccessorKey.SCORE,
     header: '점수',
-    cell: ({ row }) => <div>{row.getValue('score')}점</div>,
+    cell: ({ row }) => <div>{row.getValue(RatingDetailTableAccessorKey.SCORE)}점</div>,
   },
   {
-    accessorKey: 'content',
+    accessorKey: RatingDetailTableAccessorKey.CONTENT,
     header: '평가 내용',
-    cell: ({ row }) => <div>{row.getValue('content')}</div>,
+    cell: ({ row }) => <div>{row.getValue(RatingDetailTableAccessorKey.CONTENT)}</div>,
   },
   {
-    accessorKey: 'building',
+    accessorKey: RatingDetailTableAccessorKey.BUILDING,
     header: '건물',
-    cell: ({ row }) => <div>{row.getValue('building')}</div>,
+    cell: ({ row }) => <div>{row.getValue(RatingDetailTableAccessorKey.BUILDING)}</div>,
   },
   {
-    accessorKey: 'room',
+    accessorKey: RatingDetailTableAccessorKey.ROOM,
     header: '호실',
-    cell: ({ row }) => <div>{row.getValue('room')}</div>,
+    cell: ({ row }) => <div>{row.getValue(RatingDetailTableAccessorKey.ROOM)}</div>,
   },
   {
-    accessorKey: 'isBookmark',
+    accessorKey: RatingDetailTableAccessorKey.IS_BOOKMARK,
     header: '북마크',
-    cell: ({ row }) => <div>{row.getValue('isBookmark')}</div>,
+    cell: ({ row }) => <div>{row.getValue(RatingDetailTableAccessorKey.IS_BOOKMARK) ? 'yes' : 'no'}</div>,
   },
   {
-    accessorKey: 'ratingDate',
+    accessorKey: RatingDetailTableAccessorKey.RATING_DATE,
     header: '평가 날짜',
-    cell: ({ row }) => <div>날짜</div>,
+    cell: ({ row }) => <div>{formatDateToYYYY_MM_DD(row.getValue(RatingDetailTableAccessorKey.RATING_DATE))}</div>,
   },
 ];
 
@@ -206,14 +217,16 @@ export default function RatingDetailDataTable() {
 
   return (
     <div className="w-full">
-      <div className="rounded-md border">
+      <div className="rounded-container border bg-white">
         <Table>
-          <TableHeader>
+          <TableHeader className="text-text-secondary">
             {table.getHeaderGroups().map(headerGroup => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map(header => {
                   return (
-                    <TableHead key={header.id}>
+                    <TableHead
+                      key={header.id}
+                      className="text-body3 desktop:text-h4">
                       {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
                     </TableHead>
                   );
@@ -225,10 +238,15 @@ export default function RatingDetailDataTable() {
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map(row => (
                 <TableRow
+                  className="text-text-primary"
                   key={row.id}
                   data-state={row.getIsSelected() && 'selected'}>
                   {row.getVisibleCells().map(cell => (
-                    <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
+                    <TableCell
+                      className={cell.column.id === RatingDetailTableAccessorKey.SCORE ? 'text-body1' : 'text-body2'}
+                      key={cell.id}>
+                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                    </TableCell>
                   ))}
                 </TableRow>
               ))
@@ -237,7 +255,7 @@ export default function RatingDetailDataTable() {
                 <TableCell
                   colSpan={columns.length}
                   className="h-24 text-center">
-                  No results.
+                  조회된 평가 내용이 없습니다.
                 </TableCell>
               </TableRow>
             )}
