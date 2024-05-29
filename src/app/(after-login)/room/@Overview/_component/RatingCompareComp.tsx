@@ -165,6 +165,7 @@ const TitleComp = ({ title, roomData }: { title: string; roomData: any }) => {
   const validRoomData = result.success ? result.data : undefined;
   const isRent = title === '임대료';
 
+  //NOTE: 이후 지표가 많아지면 switch case로 개선해야할듯
   const displayRate = validRoomData?.myRoom?.rate
     ? isRent
       ? `${validRoomData.myRoom.deposit}/${validRoomData.myRoom.rate} 만 원`
@@ -172,7 +173,7 @@ const TitleComp = ({ title, roomData }: { title: string; roomData: any }) => {
     : '-';
   return (
     <>
-      <p className="text-body1">{title}</p>
+      <p className="mt-2 text-body1">{title}</p>
       <p className="text-body1">{displayRate}</p>
     </>
   );
