@@ -1,3 +1,9 @@
+import RatingManagementServerComp from './_component/RatingManagementServerComp';
+
 export default function Page() {
-  return <>내호실 평가 관리</>;
+  return (
+    <>
+      <RatingManagementServerComp />
+    </>
+  );
 }

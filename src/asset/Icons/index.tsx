@@ -19,6 +19,8 @@ import BookmarkIconComp from '@/asset/Icons/icon_bookmark.svg';
 import FilterIconComp from '@/asset/Icons/icon_filter.svg';
 import SearchIconComp from '@/asset/Icons/icon_search.svg';
 import TotalIconComp from '@/asset/Icons/icon_total.svg';
+import OfficenerMainLogoComp from '@/asset/Icons/officener-main-logo.svg';
+import UserIconComp from '@/asset/Icons/ic-user.svg';
 
 export function XIcon({ ...props }) {
   return <XIconComp {...props} />;
@@ -107,4 +109,12 @@ export function SearchIcon({ ...props }) {
 
 export function TotalIcon({ ...props }) {
   return <TotalIconComp {...props} />;
+}
+
+export function OfficenerMainLogo({ ...props }) {
+  return <OfficenerMainLogoComp {...props} />;
+}
+
+export function UserIcon({ ...props }) {
+  return <UserIconComp {...props} />;
 }
