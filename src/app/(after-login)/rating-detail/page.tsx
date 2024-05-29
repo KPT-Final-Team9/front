@@ -16,7 +16,6 @@ export default function Page() {
       <div className="mb-10">
         <RatingDetailDataTable />
       </div>
-      <div>페이지네이션</div>
     </section>
   );
 }

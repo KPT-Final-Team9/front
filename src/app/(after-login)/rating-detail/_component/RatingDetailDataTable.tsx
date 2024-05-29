@@ -321,7 +321,7 @@ export default function RatingDetailDataTable() {
     <div className="w-full">
       <div className="rounded-container border bg-white">
         <Table>
-          <TableHeader className="text-text-secondary">
+          <TableHeader className="h-10 text-text-secondary desktop:h-12">
             {table.getHeaderGroups().map(headerGroup => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map(header => {
@@ -340,7 +340,7 @@ export default function RatingDetailDataTable() {
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map(row => (
                 <TableRow
-                  className="text-text-primary"
+                  className="h-12 text-text-primary desktop:h-16"
                   key={row.id}
                   data-state={row.getIsSelected() && 'selected'}>
                   {row.getVisibleCells().map(cell => (
