@@ -1,3 +1,3 @@
 export default function Page() {
-  return '평가 페이지';
+  return '평가세부';
 }
