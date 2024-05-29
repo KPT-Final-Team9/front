@@ -13,10 +13,20 @@ import {
   getSortedRowModel,
   useReactTable,
 } from '@tanstack/react-table';
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from '@/components/ui/pagination';
 
-import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { formatDateToYYYY_MM_DD } from '@/utils';
+import { BookmarkIcon } from '@/asset/Icons';
+import { Book } from 'lucide-react';
 
 enum RatingCategory {
   FACILITY = '시설 평가',
@@ -282,8 +292,13 @@ export const columns: ColumnDef<RatingDetail, unknown>[] = [
   },
   {
     accessorKey: RatingDetailTableAccessorKey.IS_BOOKMARK,
-    header: '북마크',
-    cell: ({ row }) => <div>{row.getValue(RatingDetailTableAccessorKey.IS_BOOKMARK) ? 'yes' : 'no'}</div>,
+    header: () => <BookmarkIcon />,
+    cell: ({ row }) => (
+      <BookmarkIcon
+        className="cursor-pointer hover:fill-text-primary active:scale-95"
+        fill={row.getValue(RatingDetailTableAccessorKey.IS_BOOKMARK) ? 'text-text-primary' : 'none'}
+      />
+    ),
   },
   {
     accessorKey: RatingDetailTableAccessorKey.RATING_DATE,
@@ -321,7 +336,7 @@ export default function RatingDetailDataTable() {
     <div className="w-full">
       <div className="rounded-container border bg-white">
         <Table>
-          <TableHeader className="h-10 text-text-secondary desktop:h-12">
+          <TableHeader className="h-10 text-text-secondary desktop:h-16">
             {table.getHeaderGroups().map(headerGroup => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map(header => {
@@ -364,26 +379,24 @@ export default function RatingDetailDataTable() {
           </TableBody>
         </Table>
       </div>
-      <div className="flex items-center justify-end space-x-2 py-4">
-        <div className="flex-1 text-sm text-muted-foreground">
-          {table.getFilteredSelectedRowModel().rows.length} of {table.getFilteredRowModel().rows.length} row(s)
-          selected.
-        </div>
+      <div className="flex items-center justify-center space-x-2 py-4">
         <div className="space-x-2">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => table.previousPage()}
-            disabled={!table.getCanPreviousPage()}>
-            Previous
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => table.nextPage()}
-            disabled={!table.getCanNextPage()}>
-            Next
-          </Button>
+          <Pagination>
+            <PaginationContent>
+              <PaginationItem>
+                <PaginationPrevious href="#" />
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationLink href="#">1</PaginationLink>
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationEllipsis />
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationNext href="#" />
+              </PaginationItem>
+            </PaginationContent>
+          </Pagination>
         </div>
       </div>
     </div>
