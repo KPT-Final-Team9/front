@@ -28,7 +28,7 @@ export const Popover: StoryObj<typeof PopoverComp> = {
         }
         label="Trigger"
       />
-      <PopoverContent>Popover Content 테스트</PopoverContent>
+      <PopoverContent headerSlot={<div>header test</div>}>Popover Content 테스트</PopoverContent>
     </PopoverComp>
   ),
 };
