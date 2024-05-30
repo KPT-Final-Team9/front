@@ -35,7 +35,7 @@ export default function RoomSurvey() {
               </div>
               <div className="flex flex-col gap-1">
                 <span className="text-h4">{item.btnTitle}</span>
-                <span className="text-body4">{item.btnDescription}</span>
+                <span className="text-body4 text-text-secondary">{item.btnDescription}</span>
               </div>
             </Link>
           ))}
