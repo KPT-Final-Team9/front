@@ -75,6 +75,7 @@
     "autoprefixer": "^10.4.19",
     "chromatic": "^11.3.2",
     "daisyui": "^4.10.4",
+    "esbuild": "^0.21.4",
     "eslint": "^8",
     "eslint-config-next": "14.2.3",
     "eslint-config-prettier": "^9.1.0",
