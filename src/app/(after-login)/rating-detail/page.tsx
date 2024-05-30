@@ -1,6 +1,7 @@
 import RatingDetailDataTable from '@/app/(after-login)/rating-detail/_component/RatingDetailDataTable';
 import BookmarkButtons from '@/app/(after-login)/rating-detail/_component/BookmarkButtons';
 import RatingDeatilSearchInput from '@/app/(after-login)/rating-detail//_component/RatingDeatilSearchInput';
+import RatingDetailFilter from './_component/RatingDetailFilter';
 
 export default function Page() {
   return (
@@ -8,7 +9,9 @@ export default function Page() {
       <div className="flex flex-grow flex-col-reverse justify-between gap-4 desktop:flex-row">
         <div className="mb-8 flex w-full justify-between">
           <BookmarkButtons />
-          <div className="desktop:display-block display-hidden">옵션 선택</div>
+          <div className="desktop:display-block display-hidden">
+            <RatingDetailFilter />
+          </div>
         </div>
         <div className="flex-shrink-0 desktop:ml-8">
           <RatingDeatilSearchInput />
