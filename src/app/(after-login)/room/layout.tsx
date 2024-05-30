@@ -12,7 +12,7 @@ export default function Layout({
   RatingTrend: React.ReactNode;
 }) {
   return (
-    <main className="flex flex-col gap-8 p-5">
+    <main className="flex flex-col gap-8 ">
       <section className="bg-background">{Overview}</section>
       <section className="flex gap-3">
         <div className="bg-background">{RatingManagement}</div>

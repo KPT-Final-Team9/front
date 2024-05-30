@@ -28,50 +28,48 @@ export default function SingleCategoryVerticalBarChart({
   const varChartId = useId();
   const filteredChartData = chartData.length ? Object.keys(chartData[0]).filter(key => key !== categoryKey) : [];
   return (
-    <div className="h-[150px] w-[394px]">
-      <ResponsiveContainer
-        width="100%"
-        height="100%">
-        <BarChart
-          margin={{ top: 60, right: 0, bottom: 0, left: 0 }}
-          data={chartData}
-          layout="horizontal"
-          barGap={13}>
-          <XAxis
-            type="category"
-            dataKey={categoryKey}
-            hide
-          />
-          <YAxis
-            type="number"
-            domain={[0, 100]}
-            hide
-          />
-          {filteredChartData.map((val, index) => {
-            const barColor = (index + 1) % 2 !== 0 ? accentColor : '#e5e7eb';
-            return (
-              <Bar
-                key={`${varChartId}-${index}`}
-                dataKey={val}
-                fill={barColor}
-                radius={[4, 4, 4, 4]}
-                barSize={34}>
-                {(index + 1) % 2 !== 0 ? (
-                  <LabelList
-                    dataKey={val}
-                    content={props => (
-                      <CustomLabel
-                        fill={barColor}
-                        {...props}
-                      />
-                    )}
-                  />
-                ) : null}
-              </Bar>
-            );
-          })}
-        </BarChart>
-      </ResponsiveContainer>
-    </div>
+    <ResponsiveContainer
+      width="100%"
+      height="100%">
+      <BarChart
+        margin={{ top: 60, right: 0, bottom: 0, left: 0 }}
+        data={chartData}
+        layout="horizontal"
+        barGap={13}>
+        <XAxis
+          type="category"
+          dataKey={categoryKey}
+          hide
+        />
+        <YAxis
+          type="number"
+          domain={[0, 100]}
+          hide
+        />
+        {filteredChartData.map((val, index) => {
+          const barColor = (index + 1) % 2 !== 0 ? accentColor : '#e5e7eb';
+          return (
+            <Bar
+              key={`${varChartId}-${index}`}
+              dataKey={val}
+              fill={barColor}
+              radius={[4, 4, 4, 4]}
+              barSize={34}>
+              {(index + 1) % 2 !== 0 ? (
+                <LabelList
+                  dataKey={val}
+                  content={props => (
+                    <CustomLabel
+                      fill={barColor}
+                      {...props}
+                    />
+                  )}
+                />
+              ) : null}
+            </Bar>
+          );
+        })}
+      </BarChart>
+    </ResponsiveContainer>
   );
 }

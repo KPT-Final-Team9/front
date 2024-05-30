@@ -28,14 +28,14 @@ export default function SingleCategoryVerticalBarChart({
   categoryKey: string;
 }) {
   const varChartId = useId();
-  const filteredChartData = chartData.length ? Object.keys(chartData[0]).filter(key => key !== categoryKey) : [];
+  const filteredChartData = chartData?.length ? Object.keys(chartData[0]).filter(key => key !== categoryKey) : [];
   return (
-    <div className="h-[150px] w-[394px]">
+    <div className="h-full w-full">
       <ResponsiveContainer
         width="100%"
         height="100%">
         <BarChart
-          margin={{ top: 60, right: 0, bottom: 0, left: 0 }}
+          margin={{ top: 60, right: 5, bottom: 0, left: 5 }}
           data={chartData}
           layout="horizontal"
           barGap={13}>
@@ -50,7 +50,6 @@ export default function SingleCategoryVerticalBarChart({
             hide
           />
           {filteredChartData.map((val, index) => {
-            console.log(val);
             const barColor = (index + 1) % 2 !== 0 ? accentColor : '#e5e7eb';
             return (
               <Bar
