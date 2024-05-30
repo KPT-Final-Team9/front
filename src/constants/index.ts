@@ -37,3 +37,41 @@ export const ROOM_SCORE_EMOJI: RoomScoreEmoji = {
     alt: 'Unamused Face',
   },
 };
+
+// 버튼 마크업 반복을 피하기 위해 상수로 분리한 데이터.
+// FIXME: 사용하는 컴포넌트에서 타입 적용이 해결안되어 해당 파일에 같이 선언해둠
+export const SURVEY_BUTTON_DATA: surveyButtonDataType[] = [
+  {
+    id: 1,
+    imgName: 'ServeyBtnIcon1',
+    btnTitle: '관리 평가',
+    btnDescription: '호실 관리에 대한 나의 평가를 등록해 주세요',
+    path: '',
+    isCompleted: false,
+  },
+  {
+    id: 2,
+    imgName: 'ServeyBtnIcon2',
+    btnTitle: '시설 평가',
+    btnDescription: '우리 시설에 대한 나의 점수를 등록해 주세요',
+    path: '',
+    isCompleted: false,
+  },
+  {
+    id: 3,
+    imgName: 'ServeyBtnIcon3',
+    btnTitle: '민원 평가',
+    btnDescription: '민원 처리에 대한 나의 만족도를 알려주세요',
+    path: '',
+    isCompleted: false,
+  },
+];
+
+interface surveyButtonDataType {
+  id: number;
+  imgName: 'ServeyBtnIcon1' | 'ServeyBtnIcon2' | 'ServeyBtnIcon3';
+  btnTitle: string;
+  btnDescription: string;
+  path: string;
+  isCompleted: boolean;
+}
