@@ -16,7 +16,7 @@ export default function SwitchButton({
         'flex gap-2 rounded-mobile-stroke border px-[10px] py-1 text-body1 text-text-primary active:scale-[.97] desktop:rounded-desktop-stroke desktop:py-2',
         { ['border-primary']: isActive, ['bg-blue-50']: isActive },
       )}>
-      <div>{icon}</div>
+      {icon}
       <div>{label}</div>
     </Button>
   );
