@@ -12,4 +12,9 @@ const meta: Meta = {
 
 export default meta;
 
-export const SearchInput: StoryObj<typeof SearchInputComp> = {};
+export const SearchInput: StoryObj<typeof SearchInputComp> = {
+  args: {
+    placeholder: 'placeholder custom test',
+  },
+  render: ({ ...args }) => <SearchInputComp {...args} />,
+};
