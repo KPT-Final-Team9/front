@@ -7,7 +7,7 @@ export default function Page() {
     <>
       호실별 페이지 개요
       <section className="flex flex-col rounded-container bg-white desktop:flex-row">
-        <div className="flex flex-col gap-2 rounded-bl-container rounded-tl-container bg-white">
+        <div className="flex flex-col gap-2 rounded-container bg-white">
           <ContractInfoServerComp />
           <MyRoomScoreServerComp />
         </div>
