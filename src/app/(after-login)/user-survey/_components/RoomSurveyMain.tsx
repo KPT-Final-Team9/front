@@ -9,8 +9,8 @@ export default function RoomSurvey() {
   );
 
   return (
-    <div className="h-screen bg-background">
-      <div className="mt-5 flex flex-col items-center bg-white px-4 pb-[34px]">
+    <div className="bg-background">
+      <div className="flex flex-col items-center bg-white px-4 pb-[34px] pt-5">
         <LocalIcon
           name={'SurveyRoom'}
           width={124}
