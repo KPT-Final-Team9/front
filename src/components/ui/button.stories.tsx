@@ -9,7 +9,16 @@ const meta = {
     layout: 'centered',
   },
   tags: ['autodocs'],
-  argTypes: {},
+  argTypes: {
+    variant: {
+      control: 'select',
+      options: ['default', 'destructive', 'ghost', 'link', 'none', 'icon', 'outline', 'primary', 'secondary'],
+    },
+    size: {
+      control: 'select',
+      options: ['default', 'sm', 'lg', 'icon'],
+    },
+  },
   args: { onClick: fn() },
 } satisfies Meta<typeof Button>;
 
@@ -19,7 +28,7 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     className: 'text-[17px] font-semibold',
-
+    variant: 'default',
     size: 'sm',
     colors: 'mono',
     children: '로그아웃',
