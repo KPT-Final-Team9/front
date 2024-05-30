@@ -18,7 +18,7 @@ export default function RatingDetailFilter() {
           />
         }
       />
-      <PopoverContent></PopoverContent>
+      <PopoverContent align="start"></PopoverContent>
     </Popover>
   );
 }
