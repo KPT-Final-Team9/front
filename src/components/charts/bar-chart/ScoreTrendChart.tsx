@@ -49,7 +49,7 @@ export default function ScoreTrendChart({
           dataKey={otherRoomKey}
           barSize={10}
           xAxisId={1}
-          fill="#ccc"
+          fill="#f3f4f6"
         />
         <Bar
           dataKey={myRoomKey}

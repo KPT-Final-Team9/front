@@ -13,12 +13,12 @@ export default function Layout({
 }) {
   return (
     <main className="flex flex-col gap-8 ">
-      <section className="bg-background">{Overview}</section>
+      <section>{Overview}</section>
       <section className="flex gap-3">
-        <div className="bg-background">{RatingManagement}</div>
-        <div className="bg-background">{CategoryRating}</div>
+        {RatingManagement}
+        {CategoryRating}
       </section>
-      <section className="bg-background">{RatingTrend}</section>
+      <section>{RatingTrend}</section>
     </main>
   );
 }
