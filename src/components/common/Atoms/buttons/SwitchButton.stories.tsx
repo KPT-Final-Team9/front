@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react';
 import SwitchButtonComp from '@/components/common/Atoms/buttons/SwitchButton';
-import { TotalIcon } from '@/asset/Icons';
+import { LocalIcon } from '@icon/index';
 
 const meta: Meta = {
   title: 'Atoms/Button/SwitchButton',
@@ -14,7 +14,7 @@ export default meta;
 
 export const SwitchButton: StoryObj<typeof SwitchButtonComp> = {
   args: {
-    icon: <TotalIcon />,
+    icon: <LocalIcon name="TotalIcon" />,
     label: '버튼 테스트',
     isActive: false,
     onClick: () => {
