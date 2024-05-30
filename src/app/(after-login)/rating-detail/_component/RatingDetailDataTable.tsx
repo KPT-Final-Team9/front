@@ -26,7 +26,6 @@ import {
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { formatDateToYYYY_MM_DD } from '@/utils';
 import { BookmarkIcon } from '@/asset/Icons';
-import { Book } from 'lucide-react';
 
 enum RatingCategory {
   FACILITY = '시설 평가',
