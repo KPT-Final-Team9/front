@@ -6,10 +6,19 @@ import { Selectbox } from '@Atoms/seletbox/Selectbox';
 import PopoverContent from '@Monocles/popover-trigger/PopoverContent';
 import PopoverTrigger from '@Monocles/popover-trigger/PopoverTrigger';
 import { LocalIcon } from '@icon/index';
-import React from 'react';
+import React, { useState } from 'react';
 import { PopoverClose } from '@radix-ui/react-popover';
+import DatePicker from '@Monocles/date-picker/DatePicker';
+import { DateRange } from 'react-day-picker';
+import { formatDateToYYYY_MM_DD } from '@/utils';
+import { addMonths } from 'date-fns';
 
 export default function RatingDetailFilter() {
+  const [date, setDate] = useState<DateRange | undefined>({
+    from: addMonths(new Date().toString(), -1),
+    to: new Date(),
+  });
+
   return (
     <Popover>
       <PopoverTrigger
@@ -85,19 +94,25 @@ export default function RatingDetailFilter() {
             </div>
             <div className="flex flex-col gap-2 desktop:gap-3">
               <div>날짜</div>
-              <Selectbox
-                showIcon
-                lists={[
-                  { id: 0, date: 'test1' },
-                  { id: 1, date: 'test2' },
-                ]}
-                icon="CalendarIcon"
-                optionKey="date"
-                size="addIconShort"
-                onChange={selectedDate => {
-                  alert('날짜 변경');
-                }}
-              />
+              <Popover>
+                <PopoverTrigger
+                  icon={
+                    <LocalIcon
+                      width={20}
+                      height={20}
+                      name="CalendarIcon"
+                    />
+                  }
+                  label={`${formatDateToYYYY_MM_DD(date?.from)} ~ ${formatDateToYYYY_MM_DD(date?.to)}`}
+                  className="px-4 py-2"
+                />
+                <DatePicker
+                  mode="range"
+                  selected={date}
+                  onSelect={setDate}
+                  numberOfMonths={1}
+                />
+              </Popover>
             </div>
           </div>
           <div className="flex flex-col justify-between gap-3 desktop:flex-row desktop:gap-8">

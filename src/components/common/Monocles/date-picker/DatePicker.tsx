@@ -8,7 +8,6 @@ import { ko } from 'date-fns/locale';
 
 export default function DatePicker({
   popoverContentProps,
-  mode = 'range',
   className,
   ...props
 }: CalendarProps & { popoverContentProps?: PopoverContentProps }) {
@@ -38,6 +37,7 @@ export default function DatePicker({
       </aside>
       <div className="w-[322px]">
         <Calendar
+          fixedWeeks
           locale={ko}
           className={cn('border-b border-stroke', className)}
           {...props}
