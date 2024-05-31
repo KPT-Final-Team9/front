@@ -6,8 +6,11 @@ import { PopoverClose, PopoverContentProps } from '@radix-ui/react-popover';
 import React, { useState } from 'react';
 import { ko } from 'date-fns/locale';
 import { formatDateToMM_DD } from '@/utils';
+import { addMonths } from 'date-fns';
+import { ActiveModifiers } from 'react-day-picker';
 
 enum ActivePreset {
+  NONE = 'none',
   ONE_MONTH = 'one month',
   THREE_MONTH = 'three month',
   SIX_MONTH = 'six month',
@@ -24,22 +27,90 @@ export default function DatePicker({
   className,
   hiddenPreset,
   ...props
-}: CalendarProps & { popoverContentProps?: PopoverContentProps; hiddenPreset?: boolean }) {
+}: CalendarProps & {
+  popoverContentProps?: PopoverContentProps;
+  hiddenPreset?: boolean;
+}) {
   const [activePreset, setActivePreset] = useState<ActivePreset>(ActivePreset.ONE_MONTH);
   const onClick1Month = () => {
-    setActivePreset(ActivePreset.ONE_MONTH);
+    if (props.mode === 'range' && props.onSelect) {
+      const newDate = new Date();
+      props.onSelect(
+        {
+          from: addMonths(newDate, -1),
+          to: newDate,
+        },
+        newDate,
+        // 아래의 두 인자는 react-day-picker 내부에서 동작할 때 필요한 값, 해당 로직에서는 사용될 일이 없어서 타입 예외 처리해주었음.
+        undefined as unknown as ActiveModifiers,
+        undefined as unknown as React.MouseEvent,
+      );
+      setActivePreset(ActivePreset.ONE_MONTH);
+    }
   };
   const onClick3Month = () => {
-    setActivePreset(ActivePreset.THREE_MONTH);
+    if (props.mode === 'range' && props.onSelect) {
+      const newDate = new Date();
+      props.onSelect(
+        {
+          from: addMonths(newDate, -3),
+          to: newDate,
+        },
+        newDate,
+        // 아래의 두 인자는 react-day-picker 내부에서 동작할 때 필요한 값, 해당 로직에서는 사용될 일이 없어서 타입 예외 처리해주었음.
+        undefined as unknown as ActiveModifiers,
+        undefined as unknown as React.MouseEvent,
+      );
+      setActivePreset(ActivePreset.THREE_MONTH);
+    }
   };
   const onClick6Month = () => {
-    setActivePreset(ActivePreset.SIX_MONTH);
+    if (props.mode === 'range' && props.onSelect) {
+      const newDate = new Date();
+      props.onSelect(
+        {
+          from: addMonths(newDate, -6),
+          to: newDate,
+        },
+        newDate,
+        // 아래의 두 인자는 react-day-picker 내부에서 동작할 때 필요한 값, 해당 로직에서는 사용될 일이 없어서 타입 예외 처리해주었음.
+        undefined as unknown as ActiveModifiers,
+        undefined as unknown as React.MouseEvent,
+      );
+      setActivePreset(ActivePreset.SIX_MONTH);
+    }
   };
   const onClick12Month = () => {
-    setActivePreset(ActivePreset.TWELVE_MONTH);
+    if (props.mode === 'range' && props.onSelect) {
+      const newDate = new Date();
+      props.onSelect(
+        {
+          from: addMonths(newDate, -12),
+          to: newDate,
+        },
+        newDate,
+        // 아래의 두 인자는 react-day-picker 내부에서 동작할 때 필요한 값, 해당 로직에서는 사용될 일이 없어서 타입 예외 처리해주었음.
+        undefined as unknown as ActiveModifiers,
+        undefined as unknown as React.MouseEvent,
+      );
+      setActivePreset(ActivePreset.TWELVE_MONTH);
+    }
   };
   const onClick24Month = () => {
-    setActivePreset(ActivePreset.TWENTY_FOUR_MONTH);
+    if (props.mode === 'range' && props.onSelect) {
+      const newDate = new Date();
+      props.onSelect(
+        {
+          from: addMonths(newDate, -24),
+          to: newDate,
+        },
+        newDate,
+        // 아래의 두 인자는 react-day-picker 내부에서 동작할 때 필요한 값, 해당 로직에서는 사용될 일이 없어서 타입 예외 처리해주었음.
+        undefined as unknown as ActiveModifiers,
+        undefined as unknown as React.MouseEvent,
+      );
+      setActivePreset(ActivePreset.TWENTY_FOUR_MONTH);
+    }
   };
 
   return (
@@ -90,6 +161,7 @@ export default function DatePicker({
           fixedWeeks
           locale={ko}
           className={cn('border-b border-stroke', className)}
+          onDayClick={() => setActivePreset(ActivePreset.NONE)}
           {...props}
         />
         <footer className="flex h-[71px] justify-end gap-8 px-4 py-4">
