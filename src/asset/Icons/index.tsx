@@ -15,6 +15,10 @@ import ReviewTrackCircleIconComp from '@/asset/Icons/ic-reviewTrackCircle.svg';
 import CalendarIconComp from '@/asset/Icons/icon_calendar.svg';
 import RoomIconComp from '@/asset/Icons/icon_room.svg';
 import RoomScoreBgComp from '@/asset/Icons/room-score-bg.svg';
+import BookmarkIconComp from '@/asset/Icons/icon_bookmark.svg';
+import FilterIconComp from '@/asset/Icons/icon_filter.svg';
+import SearchIconComp from '@/asset/Icons/icon_search.svg';
+import TotalIconComp from '@/asset/Icons/icon_total.svg';
 import OfficenerMainLogoComp from '@/asset/Icons/officener-main-logo.svg';
 import UserIconComp from '@/asset/Icons/ic-user.svg';
 import SurveyIconComp from '@/asset/Icons/icon_survey.svg';
@@ -95,6 +99,22 @@ export function ReviewTrackCircleIcon({ ...props }) {
 
 export function RoomScoreBg({ ...props }) {
   return <RoomScoreBgComp {...props} />;
+}
+
+export function BookmarkIcon({ ...props }) {
+  return <BookmarkIconComp {...props} />;
+}
+
+export function FilterIcon({ ...props }) {
+  return <FilterIconComp {...props} />;
+}
+
+export function SearchIcon({ ...props }) {
+  return <SearchIconComp {...props} />;
+}
+
+export function TotalIcon({ ...props }) {
+  return <TotalIconComp {...props} />;
 }
 
 export function OfficenerMainLogo({ ...props }) {

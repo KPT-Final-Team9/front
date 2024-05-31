@@ -20,7 +20,7 @@ export type NavItemsType = Record<NAV_TYPE, { path: string; label: string }>;
 const NAV_ITEMS: NavItemsType = {
   [NAV_TYPE.DASH_BOARD]: { path: '/dashboard', label: '대시보드' },
   [NAV_TYPE.EVALUATION]: { path: '/room', label: '호실관리' },
-  [NAV_TYPE.ROOM_DETAIL]: { path: '/evaluation-detail', label: '평가상세' },
+  [NAV_TYPE.ROOM_DETAIL]: { path: '/rating-detail', label: '평가상세' },
 };
 const GNB_HEIGHT = 'desktop:h-desktop-gnb h-[68px] ';
 

@@ -1,14 +1,25 @@
 import React from 'react';
-import { Button } from '@/components/ui/button';
+import { Button, ButtonProps } from '@/components/ui/button';
 import { LocalIcon } from '@icon/index';
+import { cn } from '@/lib/utils';
 
-export function XIconButton({ ...props }) {
+export function XIconButton({
+  className,
+  variant,
+  iconWidth,
+  iconHeight,
+  ...props
+}: ButtonProps & { iconWidth?: number; iconHeight?: number }) {
   return (
     <Button
       {...props}
-      variant={'icon'}
-      className="xbtn-icon m-0 p-0">
-      <LocalIcon name="XIcon" />
+      variant={variant || 'icon'}
+      className={cn('xbtn-icon m-0 p-0', className)}>
+      <LocalIcon
+        width={iconWidth}
+        height={iconHeight}
+        name="XIcon"
+      />
     </Button>
   );
 }
