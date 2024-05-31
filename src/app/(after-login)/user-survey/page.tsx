@@ -17,7 +17,7 @@ export default function Page() {
 
         {/* 평가 알람 뱃지 */}
         <div className="absolute left-[75px] top-[490px] z-50 h-[6px] w-[6px] rounded-full bg-primary-badge-new"></div>
-        <Link href="/user-survey/step-1">
+        <Link href="/user-survey/scores">
           <LocalIcon
             name={'SurveyIcon'}
             width={32}
@@ -29,7 +29,7 @@ export default function Page() {
         {/* mobile view GNB */}
         <Image
           src={surveyGnb}
-          alt=""
+          alt="survey gnb"
           width={375}
           height={180}
           className="z-100 absolute bottom-0"

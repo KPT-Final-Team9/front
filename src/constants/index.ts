@@ -46,7 +46,7 @@ export const SURVEY_BUTTON_DATA: surveyButtonDataType[] = [
     imgName: 'ServeyBtnIcon1',
     btnTitle: '관리 평가',
     btnDescription: '호실 관리에 대한 나의 평가를 등록해 주세요',
-    path: '',
+    path: '/user-survey/scores?id=manage',
     isCompleted: false,
   },
   {
@@ -54,7 +54,7 @@ export const SURVEY_BUTTON_DATA: surveyButtonDataType[] = [
     imgName: 'ServeyBtnIcon2',
     btnTitle: '시설 평가',
     btnDescription: '우리 시설에 대한 나의 점수를 등록해 주세요',
-    path: '',
+    path: '/user-survey/scores?id=facility',
     isCompleted: false,
   },
   {
@@ -62,7 +62,7 @@ export const SURVEY_BUTTON_DATA: surveyButtonDataType[] = [
     imgName: 'ServeyBtnIcon3',
     btnTitle: '민원 평가',
     btnDescription: '민원 처리에 대한 나의 만족도를 알려주세요',
-    path: '',
+    path: '/user-survey/scores?id=complaint',
     isCompleted: false,
   },
 ];
