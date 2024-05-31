@@ -1,4 +1,8 @@
 /** @type {import('next').NextConfig} */
+import bundleAnalyzer from '@next/bundle-analyzer';
+const withBundleAnalyzer = bundleAnalyzer({
+  enabled: process.env.ANALYZE === 'true', // 환경 변수에 따라 번들 분석기 활성화
+});
 const nextConfig = {
   webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
     config.module.rules.push({
@@ -20,5 +24,5 @@ const nextConfig = {
     return config;
   },
 };
-
+// export default withBundleAnalyzer(nextConfig);
 export default nextConfig;

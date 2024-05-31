@@ -9,11 +9,11 @@ import { LocalIcon } from '@icon/index';
  * @param {{}} ...props 추가로 전달할 속성들
  * @returns {*}
  */
-export function NotiBellButton({ notificationCount, ...props }: { notificationCount: number }) {
+export function NotiBellButton({ notificationCount = 0, ...props }: { notificationCount?: number }) {
   const displayCount = notificationCount >= 100 ? '99+' : notificationCount;
 
   return (
-    <div className="relative w-fit">
+    <div className="relative flex h-[40px] w-[40px] items-center">
       <Button
         {...props}
         variant={'icon'}
@@ -24,7 +24,7 @@ export function NotiBellButton({ notificationCount, ...props }: { notificationCo
         />
       </Button>
       {notificationCount > 0 && (
-        <span className="absolute bottom-5 left-2 min-w-[24px] rounded-3xl bg-[#FF4848] text-center text-[10px] leading-[13px] text-white desktop:bottom-[34px] desktop:left-3 desktop:min-w-[30px] desktop:text-[12px]">
+        <span className="absolute bottom-5 left-2 min-w-[24px] rounded-3xl bg-[#FF4848] text-center text-[10px] leading-[13px] text-white desktop:bottom-[30px] desktop:left-3 desktop:min-w-[30px] desktop:text-[12px]">
           {displayCount}
         </span>
       )}

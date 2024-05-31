@@ -26,6 +26,9 @@ const config = {
       backgroundImage: {
         'evaluation-gradient': 'linear-gradient(90deg, #FFA3A3 0%, #FFCB96 35.5%, #FFE49D 65.5%, #77D276 99%',
       },
+      height: {
+        'desktop-gnb': '85px',
+      },
 
       fontSize: {
         h1: [

@@ -13,8 +13,20 @@ import RoundStarIconComp from '@/asset/Icons/ic-star.svg';
 import RoundUnselectedStarIconComp from '@/asset/Icons/ic-start-unselected.svg';
 import ReviewTrackCircleIconComp from '@/asset/Icons/ic-reviewTrackCircle.svg';
 import CalendarIconComp from '@/asset/Icons/icon_calendar.svg';
-import RoomgIconComp from '@/asset/Icons/icon_room.svg';
+import RoomIconComp from '@/asset/Icons/icon_room.svg';
 import RoomScoreBgComp from '@/asset/Icons/room-score-bg.svg';
+import BookmarkIconComp from '@/asset/Icons/icon_bookmark.svg';
+import FilterIconComp from '@/asset/Icons/icon_filter.svg';
+import SearchIconComp from '@/asset/Icons/icon_search.svg';
+import TotalIconComp from '@/asset/Icons/icon_total.svg';
+import OfficenerMainLogoComp from '@/asset/Icons/officener-main-logo.svg';
+import UserIconComp from '@/asset/Icons/ic-user.svg';
+import SurveyIconComp from '@/asset/Icons/icon_survey.svg';
+import ArrowLeftIconComp from '@/asset/Icons/icon_arrow_left.svg';
+import SurveyRoomComp from '@/asset/Icons/survey_room.svg';
+import ServeyBtnIcon1Comp from '@/asset/Icons/icon_survey_btn1.svg';
+import ServeyBtnIcon2Comp from '@/asset/Icons/icon_survey_btn2.svg';
+import ServeyBtnIcon3Comp from '@/asset/Icons/icon_survey_btn3.svg';
 
 export function XIcon({ ...props }) {
   return <XIconComp {...props} />;
@@ -78,7 +90,7 @@ export function CalendarIcon({ ...props }) {
 }
 
 export function RoomIcon({ ...props }) {
-  return <RoomgIconComp {...props} />;
+  return <RoomIconComp {...props} />;
 }
 
 export function ReviewTrackCircleIcon({ ...props }) {
@@ -87,4 +99,52 @@ export function ReviewTrackCircleIcon({ ...props }) {
 
 export function RoomScoreBg({ ...props }) {
   return <RoomScoreBgComp {...props} />;
+}
+
+export function BookmarkIcon({ ...props }) {
+  return <BookmarkIconComp {...props} />;
+}
+
+export function FilterIcon({ ...props }) {
+  return <FilterIconComp {...props} />;
+}
+
+export function SearchIcon({ ...props }) {
+  return <SearchIconComp {...props} />;
+}
+
+export function TotalIcon({ ...props }) {
+  return <TotalIconComp {...props} />;
+}
+
+export function OfficenerMainLogo({ ...props }) {
+  return <OfficenerMainLogoComp {...props} />;
+}
+
+export function UserIcon({ ...props }) {
+  return <UserIconComp {...props} />;
+}
+
+export function SurveyIcon({ ...props }) {
+  return <SurveyIconComp {...props} />;
+}
+
+export function ArrowLeftIcon({ ...props }) {
+  return <ArrowLeftIconComp {...props} />;
+}
+
+export function SurveyRoom({ ...props }) {
+  return <SurveyRoomComp {...props} />;
+}
+
+export function ServeyBtnIcon1({ ...props }) {
+  return <ServeyBtnIcon1Comp {...props} />;
+}
+
+export function ServeyBtnIcon2({ ...props }) {
+  return <ServeyBtnIcon2Comp {...props} />;
+}
+
+export function ServeyBtnIcon3({ ...props }) {
+  return <ServeyBtnIcon3Comp {...props} />;
 }

@@ -12,13 +12,13 @@ export default function Layout({
   RatingTrend: React.ReactNode;
 }) {
   return (
-    <main className="flex flex-col gap-3 p-5">
-      <section className="bg-background">{Overview}</section>
+    <main className="flex flex-col gap-8 ">
+      <section>{Overview}</section>
       <section className="flex gap-3">
-        <div className="bg-background">{CategoryRating}</div>
-        <div className="bg-background">{RatingManagement}</div>
+        {RatingManagement}
+        {CategoryRating}
       </section>
-      <section className="bg-background">{RatingTrend}</section>
+      <section>{RatingTrend}</section>
     </main>
   );
 }
