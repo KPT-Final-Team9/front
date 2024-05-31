@@ -5,6 +5,7 @@ import { cn } from '@/lib/utils';
 import { PopoverClose, PopoverContentProps } from '@radix-ui/react-popover';
 import React from 'react';
 import { ko } from 'date-fns/locale';
+import { formatDateToMM_DD } from '@/utils';
 
 export default function DatePicker({
   popoverContentProps,
@@ -43,9 +44,14 @@ export default function DatePicker({
           {...props}
         />
         <footer className="flex h-[71px] justify-end gap-8 px-4 py-4">
+          {props.mode === 'range' && props.selected && (
+            <div className="flex w-[128px] items-center justify-center rounded-[6px] border text-body4 text-text-primary">
+              {formatDateToMM_DD(props.selected.from)} ~ {formatDateToMM_DD(props.selected.to)}
+            </div>
+          )}
           <PopoverClose>
             <Button
-              className="w-[128px]"
+              className="w-[128px] rounded-[6px]"
               size="sm"
               variant="primary">
               설정 완료
