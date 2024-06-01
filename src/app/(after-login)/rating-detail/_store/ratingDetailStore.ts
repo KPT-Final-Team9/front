@@ -1,3 +1,4 @@
+import { addMonths } from 'date-fns';
 import { DateRange } from 'react-day-picker';
 import { create } from 'zustand';
 
@@ -5,6 +6,12 @@ export enum ViewState {
   TOTAL = 'total',
   BOOKMARK = 'bookmark',
 }
+
+const currentDate = new Date();
+const DEFAULT_DATE_RANGE = {
+  from: addMonths(currentDate, -1),
+  to: currentDate,
+};
 
 interface RatingDetailStore {
   viewState: ViewState;
@@ -22,6 +29,6 @@ export const useRatingDetailStore = create<RatingDetailStore>(set => ({
   setBookmarkView: () => set({ viewState: ViewState.BOOKMARK }),
   searchValue: '',
   setSearchValue: (newValue: string) => set({ searchValue: newValue }),
-  dateRange: undefined,
+  dateRange: DEFAULT_DATE_RANGE,
   setDateRange: (newDateRange: DateRange | undefined) => set({ dateRange: newDateRange }),
 }));
