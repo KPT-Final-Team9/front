@@ -21,6 +21,12 @@ import SearchIconComp from '@/asset/Icons/icon_search.svg';
 import TotalIconComp from '@/asset/Icons/icon_total.svg';
 import OfficenerMainLogoComp from '@/asset/Icons/officener-main-logo.svg';
 import UserIconComp from '@/asset/Icons/ic-user.svg';
+import SurveyIconComp from '@/asset/Icons/icon_survey.svg';
+import ArrowLeftIconComp from '@/asset/Icons/icon_arrow_left.svg';
+import SurveyRoomComp from '@/asset/Icons/survey_room.svg';
+import ServeyBtnIcon1Comp from '@/asset/Icons/icon_survey_btn1.svg';
+import ServeyBtnIcon2Comp from '@/asset/Icons/icon_survey_btn2.svg';
+import ServeyBtnIcon3Comp from '@/asset/Icons/icon_survey_btn3.svg';
 import LoadingSpinnerComp from '@/asset/Icons/loading-spinner.svg';
 
 export function XIcon({ ...props }) {
@@ -123,6 +129,30 @@ export function OfficenerMainLogo({ ...props }) {
 
 export function UserIcon({ ...props }) {
   return <UserIconComp {...props} />;
+}
+
+export function SurveyIcon({ ...props }) {
+  return <SurveyIconComp {...props} />;
+}
+
+export function ArrowLeftIcon({ ...props }) {
+  return <ArrowLeftIconComp {...props} />;
+}
+
+export function SurveyRoom({ ...props }) {
+  return <SurveyRoomComp {...props} />;
+}
+
+export function ServeyBtnIcon1({ ...props }) {
+  return <ServeyBtnIcon1Comp {...props} />;
+}
+
+export function ServeyBtnIcon2({ ...props }) {
+  return <ServeyBtnIcon2Comp {...props} />;
+}
+
+export function ServeyBtnIcon3({ ...props }) {
+  return <ServeyBtnIcon3Comp {...props} />;
 }
 export function CgClose({ ...props }) {
   return <CgCloseComp {...props} />;
