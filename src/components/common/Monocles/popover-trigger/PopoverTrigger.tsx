@@ -2,6 +2,7 @@ import { PopoverTrigger as PopoverTriggerComp } from '@/components/ui/popover';
 import { cn } from '@/lib/utils';
 import * as PopoverPrimitive from '@radix-ui/react-popover';
 import React from 'react';
+import { ClassNameValue } from 'tailwind-merge';
 
 export default function PopoverTrigger({
   className,
@@ -9,12 +10,14 @@ export default function PopoverTrigger({
   isHiddenOnMobile,
   icon,
   label,
+  labelClassName,
   ...props
 }: PopoverPrimitive.PopoverTriggerProps & {
   isActive?: boolean;
   isHiddenOnMobile?: boolean;
   icon?: React.ReactNode;
   label?: React.ReactNode;
+  labelClassName?: ClassNameValue;
 }) {
   return (
     <PopoverTriggerComp
@@ -25,7 +28,7 @@ export default function PopoverTrigger({
       )}
       {...props}>
       {icon}
-      <div className={cn({ 'hidden desktop:block': isHiddenOnMobile })}>{label}</div>
+      <div className={cn(labelClassName, { 'hidden desktop:block': isHiddenOnMobile })}>{label}</div>
     </PopoverTriggerComp>
   );
 }

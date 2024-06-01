@@ -22,7 +22,8 @@ export default function RatingDetailDateRangePicker() {
           />
         }
         label={`${formatDateToYYYY_MM_DD(dateRange?.from)} ~ ${formatDateToYYYY_MM_DD(dateRange?.to)}`}
-        className="px-4 py-2"
+        labelClassName="px-2"
+        className="hidden w-fit px-4 py-2 desktop:flex"
       />
       <DatePicker
         mode="range"
