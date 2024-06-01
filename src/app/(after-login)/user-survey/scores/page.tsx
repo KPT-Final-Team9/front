@@ -1,6 +1,6 @@
 import SurveyHeader from '@/app/(after-login)/user-survey/_components/SurveyHeader';
 import RoomSurveyMain from '@/app/(after-login)/user-survey/_components/RoomSurveyMain';
-import Test from '@/app/(after-login)/user-survey/_components/Test';
+import RoomSurveyDetail from '@/app/(after-login)/user-survey/_components/RoomSurveyDetail';
 
 export default function Page({ searchParams }: { searchParams: { id: string } }) {
   /**
@@ -15,7 +15,7 @@ export default function Page({ searchParams }: { searchParams: { id: string } })
   const renderPage = () => {
     switch (scoreId) {
       case 'manage':
-        return <Test />;
+        return <RoomSurveyDetail />;
       case 'facility':
         return '시설';
       case 'complaint':
