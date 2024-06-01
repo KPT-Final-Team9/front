@@ -34,6 +34,8 @@ export default function DateInput({
   const [fromInputValue, setFromInputValue] = useState<string>(
     props.mode === 'range' && props.selected ? formatDateToYYYYMMDD(props.selected?.from) : '',
   );
+  const [isFromError, setIsFromError] = useState(false);
+  const [isToError, setIsToError] = useState(false);
   const [toInputValue, setToInputValue] = useState<string>(
     props.mode === 'range' && props.selected ? formatDateToYYYYMMDD(props.selected?.to) : '',
   );
@@ -136,6 +138,7 @@ export default function DateInput({
           from: parsedDate,
           to: props.selected?.to,
         };
+        setIsFromError(false);
         setFromInputValue(newValue);
         break;
       case DateRangeInput.TO:
@@ -143,15 +146,26 @@ export default function DateInput({
           from: props.selected?.from,
           to: parsedDate,
         };
+        setIsToError(false);
         setToInputValue(newValue);
         break;
     }
 
-    if (!isValid(parsedDate))
+    if (!isValid(parsedDate)) {
+      switch (type) {
+        case DateRangeInput.FROM:
+          setIsFromError(true);
+          break;
+        case DateRangeInput.TO:
+          setIsToError(true);
+          break;
+      }
+
       newSelected = {
         from: props.selected?.from,
         to: props.selected?.to,
       };
+    }
 
     props.onSelect(
       newSelected,
@@ -203,7 +217,9 @@ export default function DateInput({
         <div className="flex w-fit items-center justify-center rounded-mobile-stroke border px-2 py-2 text-body4 placeholder:text-body4">
           <div className="flex w-[100px] items-center justify-center">
             <input
-              className="w-[90px] placeholder:text-body4 focus:outline-none focus-visible:outline"
+              className={cn('w-[90px] placeholder:text-body4 focus:outline-none focus-visible:outline', {
+                'text-destructive': isFromError,
+              })}
               value={fromInputValue}
               onChange={e => handleDateInputChange(e, DateRangeInput.FROM)}
               onKeyDown={handleDateInputKeydown}
@@ -213,7 +229,9 @@ export default function DateInput({
           ~
           <div className="flex w-[100px] items-center justify-center">
             <input
-              className="w-[90px] placeholder:text-body4 focus:outline-none focus-visible:outline"
+              className={cn('w-[90px] placeholder:text-body4 focus:outline-none focus-visible:outline', {
+                'text-destructive': isToError,
+              })}
               value={toInputValue}
               onChange={e => handleDateInputChange(e, DateRangeInput.TO)}
               onKeyDown={handleDateInputKeydown}
