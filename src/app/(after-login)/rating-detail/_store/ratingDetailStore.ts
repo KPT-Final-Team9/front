@@ -1,3 +1,4 @@
+import { DateRange } from 'react-day-picker';
 import { create } from 'zustand';
 
 export enum ViewState {
@@ -11,6 +12,8 @@ interface RatingDetailStore {
   setBookmarkView: () => void;
   searchValue: string;
   setSearchValue: (newValue: string) => void;
+  dateRange: DateRange | undefined;
+  setDateRange: (newDateRange: DateRange | undefined) => void;
 }
 
 export const useRatingDetailStore = create<RatingDetailStore>(set => ({
@@ -19,4 +22,6 @@ export const useRatingDetailStore = create<RatingDetailStore>(set => ({
   setBookmarkView: () => set({ viewState: ViewState.BOOKMARK }),
   searchValue: '',
   setSearchValue: (newValue: string) => set({ searchValue: newValue }),
+  dateRange: undefined,
+  setDateRange: (newDateRange: DateRange | undefined) => set({ dateRange: newDateRange }),
 }));
