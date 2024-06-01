@@ -10,7 +10,7 @@ export default function SliderWithTooltip() {
 
   return (
     // 슬라이더 이동 속도가 빠른 경우 따라오는 툴팁 반응 속도가 느린 경우가 간혹 있음.
-    <div className="relative mt-10 flex h-10 w-full flex-col items-center">
+    <div className="relative flex h-10 w-full flex-col items-center">
       <TooltipProvider>
         <Slider.Root
           className="relative flex w-full touch-none select-none items-center"

@@ -9,7 +9,7 @@ export default function RoomSurvey() {
   );
 
   return (
-    <div className="bg-background">
+    <div className="h-[762px] bg-background">
       <div className="flex flex-col items-center bg-white px-4 pb-[34px] pt-5">
         <LocalIcon
           name={'SurveyRoom'}
