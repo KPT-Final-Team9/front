@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { ScoreTrendLineChartCustomTooltip } from '@chart/CustomTooltip';
 import { filterChartData } from '@/utils';
@@ -8,11 +8,32 @@ export default function ScoreTrendChart({ dateKey, chartData }: { dateKey: strin
   const tickStyle = { fill: '#9b9b9b', fontSize: 14, fontWeight: 400 };
   // 기준 x 축, 키값 제외한 키 필터
   const filteredChartData = filterChartData({ chartData, dataKey: dateKey });
+  const targetRef = useRef(null);
+
+  useEffect(() => {
+    const resizeObserver = new ResizeObserver(entries => {
+      for (const entry of entries) {
+        const { width, height } = entry.contentRect;
+        // console.log(`Element size changed: width ${width}, height ${height}`);
+      }
+    });
+
+    if (targetRef.current) {
+      resizeObserver.observe(targetRef.current);
+    }
+
+    return () => {
+      resizeObserver.disconnect();
+    };
+  }, []);
+  // NOTE: 추후 리사이즈옵저서 사용해서 모바일 대응해서 ticks 값등 수정
   return (
-    <div className="my-2 h-[275px] w-full">
+    <div
+      className="h-[234px] desktop:h-[283px]"
+      ref={targetRef}>
       <ResponsiveContainer
-        width="100%"
-        height="100%">
+        width={'100%'}
+        height={'100%'}>
         <LineChart data={chartData}>
           <CartesianGrid vertical={false} />
           <XAxis

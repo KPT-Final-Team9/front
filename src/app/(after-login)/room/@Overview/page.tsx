@@ -5,7 +5,6 @@ import RatingCompareComp from '@/app/(after-login)/room/@Overview/_component/Rat
 export default function Page() {
   return (
     <>
-      호실별 페이지 개요
       <section className="flex flex-col rounded-container bg-white desktop:flex-row">
         <div className="flex flex-col gap-2 rounded-container bg-white">
           <ContractInfoServerComp />

@@ -1,5 +1,5 @@
 import { MdNavigateNext } from 'react-icons/md';
-
+import { CgClose as CgCloseComp } from 'react-icons/cg';
 import SpeechBubbleIconComp from '@/asset/Icons/ic-speechbubble.svg';
 import TooltipIconComp from '@/asset/Icons/ic-tooltip.svg';
 import XIconComp from '@/asset/Icons/ic-x.svg';
@@ -27,6 +27,7 @@ import SurveyRoomComp from '@/asset/Icons/survey_room.svg';
 import SurveyBtnIcon1Comp from '@/asset/Icons/icon_survey_btn1.svg';
 import SurveyBtnIcon2Comp from '@/asset/Icons/icon_survey_btn2.svg';
 import SurveyBtnIcon3Comp from '@/asset/Icons/icon_survey_btn3.svg';
+import LoadingSpinnerComp from '@/asset/Icons/loading-spinner.svg';
 import SurveyManageComp from '@/asset/Icons/survey_manage.svg';
 import SurveyFacilityComp from '@/asset/Icons/survey_facility.svg';
 import SurveyComplaintComp from '@/asset/Icons/survey_complaint.svg';
@@ -81,7 +82,12 @@ export function ExclamationMark({ ...props }) {
 }
 
 export function RoundStarIcon({ ...props }) {
-  return <RoundStarIconComp {...props} />;
+  return (
+    <RoundStarIconComp
+      fill={'#FFD233'}
+      {...props}
+    />
+  );
 }
 
 export function RoundUnselectedStarIcon({ ...props }) {
@@ -162,4 +168,17 @@ export function SurveyFacility({ ...props }) {
 
 export function SurveyComplaint({ ...props }) {
   return <SurveyComplaintComp {...props} />;
+}
+
+export function CgClose({ ...props }) {
+  return <CgCloseComp {...props} />;
+}
+
+export function LoadingSpinner({ ...props }) {
+  return (
+    <LoadingSpinnerComp
+      className="animate-spin"
+      {...props}
+    />
+  );
 }

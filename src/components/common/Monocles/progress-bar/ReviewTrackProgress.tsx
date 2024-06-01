@@ -62,7 +62,7 @@ export default function ReviewTrackProgress({
         className="h-[13px]"
         indicatorColor="evaluation-gradient"
       />
-      <div className={cn('mt-[12px] flex justify-center', legendClass)}>
+      <div className={cn('mt-[12px] flex justify-center text-nowrap', legendClass)}>
         <div className="flex flex-row gap-3 self-center">
           {Object.keys(ReviewTrackRank).map((val, index) => {
             return (
