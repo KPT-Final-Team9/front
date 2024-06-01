@@ -84,6 +84,10 @@ export default function DateInput({
         newSelected = undefined;
     }
 
+    // input / preset 이외의 DatePicker가 따로 없기때문에 preset만 대응해주면 onChange 없이도 대응이 가능함.
+    setFromInputValue(formatDateToYYYYMMDD(newSelected?.from));
+    setToInputValue(formatDateToYYYYMMDD(newSelected?.to));
+
     props.onSelect(
       newSelected,
       newDate,
