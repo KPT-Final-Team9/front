@@ -30,3 +30,8 @@ export const formatDateToMM_DD = (date: Date | undefined): string => {
   if (!date) return '----.--.--';
   return dayjs(date).format('MM.DD');
 };
+
+export const formatDateToYYYYMMDD = (date: Date | undefined): string => {
+  if (!date) return '----/--/--';
+  return dayjs(date).format('YYYY/MM/DD');
+};
