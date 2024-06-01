@@ -122,7 +122,11 @@ export default function DateInput({
         break;
     }
 
-    if (!isValid(parsedDate)) newSelected = undefined;
+    if (!isValid(parsedDate))
+      newSelected = {
+        from: props.selected?.from,
+        to: props.selected?.to,
+      };
 
     props.onSelect(
       newSelected,
