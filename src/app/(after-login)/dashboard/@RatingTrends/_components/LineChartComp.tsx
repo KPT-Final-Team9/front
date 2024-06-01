@@ -5,7 +5,8 @@ import GradientChart from '@chart/GradientChart';
 import { BuildingRoomAvatar } from '@Atoms/avatar/BuildingRoomAvatar';
 import { StarIconButton } from '@Atoms/buttons/IconButtons';
 import { motion } from 'framer-motion';
-
+import { useMainModalStore } from '@/app/(after-login)/dashboard/@RatingTrends/_store';
+import Link from 'next/link';
 const chartData = [
   {
     month: 'Jan',
@@ -53,10 +54,11 @@ const chartData = [
   },
 ];
 
-export default function LineChartComp({ mainRoom = false }: { mainRoom?: boolean }) {
+export default function LineChartComp({ mainRoom = false, roomId }: { mainRoom?: boolean; roomId?: number }) {
+  const { setRoomId, setModal } = useMainModalStore();
   return (
     <motion.div
-      whileHover={{ scale: 0.9 }}
+      whileHover={{ scale: 0.95 }}
       transition={{ type: 'just', stiffness: 300 }}>
       <div className=" rounded-container bg-white py-[16px] pl-[23px] pr-[40px]">
         <div className="mb-[24px] flex flex-row gap-1">
@@ -68,20 +70,30 @@ export default function LineChartComp({ mainRoom = false }: { mainRoom?: boolean
             </div>
           </div>
           <div className="flex items-center p-[4px]">
-            <StarIconButton toggle={mainRoom} />
+            <StarIconButton
+              toggle={mainRoom}
+              onClick={() => {
+                setRoomId(roomId);
+                setModal(true);
+              }}
+            />
           </div>
         </div>
-        <div className="flex justify-between">
-          <GradientChart
-            data={chartData}
-            gradientColor="#D9E5FF"
-            strokeColor="#1D4ED8"
-          />
-          <NextIconButton
-            className="self-center"
-            shape={'square'}
-          />
-        </div>
+        <Link
+          className="cursor-pointer"
+          href={'#'}>
+          <div className="flex justify-between">
+            <GradientChart
+              data={chartData}
+              gradientColor="#D9E5FF"
+              strokeColor="#1D4ED8"
+            />
+            <NextIconButton
+              className="self-center"
+              shape={'square'}
+            />
+          </div>
+        </Link>
       </div>
     </motion.div>
   );
