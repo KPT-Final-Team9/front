@@ -24,9 +24,12 @@ import UserIconComp from '@/asset/Icons/ic-user.svg';
 import SurveyIconComp from '@/asset/Icons/icon_survey.svg';
 import ArrowLeftIconComp from '@/asset/Icons/icon_arrow_left.svg';
 import SurveyRoomComp from '@/asset/Icons/survey_room.svg';
-import ServeyBtnIcon1Comp from '@/asset/Icons/icon_survey_btn1.svg';
-import ServeyBtnIcon2Comp from '@/asset/Icons/icon_survey_btn2.svg';
-import ServeyBtnIcon3Comp from '@/asset/Icons/icon_survey_btn3.svg';
+import SurveyBtnIcon1Comp from '@/asset/Icons/icon_survey_btn1.svg';
+import SurveyBtnIcon2Comp from '@/asset/Icons/icon_survey_btn2.svg';
+import SurveyBtnIcon3Comp from '@/asset/Icons/icon_survey_btn3.svg';
+import SurveyManageComp from '@/asset/Icons/survey_manage.svg';
+import SurveyFacilityComp from '@/asset/Icons/survey_facility.svg';
+import SurveyComplaintComp from '@/asset/Icons/survey_complaint.svg';
 
 export function XIcon({ ...props }) {
   return <XIconComp {...props} />;
@@ -137,14 +140,26 @@ export function SurveyRoom({ ...props }) {
   return <SurveyRoomComp {...props} />;
 }
 
-export function ServeyBtnIcon1({ ...props }) {
-  return <ServeyBtnIcon1Comp {...props} />;
+export function SurveyBtnIcon1({ ...props }) {
+  return <SurveyBtnIcon1Comp {...props} />;
 }
 
-export function ServeyBtnIcon2({ ...props }) {
-  return <ServeyBtnIcon2Comp {...props} />;
+export function SurveyBtnIcon2({ ...props }) {
+  return <SurveyBtnIcon2Comp {...props} />;
 }
 
-export function ServeyBtnIcon3({ ...props }) {
-  return <ServeyBtnIcon3Comp {...props} />;
+export function SurveyBtnIcon3({ ...props }) {
+  return <SurveyBtnIcon3Comp {...props} />;
+}
+
+export function SurveyManage({ ...props }) {
+  return <SurveyManageComp {...props} />;
+}
+
+export function SurveyFacility({ ...props }) {
+  return <SurveyFacilityComp {...props} />;
+}
+
+export function SurveyComplaint({ ...props }) {
+  return <SurveyComplaintComp {...props} />;
 }
