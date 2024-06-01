@@ -95,6 +95,8 @@ export default function DateInput({
 
   const handleDateInputChange = (e: React.ChangeEvent<HTMLInputElement>, type: DateRangeInput) => {
     if (!(props.mode === 'range' && props.onSelect)) return;
+    if (e.target.value.length > 10) return; // yyyy/MM/dd 이상은 작성할 수 없음.
+
     let newSelected;
     const parsedDate = parse(e.target.value, 'yyyy/MM/dd', new Date());
 
@@ -128,7 +130,7 @@ export default function DateInput({
 
   return (
     <PopoverContent
-      className="flex w-min flex-col px-2 py-2"
+      className="flex w-fit flex-col px-2 py-2"
       align="start"
       {...popoverContentProps}>
       {!hiddenPreset && (
@@ -162,22 +164,26 @@ export default function DateInput({
           </ul>
         </div>
       )}
-      <div>
+      <div className="w-fit">
         <div className="px-3 py-3 text-body1">직접 설정</div>
-        <div className="flex w-fit flex-nowrap items-center justify-center rounded-mobile-stroke border px-2 py-2 text-body4 placeholder:text-body4">
-          <input
-            className="w-[90px] focus:outline-none focus-visible:outline"
-            value={fromInputValue}
-            onChange={e => handleDateInputChange(e, DateRangeInput.FROM)}
-            placeholder="YYYY/MM/DD"
-          />
+        <div className="flex w-fit items-center justify-center rounded-mobile-stroke border px-2 py-2 text-body4 placeholder:text-body4">
+          <div className="flex w-[90px] items-center justify-center">
+            <input
+              className="w-[80px] focus:outline-none focus-visible:outline"
+              value={fromInputValue}
+              onChange={e => handleDateInputChange(e, DateRangeInput.FROM)}
+              placeholder="YYYY/MM/DD"
+            />
+          </div>
           ~
-          <input
-            className="w-[90px] focus:outline-none focus-visible:outline"
-            value={toInputValue}
-            onChange={e => handleDateInputChange(e, DateRangeInput.TO)}
-            placeholder="YYYY/MM/DD"
-          />
+          <div className="flex w-[90px] items-center justify-center">
+            <input
+              className="w-[80px] focus:outline-none focus-visible:outline"
+              value={toInputValue}
+              onChange={e => handleDateInputChange(e, DateRangeInput.TO)}
+              placeholder="YYYY/MM/DD"
+            />
+          </div>
         </div>
         <footer className="mt-4 flex justify-end gap-8">
           <PopoverClose>
