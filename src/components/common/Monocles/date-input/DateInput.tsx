@@ -96,9 +96,14 @@ export default function DateInput({
   const handleDateInputChange = (e: React.ChangeEvent<HTMLInputElement>, type: DateRangeInput) => {
     if (!(props.mode === 'range' && props.onSelect)) return;
     if (e.target.value.length > 10) return; // yyyy/MM/dd 이상은 작성할 수 없음.
+    let newValue = e.target.value;
+
+    if (e.target.value.length === 4 || e.target.value.length === 7) {
+      newValue += '/';
+    }
 
     let newSelected;
-    const parsedDate = parse(e.target.value, 'yyyy/MM/dd', new Date());
+    const parsedDate = parse(newValue, 'yyyy/MM/dd', new Date());
 
     switch (type) {
       case DateRangeInput.FROM:
@@ -106,14 +111,14 @@ export default function DateInput({
           from: parsedDate,
           to: props.selected?.to,
         };
-        setFromInputValue(e.target.value);
+        setFromInputValue(newValue);
         break;
       case DateRangeInput.TO:
         newSelected = {
           from: props.selected?.from,
           to: parsedDate,
         };
-        setToInputValue(e.target.value);
+        setToInputValue(newValue);
         break;
     }
 
