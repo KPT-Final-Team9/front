@@ -23,7 +23,7 @@ export default function SurveyHeader() {
   return (
     <>
       <header className="relative flex h-[44px] w-full items-center justify-between bg-white">
-        <div className="absolute inset-y-0 left-0 flex items-center p-4">
+        <div className="absolute inset-y-0 left-0 flex items-center px-4">
           <SurveyHeaderBackButton />
         </div>
 
