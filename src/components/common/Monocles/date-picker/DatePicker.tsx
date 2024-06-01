@@ -32,85 +32,59 @@ export default function DatePicker({
   hiddenPreset?: boolean;
 }) {
   const [activePreset, setActivePreset] = useState<ActivePreset>(ActivePreset.ONE_MONTH);
-  const onClick1Month = () => {
-    if (props.mode === 'range' && props.onSelect) {
-      const newDate = new Date();
-      props.onSelect(
-        {
+
+  const handleClickPreset = (type: ActivePreset) => {
+    if (!(props.mode === 'range' && props.onSelect)) return;
+
+    const newDate = new Date();
+    let newSelected;
+    switch (type) {
+      case ActivePreset.ONE_MONTH:
+        newSelected = {
           from: addMonths(newDate, -1),
           to: newDate,
-        },
-        newDate,
-        // 아래의 두 인자는 react-day-picker 내부에서 동작할 때 필요한 값, 해당 로직에서는 사용될 일이 없어서 타입 예외 처리해주었음.
-        undefined as unknown as ActiveModifiers,
-        undefined as unknown as React.MouseEvent,
-      );
-      setActivePreset(ActivePreset.ONE_MONTH);
-    }
-  };
-  const onClick3Month = () => {
-    if (props.mode === 'range' && props.onSelect) {
-      const newDate = new Date();
-      props.onSelect(
-        {
+        };
+        setActivePreset(ActivePreset.ONE_MONTH);
+        break;
+      case ActivePreset.THREE_MONTH:
+        newSelected = {
           from: addMonths(newDate, -3),
           to: newDate,
-        },
-        newDate,
-        // 아래의 두 인자는 react-day-picker 내부에서 동작할 때 필요한 값, 해당 로직에서는 사용될 일이 없어서 타입 예외 처리해주었음.
-        undefined as unknown as ActiveModifiers,
-        undefined as unknown as React.MouseEvent,
-      );
-      setActivePreset(ActivePreset.THREE_MONTH);
-    }
-  };
-  const onClick6Month = () => {
-    if (props.mode === 'range' && props.onSelect) {
-      const newDate = new Date();
-      props.onSelect(
-        {
+        };
+        setActivePreset(ActivePreset.THREE_MONTH);
+        break;
+      case ActivePreset.SIX_MONTH:
+        newSelected = {
           from: addMonths(newDate, -6),
           to: newDate,
-        },
-        newDate,
-        // 아래의 두 인자는 react-day-picker 내부에서 동작할 때 필요한 값, 해당 로직에서는 사용될 일이 없어서 타입 예외 처리해주었음.
-        undefined as unknown as ActiveModifiers,
-        undefined as unknown as React.MouseEvent,
-      );
-      setActivePreset(ActivePreset.SIX_MONTH);
-    }
-  };
-  const onClick12Month = () => {
-    if (props.mode === 'range' && props.onSelect) {
-      const newDate = new Date();
-      props.onSelect(
-        {
+        };
+        setActivePreset(ActivePreset.SIX_MONTH);
+        break;
+      case ActivePreset.TWELVE_MONTH:
+        newSelected = {
           from: addMonths(newDate, -12),
           to: newDate,
-        },
-        newDate,
-        // 아래의 두 인자는 react-day-picker 내부에서 동작할 때 필요한 값, 해당 로직에서는 사용될 일이 없어서 타입 예외 처리해주었음.
-        undefined as unknown as ActiveModifiers,
-        undefined as unknown as React.MouseEvent,
-      );
-      setActivePreset(ActivePreset.TWELVE_MONTH);
-    }
-  };
-  const onClick24Month = () => {
-    if (props.mode === 'range' && props.onSelect) {
-      const newDate = new Date();
-      props.onSelect(
-        {
+        };
+        setActivePreset(ActivePreset.TWELVE_MONTH);
+        break;
+      case ActivePreset.TWENTY_FOUR_MONTH:
+        newSelected = {
           from: addMonths(newDate, -24),
           to: newDate,
-        },
-        newDate,
-        // 아래의 두 인자는 react-day-picker 내부에서 동작할 때 필요한 값, 해당 로직에서는 사용될 일이 없어서 타입 예외 처리해주었음.
-        undefined as unknown as ActiveModifiers,
-        undefined as unknown as React.MouseEvent,
-      );
-      setActivePreset(ActivePreset.TWENTY_FOUR_MONTH);
+        };
+        setActivePreset(ActivePreset.TWENTY_FOUR_MONTH);
+        break;
+      default:
+        newSelected = undefined;
     }
+
+    props.onSelect(
+      newSelected,
+      newDate,
+      // 아래의 두 인자는 react-day-picker 내부에서 동작할 때 필요한 값, 해당 로직에서는 사용될 일이 없어서 타입 예외 처리해주었음.
+      undefined as unknown as ActiveModifiers,
+      undefined as unknown as React.MouseEvent,
+    );
   };
 
   return (
@@ -122,7 +96,7 @@ export default function DatePicker({
         <aside className="w-[133px] border-r border-stroke py-3">
           <ul>
             <li
-              onClick={onClick1Month}
+              onClick={() => handleClickPreset(ActivePreset.ONE_MONTH)}
               className={cn(presetListStyle, {
                 'bg-icon-bg': activePreset === ActivePreset.ONE_MONTH,
               })}>
@@ -130,25 +104,25 @@ export default function DatePicker({
               1개월
             </li>
             <li
-              onClick={onClick3Month}
+              onClick={() => handleClickPreset(ActivePreset.THREE_MONTH)}
               className={cn(presetListStyle, { 'bg-icon-bg': activePreset === ActivePreset.THREE_MONTH })}>
               {activePreset === ActivePreset.THREE_MONTH && <div className={activeMarkStyle} />}
               3개월
             </li>
             <li
-              onClick={onClick6Month}
+              onClick={() => handleClickPreset(ActivePreset.SIX_MONTH)}
               className={cn(presetListStyle, { 'bg-icon-bg': activePreset === ActivePreset.SIX_MONTH })}>
               {activePreset === ActivePreset.SIX_MONTH && <div className={activeMarkStyle} />}
               6개월
             </li>
             <li
-              onClick={onClick12Month}
+              onClick={() => handleClickPreset(ActivePreset.TWELVE_MONTH)}
               className={cn(presetListStyle, { 'bg-icon-bg': activePreset === ActivePreset.TWELVE_MONTH })}>
               {activePreset === ActivePreset.TWELVE_MONTH && <div className={activeMarkStyle} />}
               12개월
             </li>
             <li
-              onClick={onClick24Month}
+              onClick={() => handleClickPreset(ActivePreset.TWENTY_FOUR_MONTH)}
               className={cn(presetListStyle, { 'bg-icon-bg': activePreset === ActivePreset.TWENTY_FOUR_MONTH })}>
               {activePreset === ActivePreset.TWENTY_FOUR_MONTH && <div className={activeMarkStyle} />}
               24개월

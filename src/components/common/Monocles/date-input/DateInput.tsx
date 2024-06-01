@@ -33,91 +33,66 @@ export default function DateInput({
     props.mode === 'range' && props.selected ? formatDateToYYYYMMDD(props.selected?.to) : '',
   );
   const [activePreset, setActivePreset] = useState<ActivePreset>(ActivePreset.ONE_MONTH);
-  const onClick1Month = () => {
-    if (props.mode === 'range' && props.onSelect) {
-      const newDate = new Date();
-      props.onSelect(
-        {
+
+  const handleClickPreset = (type: ActivePreset) => {
+    if (!(props.mode === 'range' && props.onSelect)) return;
+
+    const newDate = new Date();
+    let newSelected;
+    switch (type) {
+      case ActivePreset.ONE_MONTH:
+        newSelected = {
           from: addMonths(newDate, -1),
           to: newDate,
-        },
-        newDate,
-        // 아래의 두 인자는 react-day-picker 내부에서 동작할 때 필요한 값, 해당 로직에서는 사용될 일이 없어서 타입 예외 처리해주었음.
-        undefined as unknown as ActiveModifiers,
-        undefined as unknown as React.MouseEvent,
-      );
-      setActivePreset(ActivePreset.ONE_MONTH);
-    }
-  };
-  const onClick3Month = () => {
-    if (props.mode === 'range' && props.onSelect) {
-      const newDate = new Date();
-      props.onSelect(
-        {
+        };
+        setActivePreset(ActivePreset.ONE_MONTH);
+        break;
+      case ActivePreset.THREE_MONTH:
+        newSelected = {
           from: addMonths(newDate, -3),
           to: newDate,
-        },
-        newDate,
-        // 아래의 두 인자는 react-day-picker 내부에서 동작할 때 필요한 값, 해당 로직에서는 사용될 일이 없어서 타입 예외 처리해주었음.
-        undefined as unknown as ActiveModifiers,
-        undefined as unknown as React.MouseEvent,
-      );
-      setActivePreset(ActivePreset.THREE_MONTH);
-    }
-  };
-  const onClick6Month = () => {
-    if (props.mode === 'range' && props.onSelect) {
-      const newDate = new Date();
-      props.onSelect(
-        {
+        };
+        setActivePreset(ActivePreset.THREE_MONTH);
+        break;
+      case ActivePreset.SIX_MONTH:
+        newSelected = {
           from: addMonths(newDate, -6),
           to: newDate,
-        },
-        newDate,
-        // 아래의 두 인자는 react-day-picker 내부에서 동작할 때 필요한 값, 해당 로직에서는 사용될 일이 없어서 타입 예외 처리해주었음.
-        undefined as unknown as ActiveModifiers,
-        undefined as unknown as React.MouseEvent,
-      );
-      setActivePreset(ActivePreset.SIX_MONTH);
-    }
-  };
-  const onClick12Month = () => {
-    if (props.mode === 'range' && props.onSelect) {
-      const newDate = new Date();
-      props.onSelect(
-        {
+        };
+        setActivePreset(ActivePreset.SIX_MONTH);
+        break;
+      case ActivePreset.TWELVE_MONTH:
+        newSelected = {
           from: addMonths(newDate, -12),
           to: newDate,
-        },
-        newDate,
-        // 아래의 두 인자는 react-day-picker 내부에서 동작할 때 필요한 값, 해당 로직에서는 사용될 일이 없어서 타입 예외 처리해주었음.
-        undefined as unknown as ActiveModifiers,
-        undefined as unknown as React.MouseEvent,
-      );
-      setActivePreset(ActivePreset.TWELVE_MONTH);
-    }
-  };
-  const onClick24Month = () => {
-    if (props.mode === 'range' && props.onSelect) {
-      const newDate = new Date();
-      props.onSelect(
-        {
+        };
+        setActivePreset(ActivePreset.TWELVE_MONTH);
+        break;
+      case ActivePreset.TWENTY_FOUR_MONTH:
+        newSelected = {
           from: addMonths(newDate, -24),
           to: newDate,
-        },
-        newDate,
-        // 아래의 두 인자는 react-day-picker 내부에서 동작할 때 필요한 값, 해당 로직에서는 사용될 일이 없어서 타입 예외 처리해주었음.
-        undefined as unknown as ActiveModifiers,
-        undefined as unknown as React.MouseEvent,
-      );
-      setActivePreset(ActivePreset.TWENTY_FOUR_MONTH);
+        };
+        setActivePreset(ActivePreset.TWENTY_FOUR_MONTH);
+        break;
+      default:
+        newSelected = undefined;
     }
+
+    props.onSelect(
+      newSelected,
+      newDate,
+      // 아래의 두 인자는 react-day-picker 내부에서 동작할 때 필요한 값, 해당 로직에서는 사용될 일이 없어서 타입 예외 처리해주었음.
+      undefined as unknown as ActiveModifiers,
+      undefined as unknown as React.MouseEvent,
+    );
   };
 
   const handleFromInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!(props.mode === 'range' && props.onSelect)) return;
+    setFromInputValue(e.target.value);
 
-    const parsedDate = parse(e.target.value, 'YYYY/MM/DD', new Date());
+    const parsedDate = parse(e.target.value, 'yyyy/MM/dd', new Date());
 
     if (isValid(parsedDate)) {
       props.onSelect(
@@ -145,7 +120,7 @@ export default function DateInput({
     if (!(props.mode === 'range' && props.onSelect)) return;
     setToInputValue(e.target.value); // keep the input value in sync
 
-    const parsedDate = parse(e.target.value, 'YYYY/MM/DD', new Date());
+    const parsedDate = parse(e.target.value, 'yyyy/MM/dd', new Date());
 
     if (isValid(parsedDate)) {
       props.onSelect(
@@ -178,27 +153,27 @@ export default function DateInput({
         <div className="border-b border-stroke">
           <ul className="menu px-0 py-0 text-body1">
             <li
-              onClick={onClick1Month}
+              onClick={() => handleClickPreset(ActivePreset.ONE_MONTH)}
               className={cn({ 'bg-accent': activePreset === ActivePreset.ONE_MONTH })}>
               <a>1개월</a>
             </li>
             <li
-              onClick={onClick3Month}
+              onClick={() => handleClickPreset(ActivePreset.THREE_MONTH)}
               className={cn({ 'bg-accent': activePreset === ActivePreset.THREE_MONTH })}>
               <a>3개월</a>
             </li>
             <li
-              onClick={onClick6Month}
+              onClick={() => handleClickPreset(ActivePreset.SIX_MONTH)}
               className={cn({ 'bg-accent': activePreset === ActivePreset.SIX_MONTH })}>
               <a>6개월</a>
             </li>
             <li
-              onClick={onClick12Month}
+              onClick={() => handleClickPreset(ActivePreset.TWELVE_MONTH)}
               className={cn({ 'bg-accent': activePreset === ActivePreset.TWELVE_MONTH })}>
               <a>12개월</a>
             </li>
             <li
-              onClick={onClick24Month}
+              onClick={() => handleClickPreset(ActivePreset.TWENTY_FOUR_MONTH)}
               className={cn({ 'bg-accent': activePreset === ActivePreset.TWENTY_FOUR_MONTH })}>
               <a>24개월</a>
             </li>
@@ -210,22 +185,14 @@ export default function DateInput({
         <div className="flex w-fit flex-nowrap items-center justify-center rounded-mobile-stroke border px-2 py-2 text-body4 placeholder:text-body4">
           <input
             className="w-[90px] focus:outline-none focus-visible:outline"
-            value={
-              props.mode === 'range' && props.selected
-                ? formatDateToYYYYMMDD(props.selected.from)
-                : formatDateToYYYYMMDD(undefined)
-            }
+            value={fromInputValue}
             onChange={handleFromInputChange}
             placeholder="YYYY/MM/DD"
           />
           ~
           <input
             className="w-[90px] focus:outline-none focus-visible:outline"
-            value={
-              props.mode === 'range' && props.selected
-                ? formatDateToYYYYMMDD(props.selected.to)
-                : formatDateToYYYYMMDD(undefined)
-            }
+            value={toInputValue}
             onChange={handleToInputChange}
             placeholder="YYYY/MM/DD"
           />
