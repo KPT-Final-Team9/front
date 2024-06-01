@@ -3,7 +3,7 @@ import { CalendarProps } from '@/components/ui/calendar';
 import { PopoverContent } from '@/components/ui/popover';
 import { cn } from '@/lib/utils';
 import { PopoverClose, PopoverContentProps } from '@radix-ui/react-popover';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { formatDateToMM_DD, formatDateToYYYYMMDD } from '@/utils';
 import { addMonths, isValid, parse } from 'date-fns';
 import { ActiveModifiers } from 'react-day-picker';
@@ -38,6 +38,7 @@ export default function DateInput({
     props.mode === 'range' && props.selected ? formatDateToYYYYMMDD(props.selected?.to) : '',
   );
   const [activePreset, setActivePreset] = useState<ActivePreset>(ActivePreset.ONE_MONTH);
+  const isBackspacePressed = useRef(false);
 
   const handleClickPreset = (type: ActivePreset) => {
     if (!(props.mode === 'range' && props.onSelect)) return;
@@ -97,13 +98,31 @@ export default function DateInput({
     );
   };
 
+  // input의 이벤트는 1. keydown 2. 키 입력으로 change 이벤트 발생 순서로 동작함.
+  // 따라서 onKeydown 핸들러를 만들고 ref로 관리해주면, change 이벤트에서 입력된 키가 backspace인지 캐치할 수 있음.
+  const handleDateInputKeydown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Backspace') {
+      console.log('backspace');
+      isBackspacePressed.current = true;
+    } else {
+      isBackspacePressed.current = false;
+    }
+  };
+
   const handleDateInputChange = (e: React.ChangeEvent<HTMLInputElement>, type: DateRangeInput) => {
     if (!(props.mode === 'range' && props.onSelect)) return;
     if (e.target.value.length > 10) return; // yyyy/MM/dd 이상은 작성할 수 없음.
     let newValue = e.target.value;
 
-    if (e.target.value.length === 4 || e.target.value.length === 7) {
+    // 입력된 키가 backspace가 아니면서 YYYY 혹은 YYYY/MM일 때 '/'를 자동으로 추가해줌.
+    if (!isBackspacePressed.current && (e.target.value.length === 4 || e.target.value.length === 7)) {
       newValue += '/';
+    }
+
+    if (isBackspacePressed.current && (e.target.value.length === 8 || e.target.value.length === 5)) {
+      const newValueArr = newValue.split('');
+      newValueArr.pop();
+      newValue = newValueArr.join('');
     }
 
     let newSelected;
@@ -180,20 +199,22 @@ export default function DateInput({
       <div className="w-fit">
         <div className="px-3 py-3 text-body1">직접 설정</div>
         <div className="flex w-fit items-center justify-center rounded-mobile-stroke border px-2 py-2 text-body4 placeholder:text-body4">
-          <div className="flex w-[90px] items-center justify-center">
+          <div className="flex w-[100px] items-center justify-center">
             <input
-              className="w-[80px] focus:outline-none focus-visible:outline"
+              className="w-[90px] placeholder:text-body4 focus:outline-none focus-visible:outline"
               value={fromInputValue}
               onChange={e => handleDateInputChange(e, DateRangeInput.FROM)}
+              onKeyDown={handleDateInputKeydown}
               placeholder="YYYY/MM/DD"
             />
           </div>
           ~
-          <div className="flex w-[90px] items-center justify-center">
+          <div className="flex w-[100px] items-center justify-center">
             <input
-              className="w-[80px] focus:outline-none focus-visible:outline"
+              className="w-[90px] placeholder:text-body4 focus:outline-none focus-visible:outline"
               value={toInputValue}
               onChange={e => handleDateInputChange(e, DateRangeInput.TO)}
+              onKeyDown={handleDateInputKeydown}
               placeholder="YYYY/MM/DD"
             />
           </div>
