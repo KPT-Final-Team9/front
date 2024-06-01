@@ -119,11 +119,13 @@ export default function DateInput({
       newValue += '/';
     }
 
-    if (isBackspacePressed.current && (e.target.value.length === 8 || e.target.value.length === 5)) {
-      const newValueArr = newValue.split('');
-      newValueArr.pop();
-      newValue = newValueArr.join('');
-    }
+    // 직접 사용해보니, 자동으로 '/'가 삭제되니 오타 발생이 오히려 늘었음.
+    // 추가는 자동으로 되는게 좋으나, 삭제는 파괴적인 행동이기 때문에 좋지 않은 UX로 판단하여 주석처리함.
+    // if (isBackspacePressed.current && (e.target.value.length === 8 || e.target.value.length === 5)) {
+    //   const newValueArr = newValue.split('');
+    //   newValueArr.pop();
+    //   newValue = newValueArr.join('');
+    // }
 
     let newSelected;
     const parsedDate = parse(newValue, 'yyyy/MM/dd', new Date());
