@@ -7,6 +7,7 @@ import { useState } from 'react';
 import { DateRange } from 'react-day-picker';
 import { addMonths } from 'date-fns';
 import { Calendar } from '@/components/ui/calendar';
+import { formatDateToYYYY_MM_DD } from '@/utils';
 
 const meta: Meta = {
   title: 'Monocles/DatePicker/DateInput',
@@ -48,7 +49,11 @@ export const DatePicker: StoryObj<typeof DateInputComp> = {
               name="CalendarIcon"
             />
           }
-          label="Trigger"
+          label={
+            <div>
+              {formatDateToYYYY_MM_DD(date?.from)} ~ {formatDateToYYYY_MM_DD(date?.to)}
+            </div>
+          }
           className="px-4 py-2"
         />
         <DateInputComp
