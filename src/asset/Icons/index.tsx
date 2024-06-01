@@ -1,5 +1,5 @@
 import { MdNavigateNext } from 'react-icons/md';
-
+import { CgClose as CgCloseComp } from 'react-icons/cg';
 import SpeechBubbleIconComp from '@/asset/Icons/ic-speechbubble.svg';
 import TooltipIconComp from '@/asset/Icons/ic-tooltip.svg';
 import XIconComp from '@/asset/Icons/ic-x.svg';
@@ -27,6 +27,7 @@ import SurveyRoomComp from '@/asset/Icons/survey_room.svg';
 import ServeyBtnIcon1Comp from '@/asset/Icons/icon_survey_btn1.svg';
 import ServeyBtnIcon2Comp from '@/asset/Icons/icon_survey_btn2.svg';
 import ServeyBtnIcon3Comp from '@/asset/Icons/icon_survey_btn3.svg';
+import LoadingSpinnerComp from '@/asset/Icons/loading-spinner.svg';
 
 export function XIcon({ ...props }) {
   return <XIconComp {...props} />;
@@ -78,7 +79,12 @@ export function ExclamationMark({ ...props }) {
 }
 
 export function RoundStarIcon({ ...props }) {
-  return <RoundStarIconComp {...props} />;
+  return (
+    <RoundStarIconComp
+      fill={'#FFD233'}
+      {...props}
+    />
+  );
 }
 
 export function RoundUnselectedStarIcon({ ...props }) {
@@ -147,4 +153,16 @@ export function ServeyBtnIcon2({ ...props }) {
 
 export function ServeyBtnIcon3({ ...props }) {
   return <ServeyBtnIcon3Comp {...props} />;
+}
+export function CgClose({ ...props }) {
+  return <CgCloseComp {...props} />;
+}
+
+export function LoadingSpinner({ ...props }) {
+  return (
+    <LoadingSpinnerComp
+      className="animate-spin"
+      {...props}
+    />
+  );
 }

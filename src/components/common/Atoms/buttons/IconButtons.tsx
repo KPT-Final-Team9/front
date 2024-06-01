@@ -24,25 +24,21 @@ export function XIconButton({
   );
 }
 
-export function StarIconButton({ toggle = false, ...props }: { toggle?: boolean }) {
+interface StarIconButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  toggle?: boolean;
+}
+export function StarIconButton({ toggle = false, ...props }: StarIconButtonProps) {
   return (
     <Button
-      {...props}
       variant={'icon'}
-      className="xbtn-icon m-0 p-0">
-      {toggle ? (
-        <LocalIcon
-          width={24}
-          height={24}
-          name="RoundStarIcon"
-        />
-      ) : (
-        <LocalIcon
-          width={24}
-          height={24}
-          name="RoundUnselectedStarIcon"
-        />
-      )}
+      className="p-0"
+      {...props}>
+      <LocalIcon
+        width={24}
+        height={24}
+        name="RoundStarIcon"
+        className={cn('hover:fill-[#FFD233]', { 'fill-[#FFD233]': toggle, 'fill-white stroke-[#D1D5DB]': !toggle })}
+      />
     </Button>
   );
 }
