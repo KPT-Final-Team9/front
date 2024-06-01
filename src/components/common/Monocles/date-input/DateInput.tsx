@@ -17,6 +17,11 @@ enum ActivePreset {
   TWENTY_FOUR_MONTH = 'twenty four month',
 }
 
+enum DateRangeInput {
+  FROM = 'from',
+  TO = 'to',
+}
+
 export default function DateInput({
   popoverContentProps,
   className,
@@ -88,60 +93,37 @@ export default function DateInput({
     );
   };
 
-  const handleFromInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleDateInputChange = (e: React.ChangeEvent<HTMLInputElement>, type: DateRangeInput) => {
     if (!(props.mode === 'range' && props.onSelect)) return;
-    setFromInputValue(e.target.value);
-
+    let newSelected;
     const parsedDate = parse(e.target.value, 'yyyy/MM/dd', new Date());
 
-    if (isValid(parsedDate)) {
-      props.onSelect(
-        {
+    switch (type) {
+      case DateRangeInput.FROM:
+        newSelected = {
           from: parsedDate,
           to: props.selected?.to,
-        },
-        // 아래의 세 인자는 react-day-picker 내부에서 동작할 때 필요한 값, 해당 로직에서는 사용될 일이 없어서 타입 예외 처리해주었음.
-        undefined as unknown as Date,
-        undefined as unknown as ActiveModifiers,
-        undefined as unknown as React.MouseEvent,
-      );
-    } else {
-      props.onSelect(
-        undefined,
-        // 아래의 세 인자는 react-day-picker 내부에서 동작할 때 필요한 값, 해당 로직에서는 사용될 일이 없어서 타입 예외 처리해주었음.
-        undefined as unknown as Date,
-        undefined as unknown as ActiveModifiers,
-        undefined as unknown as React.MouseEvent,
-      );
-    }
-  };
-
-  const handleToInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!(props.mode === 'range' && props.onSelect)) return;
-    setToInputValue(e.target.value); // keep the input value in sync
-
-    const parsedDate = parse(e.target.value, 'yyyy/MM/dd', new Date());
-
-    if (isValid(parsedDate)) {
-      props.onSelect(
-        {
+        };
+        setFromInputValue(e.target.value);
+        break;
+      case DateRangeInput.TO:
+        newSelected = {
           from: props.selected?.from,
           to: parsedDate,
-        },
-        // 아래의 세 인자는 react-day-picker 내부에서 동작할 때 필요한 값, 해당 로직에서는 사용될 일이 없어서 타입 예외 처리해주었음.
-        undefined as unknown as Date,
-        undefined as unknown as ActiveModifiers,
-        undefined as unknown as React.MouseEvent,
-      );
-    } else {
-      props.onSelect(
-        undefined,
-        // 아래의 세 인자는 react-day-picker 내부에서 동작할 때 필요한 값, 해당 로직에서는 사용될 일이 없어서 타입 예외 처리해주었음.
-        undefined as unknown as Date,
-        undefined as unknown as ActiveModifiers,
-        undefined as unknown as React.MouseEvent,
-      );
+        };
+        setToInputValue(e.target.value);
+        break;
     }
+
+    if (!isValid(parsedDate)) newSelected = undefined;
+
+    props.onSelect(
+      newSelected,
+      // 아래의 세 인자는 react-day-picker 내부에서 동작할 때 필요한 값, 해당 로직에서는 사용될 일이 없어서 타입 예외 처리해주었음.
+      undefined as unknown as Date,
+      undefined as unknown as ActiveModifiers,
+      undefined as unknown as React.MouseEvent,
+    );
   };
 
   return (
@@ -186,14 +168,14 @@ export default function DateInput({
           <input
             className="w-[90px] focus:outline-none focus-visible:outline"
             value={fromInputValue}
-            onChange={handleFromInputChange}
+            onChange={e => handleDateInputChange(e, DateRangeInput.FROM)}
             placeholder="YYYY/MM/DD"
           />
           ~
           <input
             className="w-[90px] focus:outline-none focus-visible:outline"
             value={toInputValue}
-            onChange={handleToInputChange}
+            onChange={e => handleDateInputChange(e, DateRangeInput.TO)}
             placeholder="YYYY/MM/DD"
           />
         </div>
