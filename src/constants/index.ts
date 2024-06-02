@@ -75,3 +75,10 @@ interface surveyButtonDataType {
   path: string;
   isCompleted: boolean;
 }
+
+// score slider
+export const SLIDER_COLOR = {
+  manage: ['bg-gradient-to-r from-[#98B7FC] to-primary', 'border-primary'],
+  facility: ['bg-gradient-to-r from-[#CDF4CD] to-primary-management', 'border-primary-management'],
+  complaint: ['bg-gradient-to-r from-[#FEF1CF] to-primay-claim', 'border-primay-claim'],
+};
