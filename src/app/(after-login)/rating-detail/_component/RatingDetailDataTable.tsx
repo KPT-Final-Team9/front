@@ -1,9 +1,10 @@
 'use client';
 
-import * as React from 'react';
+import { useState } from 'react';
 import {
   ColumnDef,
   ColumnFiltersState,
+  Row,
   SortingState,
   VisibilityState,
   flexRender,
@@ -26,6 +27,7 @@ import {
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { formatDateToYYYY_MM_DD } from '@/utils';
 import { BookmarkIcon } from '@/asset/Icons';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 
 enum RatingCategory {
   FACILITY = '시설 평가',
@@ -307,10 +309,12 @@ export const columns: ColumnDef<RatingDetail, unknown>[] = [
 ];
 
 export default function RatingDetailDataTable() {
-  const [sorting, setSorting] = React.useState<SortingState>([]);
-  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
-  const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({});
-  const [rowSelection, setRowSelection] = React.useState({});
+  const [sorting, setSorting] = useState<SortingState>([]);
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
+  const [rowSelection, setRowSelection] = useState({});
+  const [selectedRow, setSelectedRow] = useState<Row<RatingDetail> | undefined>(undefined);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const table = useReactTable({
     data: dummyData,
@@ -331,8 +335,23 @@ export default function RatingDetailDataTable() {
     },
   });
 
+  const handleRowClick = (newSelectedRow: Row<RatingDetail>) => {
+    setIsDialogOpen(true);
+    setSelectedRow(newSelectedRow);
+  };
+
   return (
     <div className="w-full">
+      <Dialog
+        open={isDialogOpen}
+        onOpenChange={setIsDialogOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>평가 내용 상세보기</DialogTitle>
+          </DialogHeader>
+          {selectedRow?.getValue(RatingDetailTableAccessorKey.CONTENT)}
+        </DialogContent>
+      </Dialog>
       <div className="rounded-container border bg-white">
         <Table>
           <TableHeader className="h-10 text-text-secondary desktop:h-16">
@@ -354,7 +373,7 @@ export default function RatingDetailDataTable() {
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map(row => (
                 <TableRow
-                  onClick={() => window && window.alert(row.id + ' row 클릭됨')}
+                  onClick={() => handleRowClick(row)}
                   className="h-12 cursor-pointer text-text-primary desktop:h-16"
                   key={row.id}
                   data-state={row.getIsSelected() && 'selected'}>
