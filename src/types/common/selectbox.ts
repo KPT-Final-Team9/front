@@ -7,8 +7,8 @@ export interface DummyDataProps {
 export interface BuildingSelectboxProps {
   lists: DummyDataProps[];
   optionKey: string;
-  size: 'addIconLarge' | 'addIconShort' | 'quarter';
-  icon: 'BuildingIcon' | 'CalendarIcon' | 'RoomIcon';
-  showIcon: boolean;
+  size?: 'addIconLarge' | 'addIconShort' | 'quarter';
+  icon?: 'BuildingIcon' | 'CalendarIcon' | 'RoomIcon';
+  showIcon?: boolean;
   onChange: (selectedBuilding: string) => void;
 }
