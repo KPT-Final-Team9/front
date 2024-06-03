@@ -1,3 +1,4 @@
+'use client';
 import React from 'react';
 import { RatingDetail, RatingDetailTableAccessorKey } from './RatingDetailDataTable';
 import { Row } from '@tanstack/react-table';
@@ -16,6 +17,10 @@ export default function RatingDetailDialog({
   isDialogOpen?: boolean;
   onDialogOpen?: (newOpen: boolean) => void;
 }) {
+  const handleBookmarkClick = () => {
+    window.alert('bookmark 클릭됨.'); // 이후 API 연동하기
+  };
+
   return (
     <Dialog
       open={isDialogOpen}
@@ -31,8 +36,9 @@ export default function RatingDetailDialog({
             {selectedRow?.getValue(RatingDetailTableAccessorKey.ROOM)}
           </div>
           <Button
-            variant="icon"
-            className="p-1">
+            variant="ghost"
+            className="p-1"
+            onClick={handleBookmarkClick}>
             <LocalIcon
               name="BookmarkIcon"
               width={24}
