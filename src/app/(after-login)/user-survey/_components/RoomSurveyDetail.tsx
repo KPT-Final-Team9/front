@@ -10,18 +10,25 @@ import SliderWithTooltip from '@Atoms/score-slider/SliderWithTooltip';
 import OpinionTextField from '@Monocles/text-fields/SurveyTextField';
 import { LocalIcon } from '@icon/index';
 import { Button } from '@/components/ui/button';
-
-const Survey = z.object({
-  score: z.array(z.number().min(0, { message: '점수는 양수만 가능합니다.' })),
-  opinion: z.string(),
-});
+import { SURVEY_QUESTION } from '@/constants';
 
 interface FormInput {
   score: number[];
   opinion: string;
 }
 
-export default function RoomSurveyDetail() {
+interface RoomSurveyDetailProps {
+  surveyType: 'manage' | 'facility' | 'complaint';
+  sliderColor: 'manage' | 'facility' | 'complaint';
+  surveyImage: 'SurveyManage' | 'SurveyFacility' | 'SurveyComplaint';
+}
+
+const Survey = z.object({
+  score: z.array(z.number().min(0, { message: '점수는 양수만 가능합니다.' })),
+  opinion: z.string(),
+});
+
+export default function RoomSurveyDetail({ surveyType, sliderColor, surveyImage }: RoomSurveyDetailProps) {
   const router = useRouter();
   const [score, setScore] = useState([50]);
   const {
@@ -37,11 +44,12 @@ export default function RoomSurveyDetail() {
     resolver: zodResolver(Survey),
     mode: 'onBlur',
   });
+  const surveyQuestion = SURVEY_QUESTION[surveyType];
 
   // TODO: API 연동시 수정해야 함
   // 서버 전송 값 형태: { score: [scoreValue], opinion: "opinionValue" }
   const onSubmit = (data: any) => {
-    router.replace(`/user-survey/scores?id=Test`);
+    // router.replace(`/user-survey/scores?id=Test`); // TODO: 평가 완료 페이지 연결하기
   };
 
   const handleGetScore = (score: number[]) => {
@@ -54,7 +62,7 @@ export default function RoomSurveyDetail() {
       <div className="h-[762px] overflow-y-auto bg-white px-4">
         <div className="flex flex-col items-center bg-white px-4 pb-[34px] pt-5">
           <LocalIcon
-            name={'SurveyFacility'}
+            name={surveyImage}
             width={124}
             height={124}
           />
@@ -63,7 +71,8 @@ export default function RoomSurveyDetail() {
           <div className="flex gap-0.5 text-h4">
             <span className="leading-8">1. </span>
             <p className="leading-8">
-              이번 달 <span className="text-primary">미왕빌딩</span>의 관리에 대한 나의 점수는 몇 점인가요?
+              이번 달 <span className="text-primary">미왕빌딩</span>의 {SURVEY_QUESTION[surveyType]}에 대한 나의 점수는
+              몇점인가요?
             </p>
           </div>
           <div className="mt-2 flex items-center gap-1">
@@ -86,10 +95,11 @@ export default function RoomSurveyDetail() {
         {/* 점수 슬라이더 */}
         <div className="mb-9 mt-[68px]">
           <SliderWithTooltip
-            color={'complaint'}
+            color={sliderColor}
             handleGetScore={handleGetScore}
             score={score}
           />
+          {/* FIXME: 슬라이더를 움직이지않으면 값 제출 안되는 이슈 */}
           <input
             value={score[0]}
             type={'hidden'}

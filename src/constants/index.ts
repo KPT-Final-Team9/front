@@ -82,3 +82,17 @@ export const SLIDER_COLOR = {
   facility: ['bg-gradient-to-r from-[#CDF4CD] to-primary-management', 'border-primary-management'],
   complaint: ['bg-gradient-to-r from-[#FEF1CF] to-primay-claim', 'border-primay-claim'],
 };
+
+// survey 평가 문구
+export const SURVEY_QUESTION: { [key: string]: string } = {
+  manage: '관리',
+  facility: '시설',
+  complaint: '민원 처리',
+};
+
+// survey 이미지
+export const SURVEY_IMAGE: { [key: string]: string } = {
+  manage: 'SurveyManage',
+  facility: 'SurveyFacility',
+  complaint: 'SurveyComplaint',
+};
