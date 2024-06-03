@@ -1,11 +1,57 @@
-import SliderWithTooltip from '@Atoms/range-slider/SliderWithTooltip';
+'use client';
+
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { useRouter } from 'next/navigation';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+
+import SliderWithTooltip from '@Atoms/score-slider/SliderWithTooltip';
+import OpinionTextField from '@Monocles/text-fields/SurveyTextField';
 import { LocalIcon } from '@icon/index';
 import { Button } from '@/components/ui/button';
 
+const Survey = z.object({
+  score: z.array(z.number().min(0, { message: '점수는 양수만 가능합니다.' })),
+  opinion: z.string(),
+});
+
+interface FormInput {
+  score: number[];
+  opinion: string;
+}
+
 export default function RoomSurveyDetail() {
+  const router = useRouter();
+  const [score, setScore] = useState([50]);
+  const {
+    register,
+    resetField,
+    handleSubmit,
+    setFocus,
+    watch,
+    setValue,
+    formState: { isLoading, errors },
+  } = useForm<FormInput>({
+    criteriaMode: 'all',
+    resolver: zodResolver(Survey),
+    mode: 'onBlur',
+  });
+
+  // TODO: API 연동시 수정해야 함
+  // 서버 전송 값 형태: { score: [scoreValue], opinion: "opinionValue" }
+  const onSubmit = (data: any) => {
+    router.replace(`/user-survey/scores?id=Test`);
+  };
+
+  const handleGetScore = (score: number[]) => {
+    setScore(score);
+    setValue('score', score); // 동적으로 slider값 업데이트
+  };
+
   return (
-    <form action="">
-      <div className="h-[762px] overflow-y-hidden bg-white px-4">
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <div className="h-[762px] overflow-y-auto bg-white px-4">
         <div className="flex flex-col items-center bg-white px-4 pb-[34px] pt-5">
           <LocalIcon
             name={'SurveyFacility'}
@@ -14,11 +60,11 @@ export default function RoomSurveyDetail() {
           />
         </div>
         <div>
-          <div className="flex flex-col gap-0.5 text-h4">
-            <p>
-              1. 이번 달 <span className="text-primary">미왕빌딩</span>의 관리에 대한 나의
+          <div className="flex gap-0.5 text-h4">
+            <span className="leading-8">1. </span>
+            <p className="leading-8">
+              이번 달 <span className="text-primary">미왕빌딩</span>의 관리에 대한 나의 점수는 몇 점인가요?
             </p>
-            <p className="pl-5">점수는 몇 점인가요?</p>
           </div>
           <div className="mt-2 flex items-center gap-1">
             <LocalIcon
@@ -37,17 +83,39 @@ export default function RoomSurveyDetail() {
             </span>
           </div>
         </div>
-        <div className="mb-8 mt-[68px]">
-          <SliderWithTooltip />
+        {/* 점수 슬라이더 */}
+        <div className="mb-9 mt-[68px]">
+          <SliderWithTooltip
+            color={'complaint'}
+            handleGetScore={handleGetScore}
+            score={score}
+          />
+          <input
+            value={score[0]}
+            type={'hidden'}
+            {...register('score')}
+          />
         </div>
         <div className="mb-[69px] flex flex-col gap-0.5">
-          <p className="mb-12 text-h4 ">2. 더 자세한 이야기를 들려주세요</p>
-          <input />
-          <span className="text-overline text-text-disabled">
+          <p className="mb-6 text-h4 ">2. 더 자세한 이야기를 들려주세요</p>
+          <OpinionTextField
+            errorMessage={errors}
+            IsError={Object.keys(errors).length !== 0}
+            register={register}
+            id={'opinion'}
+            watch={watch}
+            resetField={resetField}
+            setFocus={setFocus}
+          />
+          <span className="mt-2 text-overline text-text-disabled">
             전달주신 의견은 익명으로 반영되며 오피스 관리에 큰 도움이 돼요 (선택)
           </span>
         </div>
-        <Button className="mb-8 h-[72px] w-full" />
+        <Button
+          type="submit"
+          className="mb-8 h-[72px] w-full text-h4">
+          평가 완료하기
+        </Button>
       </div>
     </form>
   );

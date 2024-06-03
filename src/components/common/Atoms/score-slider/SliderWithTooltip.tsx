@@ -1,13 +1,15 @@
-'use client';
-
-import { useState } from 'react';
-
 import * as Slider from '@radix-ui/react-slider';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { SLIDER_COLOR } from '@/constants';
 
-export default function SliderWithTooltip({ color }: { color: 'manage' | 'facility' | 'complaint' }) {
-  const [score, setScore] = useState([50]);
+interface SliderWithTooltipProps {
+  color: 'manage' | 'facility' | 'complaint';
+  score: number[];
+  handleGetScore: (score: number[]) => void;
+}
+
+export default function SliderWithTooltip({ color, handleGetScore, score }: SliderWithTooltipProps) {
+  // const [score, setScore] = useState([50]);
   let sliderColor = '';
   let thumbColor = '';
 
@@ -29,7 +31,7 @@ export default function SliderWithTooltip({ color }: { color: 'manage' | 'facili
         <Slider.Root
           className="relative flex w-full touch-none select-none items-center"
           value={score}
-          onValueChange={setScore}
+          onValueChange={handleGetScore}
           min={0}
           max={100}
           step={1}>
