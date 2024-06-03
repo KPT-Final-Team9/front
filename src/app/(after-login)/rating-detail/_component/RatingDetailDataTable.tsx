@@ -441,7 +441,7 @@ export default function RatingDetailDataTable() {
                 ) : (
                   <>
                     {new Array(pageNum - currentPage + 1).fill(0).map((_, index) => (
-                      <PaginationItem>
+                      <PaginationItem isActive={index === 0}>
                         <PaginationLink href="#">{index + currentPage}</PaginationLink>
                       </PaginationItem>
                     ))}
