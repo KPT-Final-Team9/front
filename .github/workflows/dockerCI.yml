@@ -1,4 +1,4 @@
-name: CD Pipeline
+name: doc
 
 on:
   push:
@@ -6,8 +6,8 @@ on:
       - test/deploy
 
 jobs:
-  build-and-deploy:
-    runs-on: self-hosted
+  build:
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout source code
@@ -27,14 +27,3 @@ jobs:
 
       - name: Push to DockerHub
         run: docker push ajvls98/nextjs-app:latest
-
-      - name: Pull Docker image
-        run: sudo docker pull ajvls98/nextjs-app:latest
-
-      - name: Stop and Remove Old Docker container
-        run: |
-          sudo docker stop nextjs-app || true
-          sudo docker rm nextjs-app || true
-
-      - name: Run Docker container
-        run: sudo docker run -d -p 3000:3000 --name nextjs-app ajvls98/nextjs-app:latest
