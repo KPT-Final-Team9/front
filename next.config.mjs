@@ -23,6 +23,7 @@ const nextConfig = {
 
     return config;
   },
+  output: 'standalone',
 };
 // export default withBundleAnalyzer(nextConfig);
 export default nextConfig;
