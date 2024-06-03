@@ -18,7 +18,9 @@ import {
   Pagination,
   PaginationContent,
   PaginationEllipsis,
+  PaginationFirst,
   PaginationItem,
+  PaginationLast,
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
@@ -308,6 +310,8 @@ export const columns: ColumnDef<RatingDetail, unknown>[] = [
   },
 ];
 
+const PAGE_ROW_LIMIT = 10; // 데이터 10개 씩 보여줌.
+
 export default function RatingDetailDataTable() {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
@@ -316,8 +320,8 @@ export default function RatingDetailDataTable() {
   const [selectedRow, setSelectedRow] = useState<Row<RatingDetail> | undefined>(undefined);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-  const [pageNum, setPageNum] = useState<number>(10); // 페이지 갯수
   const [currentPage, setCurrentPage] = useState<number>(0); // 0부터 셈
+  const pageNum = Math.round(dummyData.length / PAGE_ROW_LIMIT);
 
   const table = useReactTable({
     data: dummyData,
@@ -343,14 +347,28 @@ export default function RatingDetailDataTable() {
     setSelectedRow(newSelectedRow);
   };
 
+  const handleFirstClick = () => {
+    if (currentPage === 0) return;
+    setCurrentPage(0);
+  };
+
   const handlePreviousClick = () => {
     if (currentPage === 0) return;
     setCurrentPage(prev => prev - 1);
   };
 
+  const handleLastClick = () => {
+    if (currentPage === pageNum) return;
+    setCurrentPage(pageNum);
+  };
+
   const handleNextClick = () => {
     if (currentPage === pageNum) return;
     setCurrentPage(prev => prev + 1);
+  };
+
+  const handlePageButtonClick = (newPageNum: number) => {
+    setCurrentPage(newPageNum);
   };
 
   return (
@@ -417,41 +435,47 @@ export default function RatingDetailDataTable() {
             <Pagination>
               <PaginationContent>
                 <PaginationItem>
-                  <PaginationPrevious
-                    onClick={handlePreviousClick}
-                    href="#"
-                  />
+                  <PaginationFirst onClick={handleFirstClick} />
+                </PaginationItem>
+                <PaginationItem>
+                  <PaginationPrevious onClick={handlePreviousClick} />
                 </PaginationItem>
                 {pageNum - currentPage + 1 > 5 ? (
                   <>
                     <PaginationItem isActive>
-                      <PaginationLink href="#">{currentPage + 1}</PaginationLink>
+                      <PaginationLink>{currentPage + 1}</PaginationLink>
                     </PaginationItem>
                     <PaginationItem>
-                      <PaginationLink href="#">{currentPage + 2}</PaginationLink>
+                      <PaginationLink onClick={() => handlePageButtonClick(currentPage + 1)}>
+                        {currentPage + 2}
+                      </PaginationLink>
                     </PaginationItem>
                     <PaginationItem>
-                      <PaginationLink href="#">{currentPage + 3}</PaginationLink>
+                      <PaginationLink onClick={() => handlePageButtonClick(currentPage + 2)}>
+                        {currentPage + 3}
+                      </PaginationLink>
                     </PaginationItem>
                     <PaginationEllipsis />
                     <PaginationItem>
-                      <PaginationLink href="#">{pageNum}</PaginationLink>
+                      <PaginationLink onClick={() => handlePageButtonClick(pageNum)}>{pageNum}</PaginationLink>
                     </PaginationItem>
                   </>
                 ) : (
                   <>
                     {new Array(pageNum - currentPage + 1).fill(0).map((_, index) => (
                       <PaginationItem isActive={index === 0}>
-                        <PaginationLink href="#">{index + currentPage}</PaginationLink>
+                        <PaginationLink onClick={() => handlePageButtonClick(index + currentPage)}>
+                          {index + currentPage + 1}
+                        </PaginationLink>
                       </PaginationItem>
                     ))}
                   </>
                 )}
                 <PaginationItem>
-                  <PaginationNext
-                    onClick={handleNextClick}
-                    href="#"
-                  />
+                  <PaginationNext onClick={handleNextClick} />
+                </PaginationItem>
+                <PaginationItem>
+                  <PaginationLast onClick={handleLastClick} />
                 </PaginationItem>
               </PaginationContent>
             </Pagination>
