@@ -1,0 +1,29 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - test/deploy
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v3
+
+      - name: Log in to DockerHub
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
+        run: echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
+
+      - name: Build the Docker image
+        run: docker build -t ajvls98/nextjs-app .
+
+      - name: Tag the Docker image
+        run: docker tag ajvls98/nextjs-app:latest ajvls98/nextjs-app:latest
+
+      - name: Push to DockerHub
+        run: docker push ajvls98/nextjs-app:latest
