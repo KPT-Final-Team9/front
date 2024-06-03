@@ -54,7 +54,7 @@ export default function RatingCompareComp() {
   }, []);
 
   return (
-    <div className="flex h-full min-w-[325px] flex-col gap-2 p-[24px] desktop:p-8">
+    <div className="flex h-full min-w-[325px] flex-col gap-2 desktop:p-8">
       <div className=" flex items-center">
         <h3 className="mr-2 text-h3 text-text-primary">임대 지표 비교 </h3>
         <LocalIcon
@@ -108,7 +108,7 @@ const BarChartCompare = ({
     );
   }
   return (
-    <div className=" flex h-full justify-between gap-8 text-nowrap rounded-container border-[1px] border-stroke bg-white py-[26px] pl-[24px] desktop:min-w-[297px]">
+    <div className=" flex h-full justify-between gap-8 text-nowrap rounded-container border-[1px] border-stroke bg-white py-[26px] pl-[24px] desktop:min-w-[320px]">
       {/* titles */}
       <div className="flex flex-col justify-between gap-6">
         {/* my room */}

@@ -1,7 +1,6 @@
 import ScoreTrendChart from '@chart/bar-chart/ScoreTrendChart';
 import ScorePieChart from '@chart/pie-chart/ScorePieChart';
 import { LocalIcon } from '@icon/index';
-import { RENT_DATA } from '@/constants/index';
 const data = [
   { name: '2021 Q1', uv: 100, pv: 20 },
   { name: '2021 Q2', uv: 30, pv: 20 },
