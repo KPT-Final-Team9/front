@@ -13,7 +13,7 @@ export default function Page() {
             <RatingDetailFilter />
           </div>
         </div>
-        <div className="flex-shrink-0 desktop:ml-8">
+        <div className="flex-shrink-0">
           <RatingDeatilSearchInput />
         </div>
       </div>
