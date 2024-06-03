@@ -316,6 +316,9 @@ export default function RatingDetailDataTable() {
   const [selectedRow, setSelectedRow] = useState<Row<RatingDetail> | undefined>(undefined);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
+  const [pageNum, setPageNum] = useState<number>(10); // 페이지 갯수
+  const [currentPage, setCurrentPage] = useState<number>(0); // 0부터 셈
+
   const table = useReactTable({
     data: dummyData,
     columns,
@@ -338,6 +341,16 @@ export default function RatingDetailDataTable() {
   const handleRowClick = (newSelectedRow: Row<RatingDetail>) => {
     setIsDialogOpen(true);
     setSelectedRow(newSelectedRow);
+  };
+
+  const handlePreviousClick = () => {
+    if (currentPage === 0) return;
+    setCurrentPage(prev => prev - 1);
+  };
+
+  const handleNextClick = () => {
+    if (currentPage === pageNum) return;
+    setCurrentPage(prev => prev + 1);
   };
 
   return (
@@ -400,22 +413,51 @@ export default function RatingDetailDataTable() {
       </div>
       <div className="flex items-center justify-center space-x-2 py-4">
         <div className="space-x-2">
-          <Pagination>
-            <PaginationContent>
-              <PaginationItem>
-                <PaginationPrevious href="#" />
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationLink href="#">1</PaginationLink>
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationEllipsis />
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationNext href="#" />
-              </PaginationItem>
-            </PaginationContent>
-          </Pagination>
+          {pageNum > 0 && (
+            <Pagination>
+              <PaginationContent>
+                <PaginationItem>
+                  <PaginationPrevious
+                    onClick={handlePreviousClick}
+                    href="#"
+                  />
+                </PaginationItem>
+                {pageNum - currentPage + 1 > 5 ? (
+                  <>
+                    <PaginationItem>
+                      <PaginationLink href="#">{currentPage + 1}</PaginationLink>
+                    </PaginationItem>
+                    <PaginationItem>
+                      <PaginationLink href="#">{currentPage + 2}</PaginationLink>
+                    </PaginationItem>
+                    <PaginationItem>
+                      <PaginationLink href="#">{currentPage + 3}</PaginationLink>
+                    </PaginationItem>
+                    <PaginationItem>
+                      <PaginationEllipsis />
+                    </PaginationItem>
+                    <PaginationItem>
+                      <PaginationLink href="#">{pageNum}</PaginationLink>
+                    </PaginationItem>
+                  </>
+                ) : (
+                  <>
+                    {new Array(pageNum - currentPage + 1).fill(0).map((_, index) => (
+                      <PaginationItem>
+                        <PaginationLink href="#">{index + currentPage}</PaginationLink>
+                      </PaginationItem>
+                    ))}
+                  </>
+                )}
+                <PaginationItem>
+                  <PaginationNext
+                    onClick={handleNextClick}
+                    href="#"
+                  />
+                </PaginationItem>
+              </PaginationContent>
+            </Pagination>
+          )}
         </div>
       </div>
     </div>
