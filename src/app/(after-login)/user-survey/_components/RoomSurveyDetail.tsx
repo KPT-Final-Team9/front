@@ -10,6 +10,7 @@ import SliderWithTooltip from '@Atoms/score-slider/SliderWithTooltip';
 import OpinionTextField from '@Monocles/text-fields/SurveyTextField';
 import { LocalIcon } from '@icon/index';
 import { Button } from '@/components/ui/button';
+import { LoadingSpinner } from '@/asset/Icons/index';
 import { SURVEY_QUESTION } from '@/constants';
 
 interface FormInput {
@@ -29,7 +30,7 @@ const Survey = z.object({
 });
 
 export default function RoomSurveyDetail({ surveyType, sliderColor, surveyImage }: RoomSurveyDetailProps) {
-  const router = useRouter();
+  // const router = useRouter(); // TODO: 폼 전송 후 router
   const [score, setScore] = useState([50]);
   const {
     register,
@@ -38,17 +39,17 @@ export default function RoomSurveyDetail({ surveyType, sliderColor, surveyImage 
     setFocus,
     watch,
     setValue,
-    formState: { isLoading, errors },
+    formState: { isSubmitting, errors },
   } = useForm<FormInput>({
     criteriaMode: 'all',
     resolver: zodResolver(Survey),
     mode: 'onBlur',
   });
-  const surveyQuestion = SURVEY_QUESTION[surveyType];
 
   // TODO: API 연동시 수정해야 함
   // 서버 전송 값 형태: { score: [scoreValue], opinion: "opinionValue" }
-  const onSubmit = (data: any) => {
+  const onSubmit = async (data: any) => {
+    await new Promise(r => setTimeout(r, 1000));
     // router.replace(`/user-survey/scores?id=Test`); // TODO: 평가 완료 페이지 연결하기
   };
 
@@ -123,7 +124,9 @@ export default function RoomSurveyDetail({ surveyType, sliderColor, surveyImage 
         </div>
         <Button
           type="submit"
+          disabled={isSubmitting}
           className="mb-8 h-[72px] w-full text-h4">
+          {isSubmitting && <LoadingSpinner className="mr-2" />}
           평가 완료하기
         </Button>
       </div>

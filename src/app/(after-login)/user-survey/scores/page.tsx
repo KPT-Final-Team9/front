@@ -1,6 +1,7 @@
 import SurveyHeader from '@/app/(after-login)/user-survey/_components/SurveyHeader';
 import RoomSurveyMain from '@/app/(after-login)/user-survey/_components/RoomSurveyMain';
 import RoomSurveyDetail from '@/app/(after-login)/user-survey/_components/RoomSurveyDetail';
+import Test from '@/app/(after-login)/user-survey/_components/Test';
 
 export default function Page({ searchParams }: { searchParams: { id: string } }) {
   /**
@@ -15,11 +16,31 @@ export default function Page({ searchParams }: { searchParams: { id: string } })
   const renderPage = () => {
     switch (scoreId) {
       case 'manage':
-        return <RoomSurveyDetail />;
+        return (
+          <RoomSurveyDetail
+            surveyType={'manage'}
+            sliderColor={'manage'}
+            surveyImage={'SurveyManage'}
+          />
+        );
       case 'facility':
-        return '시설';
+        return (
+          <RoomSurveyDetail
+            surveyType={'facility'}
+            sliderColor={'facility'}
+            surveyImage={'SurveyFacility'}
+          />
+        );
       case 'complaint':
-        return '민원';
+        return (
+          <RoomSurveyDetail
+            surveyType={'complaint'}
+            sliderColor={'complaint'}
+            surveyImage={'SurveyComplaint'}
+          />
+        );
+      // case 'Test': // TODO: 평가 완료 페이지 라우팅
+      //   return <Test />;
       default:
         return <RoomSurveyMain />;
     }
