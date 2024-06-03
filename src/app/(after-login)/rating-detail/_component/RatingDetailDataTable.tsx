@@ -268,42 +268,42 @@ enum RatingDetailTableAccessorKey {
 export const columns: ColumnDef<RatingDetail, unknown>[] = [
   {
     accessorKey: RatingDetailTableAccessorKey.CATEGORY,
-    header: '유형',
-    cell: ({ row }) => <div>{row.getValue(RatingDetailTableAccessorKey.CATEGORY)}</div>,
+    header: () => <div className="pl-2.5 desktop:pl-5">유형</div>,
+    cell: ({ row }) => <div className="pl-2.5 desktop:pl-5">{row.getValue(RatingDetailTableAccessorKey.CATEGORY)}</div>,
   },
   {
     accessorKey: RatingDetailTableAccessorKey.SCORE,
-    header: '점수',
+    header: () => <div>점수</div>,
     cell: ({ row }) => <div>{row.getValue(RatingDetailTableAccessorKey.SCORE)}점</div>,
   },
   {
     accessorKey: RatingDetailTableAccessorKey.CONTENT,
-    header: '평가 내용',
+    header: () => <div>평가 내용</div>,
     cell: ({ row }) => <div>{row.getValue(RatingDetailTableAccessorKey.CONTENT)}</div>,
   },
   {
     accessorKey: RatingDetailTableAccessorKey.BUILDING,
-    header: '건물',
+    header: () => <div>건물</div>,
     cell: ({ row }) => <div>{row.getValue(RatingDetailTableAccessorKey.BUILDING)}</div>,
   },
   {
     accessorKey: RatingDetailTableAccessorKey.ROOM,
-    header: '호실',
+    header: () => <div>호실</div>,
     cell: ({ row }) => <div>{row.getValue(RatingDetailTableAccessorKey.ROOM)}</div>,
   },
   {
     accessorKey: RatingDetailTableAccessorKey.IS_BOOKMARK,
-    header: () => <BookmarkIcon />,
+    header: () => <BookmarkIcon className="w-5" />,
     cell: ({ row }) => (
       <BookmarkIcon
-        className="cursor-pointer hover:fill-text-primary active:scale-95"
+        className="w-5 cursor-pointer hover:fill-text-primary active:scale-95"
         fill={row.getValue(RatingDetailTableAccessorKey.IS_BOOKMARK) ? 'text-text-primary' : 'none'}
       />
     ),
   },
   {
     accessorKey: RatingDetailTableAccessorKey.RATING_DATE,
-    header: '평가 날짜',
+    header: () => <div>평가 날짜</div>,
     cell: ({ row }) => <div>{formatDateToYYYY_MM_DD(row.getValue(RatingDetailTableAccessorKey.RATING_DATE))}</div>,
   },
 ];
