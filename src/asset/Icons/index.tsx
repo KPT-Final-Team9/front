@@ -75,7 +75,12 @@ export function DashLineIcon({ ...props }) {
 }
 
 export function ExclamationMark({ ...props }) {
-  return <ExclamationMarkComp {...props} />;
+  return (
+    <ExclamationMarkComp
+      fill="#6B7280"
+      {...props}
+    />
+  );
 }
 
 export function RoundStarIcon({ ...props }) {
