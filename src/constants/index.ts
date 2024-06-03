@@ -89,10 +89,3 @@ export const SURVEY_QUESTION: { [key: string]: string } = {
   facility: '시설',
   complaint: '민원 처리',
 };
-
-// survey 이미지
-export const SURVEY_IMAGE: { [key: string]: string } = {
-  manage: 'SurveyManage',
-  facility: 'SurveyFacility',
-  complaint: 'SurveyComplaint',
-};
