@@ -424,7 +424,7 @@ export default function RatingDetailDataTable() {
                 </PaginationItem>
                 {pageNum - currentPage + 1 > 5 ? (
                   <>
-                    <PaginationItem>
+                    <PaginationItem isActive>
                       <PaginationLink href="#">{currentPage + 1}</PaginationLink>
                     </PaginationItem>
                     <PaginationItem>
@@ -433,9 +433,7 @@ export default function RatingDetailDataTable() {
                     <PaginationItem>
                       <PaginationLink href="#">{currentPage + 3}</PaginationLink>
                     </PaginationItem>
-                    <PaginationItem>
-                      <PaginationEllipsis />
-                    </PaginationItem>
+                    <PaginationEllipsis />
                     <PaginationItem>
                       <PaginationLink href="#">{pageNum}</PaginationLink>
                     </PaginationItem>

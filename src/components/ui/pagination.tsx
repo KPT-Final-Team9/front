@@ -26,13 +26,17 @@ const PaginationContent = React.forwardRef<HTMLUListElement, React.ComponentProp
 );
 PaginationContent.displayName = 'PaginationContent';
 
-const PaginationItem = React.forwardRef<HTMLLIElement, React.ComponentProps<'li'>>(({ className, ...props }, ref) => (
-  <li
-    ref={ref}
-    className={cn('', className)}
-    {...props}
-  />
-));
+const PaginationItem = React.forwardRef<HTMLLIElement, React.ComponentProps<'li'> & { isActive?: boolean }>(
+  ({ className, isActive, ...props }, ref) => (
+    <li
+      ref={ref}
+      className={cn('rounded-sm border bg-white text-body1 text-text-primary', className, {
+        'border-primary bg-blue-50': isActive,
+      })}
+      {...props}
+    />
+  ),
+);
 PaginationItem.displayName = 'PaginationItem';
 
 type PaginationLinkProps = {
@@ -49,7 +53,7 @@ const PaginationLink = ({ className, isActive, size = 'icon', href, ...props }: 
       aria-current={isActive ? 'page' : undefined}
       className={cn(
         buttonVariants({
-          variant: isActive ? 'outline' : 'ghost',
+          variant: 'ghost',
           size,
         }),
         className,
@@ -64,10 +68,9 @@ const PaginationPrevious = ({ className, ...props }: React.ComponentProps<typeof
   <PaginationLink
     aria-label="Go to previous page"
     size="default"
-    className={cn('gap-1 pl-2.5', className)}
+    className={cn('gap-1 p-3', className)}
     {...props}>
     <ChevronLeft className="h-4 w-4" />
-    <span>Previous</span>
   </PaginationLink>
 );
 PaginationPrevious.displayName = 'PaginationPrevious';
@@ -76,9 +79,8 @@ const PaginationNext = ({ className, ...props }: React.ComponentProps<typeof Pag
   <PaginationLink
     aria-label="Go to next page"
     size="default"
-    className={cn('gap-1 pr-2.5', className)}
+    className={cn('gap-1 p-3', className)}
     {...props}>
-    <span>Next</span>
     <ChevronRight className="h-4 w-4" />
   </PaginationLink>
 );
@@ -87,7 +89,7 @@ PaginationNext.displayName = 'PaginationNext';
 const PaginationEllipsis = ({ className, ...props }: React.ComponentProps<'span'>) => (
   <span
     aria-hidden
-    className={cn('flex h-9 w-9 items-center justify-center', className)}
+    className={cn('flex items-center justify-center p-3', className)}
     {...props}>
     <MoreHorizontal className="h-4 w-4" />
     <span className="sr-only">More pages</span>
