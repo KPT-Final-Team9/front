@@ -28,8 +28,9 @@ jobs:
         run: |
           aws s3 cp --region ap-southeast-2 ./test-build.zip s3://kano-nextjs-s3/test-build.zip
       - name: Deploy
-        run: aws deploy create-deployment
-          --application-name kano-nextjs-code-deploy
-          --deployment-config-name CodeDeployDefault.AllAtOnce
-          --deployment-group-name kano-nextjs-group
-          --s3-location bucket=kano-nextjs-s3,bundleType=zip
+        run: |
+          aws deploy create-deployment \
+            --application-name kano-nextjs-code-deploy \
+            --deployment-config-name CodeDeployDefault.AllAtOnce \
+            --deployment-group-name kano-nextjs-group \
+            --s3-location bucket=kano-nextjs-s3,key=test-build.zip,bundleType=zip
