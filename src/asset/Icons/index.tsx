@@ -28,6 +28,7 @@ import ServeyBtnIcon1Comp from '@/asset/Icons/icon_survey_btn1.svg';
 import ServeyBtnIcon2Comp from '@/asset/Icons/icon_survey_btn2.svg';
 import ServeyBtnIcon3Comp from '@/asset/Icons/icon_survey_btn3.svg';
 import LoadingSpinnerComp from '@/asset/Icons/loading-spinner.svg';
+import BusinessChartComp from '@/asset/Icons/ic-business-chart.svg';
 
 export function XIcon({ ...props }) {
   return <XIconComp {...props} />;
@@ -170,4 +171,8 @@ export function LoadingSpinner({ ...props }) {
       {...props}
     />
   );
+}
+
+export function BusinessChart({ ...props }) {
+  return <BusinessChartComp {...props} />;
 }

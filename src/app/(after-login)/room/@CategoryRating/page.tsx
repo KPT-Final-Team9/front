@@ -23,9 +23,9 @@ const dummyData = [
 ];
 export default function Page() {
   const rentDataArray = {
-    시설: { title: '시설', color: '#2563eb' },
-    관리: { title: '관리', color: '#77d276' },
-    민원: { title: '민원', color: '#ffb775' },
+    facility: { title: '시설', color: '#2563eb' },
+    management: { title: '관리', color: '#77d276' },
+    complaints: { title: '민원', color: '#ffb775' },
   };
   return (
     <>
@@ -46,7 +46,7 @@ export default function Page() {
         <div className="flex h-full w-full flex-col justify-between gap-7 self-end desktop:pl-5">
           <div className="flex items-center">
             <LocalIcon
-              name="ExclamationMark"
+              name="BusinessChart"
               className="h-[24px] w-[24px]"
             />
             <p className="text-overline text-text-secondary">항목별 연간 데이터를 보여드려요</p>
