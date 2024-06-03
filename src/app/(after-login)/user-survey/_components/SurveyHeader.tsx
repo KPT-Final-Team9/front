@@ -17,6 +17,8 @@ export default function SurveyHeader() {
       setPathValue('시설 평가');
     } else if (searchParams === 'complaint') {
       setPathValue('민원 평가');
+    } else {
+      setPathValue('');
     }
   }, [pathname, searchParams]);
 
@@ -24,7 +26,7 @@ export default function SurveyHeader() {
     <>
       <header className="relative flex h-[44px] w-full items-center justify-between bg-white">
         <div className="absolute inset-y-0 left-0 flex items-center px-4">
-          <SurveyHeaderBackButton />
+          <SurveyHeaderBackButton searchParams={searchParams} />
         </div>
 
         <div className="flex flex-1 items-center justify-center">
