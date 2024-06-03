@@ -28,6 +28,7 @@ import SurveyBtnIcon1Comp from '@/asset/Icons/icon_survey_btn1.svg';
 import SurveyBtnIcon2Comp from '@/asset/Icons/icon_survey_btn2.svg';
 import SurveyBtnIcon3Comp from '@/asset/Icons/icon_survey_btn3.svg';
 import LoadingSpinnerComp from '@/asset/Icons/loading-spinner.svg';
+import BusinessChartComp from '@/asset/Icons/ic-business-chart.svg';
 import SurveyManageComp from '@/asset/Icons/survey_manage.svg';
 import SurveyFacilityComp from '@/asset/Icons/survey_facility.svg';
 import SurveyComplaintComp from '@/asset/Icons/survey_complaint.svg';
@@ -78,7 +79,12 @@ export function DashLineIcon({ ...props }) {
 }
 
 export function ExclamationMark({ ...props }) {
-  return <ExclamationMarkComp {...props} />;
+  return (
+    <ExclamationMarkComp
+      fill="#6B7280"
+      {...props}
+    />
+  );
 }
 
 export function RoundStarIcon({ ...props }) {
@@ -181,4 +187,8 @@ export function LoadingSpinner({ ...props }) {
       {...props}
     />
   );
+}
+
+export function BusinessChart({ ...props }) {
+  return <BusinessChartComp {...props} />;
 }

@@ -8,6 +8,7 @@ import PopoverTrigger from '@Monocles/popover-trigger/PopoverTrigger';
 import { LocalIcon } from '@icon/index';
 import React from 'react';
 import { PopoverClose } from '@radix-ui/react-popover';
+import RatingDetailDateRangePicker from '@/app/(after-login)/rating-detail/_component/RatingDetailDateRangePicker';
 
 export default function RatingDetailFilter() {
   return (
@@ -85,19 +86,7 @@ export default function RatingDetailFilter() {
             </div>
             <div className="flex flex-col gap-2 desktop:gap-3">
               <div>날짜</div>
-              <Selectbox
-                showIcon
-                lists={[
-                  { id: 0, date: 'test1' },
-                  { id: 1, date: 'test2' },
-                ]}
-                icon="CalendarIcon"
-                optionKey="date"
-                size="addIconShort"
-                onChange={selectedDate => {
-                  alert('날짜 변경');
-                }}
-              />
+              <RatingDetailDateRangePicker />
             </div>
           </div>
           <div className="flex flex-col justify-between gap-3 desktop:flex-row desktop:gap-8">

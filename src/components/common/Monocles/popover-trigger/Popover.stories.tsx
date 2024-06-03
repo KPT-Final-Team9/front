@@ -5,7 +5,7 @@ import PopoverContent from './PopoverContent';
 import { LocalIcon } from '@icon/index';
 
 const meta: Meta = {
-  title: 'Atoms/Popover/Popover',
+  title: 'Monocles/Popover/Popover',
   component: PopoverComp,
   parameters: {
     layout: 'centered',
