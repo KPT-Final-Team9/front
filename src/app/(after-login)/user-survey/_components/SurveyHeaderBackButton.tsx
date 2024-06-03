@@ -15,7 +15,7 @@ export default function SurveyHeaderBackButton() {
         name={'ArrowLeftIcon'}
         width={24}
         height={24}
-        className="fill-text-primary "
+        className="fill-text-primary"
       />
     </button>
   );

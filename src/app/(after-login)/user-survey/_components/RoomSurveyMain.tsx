@@ -9,7 +9,7 @@ export default function RoomSurvey() {
   );
 
   return (
-    <div className="bg-background">
+    <div className="h-[762px] bg-background">
       <div className="flex flex-col items-center bg-white px-4 pb-[34px] pt-5">
         <LocalIcon
           name={'SurveyRoom'}
@@ -35,7 +35,7 @@ export default function RoomSurvey() {
               </div>
               <div className="flex flex-col gap-1">
                 <span className="text-h4">{item.btnTitle}</span>
-                <span className="text-body4">{item.btnDescription}</span>
+                <span className="text-body4 text-text-secondary">{item.btnDescription}</span>
               </div>
             </Link>
           ))}
