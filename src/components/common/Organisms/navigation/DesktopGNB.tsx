@@ -22,7 +22,7 @@ const NAV_ITEMS: NavItemsType = {
   [NAV_TYPE.EVALUATION]: { path: '/room', label: '호실관리' },
   [NAV_TYPE.ROOM_DETAIL]: { path: '/rating-detail', label: '평가상세' },
 };
-const GNB_HEIGHT = 'desktop:h-desktop-gnb h-[68px] ';
+const GNB_HEIGHT = 'desktop:h-gnb h-[68px] ';
 
 export default function DesktopGNB() {
   const [NotibellCount, setNotibellCount] = useState<number | undefined>(undefined);
