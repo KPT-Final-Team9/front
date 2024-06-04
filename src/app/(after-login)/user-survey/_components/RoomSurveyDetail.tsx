@@ -30,7 +30,7 @@ const Survey = z.object({
 });
 
 export default function RoomSurveyDetail({ surveyType, sliderColor, surveyImage }: RoomSurveyDetailProps) {
-  // const router = useRouter(); // TODO: 폼 전송 후 router
+  const router = useRouter(); // TODO: 폼 전송 후 router
   const [score, setScore] = useState([50]);
   const {
     register,
@@ -50,7 +50,7 @@ export default function RoomSurveyDetail({ surveyType, sliderColor, surveyImage 
   // 서버 전송 값 형태: { score: [scoreValue], opinion: "opinionValue" }
   const onSubmit = async (data: any) => {
     await new Promise(r => setTimeout(r, 1000));
-    // router.replace(`/user-survey/scores?id=Test`); // TODO: 평가 완료 페이지 연결하기
+    router.replace(`/user-survey/scores?id=done`); // TODO: 평가 완료 페이지 연결하기
   };
 
   const handleGetScore = (score: number[]) => {
@@ -126,8 +126,7 @@ export default function RoomSurveyDetail({ surveyType, sliderColor, surveyImage 
           type="submit"
           disabled={isSubmitting}
           className="mb-8 h-[72px] w-full text-h4">
-          {isSubmitting && <LoadingSpinner className="mr-2" />}
-          평가 완료하기
+          {isSubmitting ? <LoadingSpinner className="mr-2" /> : '평가 완료하기'}
         </Button>
       </div>
     </form>

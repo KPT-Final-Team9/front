@@ -32,6 +32,7 @@ import BusinessChartComp from '@/asset/Icons/ic-business-chart.svg';
 import SurveyManageComp from '@/asset/Icons/survey_manage.svg';
 import SurveyFacilityComp from '@/asset/Icons/survey_facility.svg';
 import SurveyComplaintComp from '@/asset/Icons/survey_complaint.svg';
+import SurveyFinishComp from '@/asset/Icons/survey_finish.svg';
 
 export function XIcon({ ...props }) {
   return <XIconComp {...props} />;
@@ -191,4 +192,8 @@ export function LoadingSpinner({ ...props }) {
 
 export function BusinessChart({ ...props }) {
   return <BusinessChartComp {...props} />;
+}
+
+export function SurveyFinish({ ...props }) {
+  return <SurveyFinishComp {...props} />;
 }

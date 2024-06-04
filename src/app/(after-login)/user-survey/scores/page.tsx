@@ -1,7 +1,7 @@
 import SurveyHeader from '@/app/(after-login)/user-survey/_components/SurveyHeader';
 import RoomSurveyMain from '@/app/(after-login)/user-survey/_components/RoomSurveyMain';
 import RoomSurveyDetail from '@/app/(after-login)/user-survey/_components/RoomSurveyDetail';
-import Test from '@/app/(after-login)/user-survey/_components/Test';
+import RoomSurveyFinish from '@/app/(after-login)/user-survey/_components/RoomSurveyFinish';
 
 export default function Page({ searchParams }: { searchParams: { id: string } }) {
   /**
@@ -39,8 +39,8 @@ export default function Page({ searchParams }: { searchParams: { id: string } })
             surveyImage={'SurveyComplaint'}
           />
         );
-      // case 'Test': // TODO: 평가 완료 페이지 라우팅
-      //   return <Test />;
+      case 'done':
+        return <RoomSurveyFinish />;
       default:
         return <RoomSurveyMain />;
     }

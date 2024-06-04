@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { LocalIcon } from '@icon/index';
 import { SURVEY_BUTTON_DATA } from '@/constants';
 
+// TODO: 평가 완료 후 홈으로 왔을 때 평가여부 확인해서 버튼 비활성화 처리 추가해야함
 export default function RoomSurvey() {
   const surveyButton = clsx(
     'block mb-6 h-[136px] w-full flex items-center justify-center gap-3 rounded-base bg-white border-stroke border cursor-pointer hover:border-2 hover:border-primary',
