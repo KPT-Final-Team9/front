@@ -35,7 +35,7 @@ export default function DesktopGNB() {
 
   return (
     <>
-      <nav className={cn('top-0 z-40 flex w-full bg-white p-[16px] desktop:px-5', GNB_HEIGHT)}>
+      <nav className={cn('top-0 z-40 hidden w-full bg-white p-[16px] desktop:flex desktop:px-5', GNB_HEIGHT)}>
         <div className="mx-auto flex h-full w-[1440px] items-center justify-between">
           <div className={cn(' flex items-center gap-4', GNB_HEIGHT)}>
             <LocalIcon
