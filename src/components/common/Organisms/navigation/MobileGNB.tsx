@@ -27,12 +27,13 @@ const NAV_ITEMS: NavItemsType = {
 
 export default function MobileGNB() {
   return (
-    <nav className={cn('h-gnb fixed bottom-0 left-0 right-0 z-40 border-t border-stroke bg-white px-7 desktop:hidden')}>
+    <nav className="h-gnb fixed bottom-0 left-0 right-0 z-40 border-t border-stroke bg-white px-7 desktop:hidden">
       <NavListComp />
     </nav>
   );
 }
 
+// 클릭시 scale 효과 적용(내계정 버튼과 효과 통일함)
 function NavListComp() {
   const pathname = usePathname();
   const navListActive = 'fill-primary text-primary';
@@ -43,23 +44,30 @@ function NavListComp() {
         const item = key as NAV_TYPE;
 
         return (
-          <Link
+          <li
             key={NAV_ITEMS[item].path}
-            href={NAV_ITEMS[item].path}
-            className="flex flex-col items-center gap-y-[6px]">
-            <LocalIcon
-              name={NAV_ITEMS[item].icon}
-              width={24}
-              height={24}
-            />
-            <li>{NAV_ITEMS[item].label}</li>
-          </Link>
+            className="active:scale-[.98]">
+            <Link
+              href={NAV_ITEMS[item].path}
+              className={cn('flex flex-col items-center fill-text-disabled text-text-disabled', {
+                [navListActive]: pathname === NAV_ITEMS[item].path,
+              })}>
+              <LocalIcon
+                name={NAV_ITEMS[item].icon}
+                width={24}
+                height={24}
+                className="mb-[6px]"
+              />
+              {NAV_ITEMS[item].label}
+            </Link>
+          </li>
         );
       })}
-      <li>
+      {/* TODO: 내계정은 로그아웃 기능을 대신하는 버튼이라서 active 상태표시 X, hover 효과만 적용 */}
+      <li className="fill-text-disabled text-text-disabled hover:fill-text-secondary hover:text-text-secondary">
         <Button
           variant={'icon'}
-          className="flex flex-col items-center gap-y-[6px] px-0 text-body5">
+          className="flex flex-col items-center gap-y-[6px] px-0 py-0 text-body5">
           <LocalIcon
             name={'NavAccountIcon'}
             width={24}
