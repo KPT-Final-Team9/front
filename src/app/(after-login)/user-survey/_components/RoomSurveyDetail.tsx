@@ -126,8 +126,7 @@ export default function RoomSurveyDetail({ surveyType, sliderColor, surveyImage 
           type="submit"
           disabled={isSubmitting}
           className="mb-8 h-[72px] w-full text-h4">
-          {isSubmitting && <LoadingSpinner className="mr-2" />}
-          평가 완료하기
+          {isSubmitting ? <LoadingSpinner className="mr-2" /> : '평가 완료하기'}
         </Button>
       </div>
     </form>
