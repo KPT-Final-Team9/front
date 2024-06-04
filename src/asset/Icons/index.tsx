@@ -198,6 +198,10 @@ export function BusinessChart({ ...props }) {
   return <BusinessChartComp {...props} />;
 }
 
+export function SurveyFinish({ ...props }) {
+  return <SurveyFinishComp {...props} />;
+}
+
 export function NavDashboardIcon({ ...props }) {
   return <NavDashboardIconComp {...props} />;
 }
