@@ -25,7 +25,7 @@ interface RoomSurveyDetailProps {
 }
 
 const Survey = z.object({
-  score: z.array(z.number().min(0, { message: '점수는 양수만 가능합니다.' })),
+  score: z.number().min(0, { message: '점수는 양수만 가능합니다.' }),
   opinion: z.string(),
 });
 
@@ -100,11 +100,15 @@ export default function RoomSurveyDetail({ surveyType, sliderColor, surveyImage 
             handleGetScore={handleGetScore}
             score={score}
           />
-          {/* FIXME: 슬라이더를 움직이지않으면 값 제출 안되는 이슈 */}
+          {/* value값이 number라는 것을 명시해줘야 함 */}
           <input
             value={score[0]}
-            type={'hidden'}
-            {...register('score')}
+            type="number"
+            readOnly
+            className="hidden"
+            {...register('score', {
+              valueAsNumber: true,
+            })}
           />
         </div>
         <div className="mb-[69px] flex flex-col gap-0.5">
