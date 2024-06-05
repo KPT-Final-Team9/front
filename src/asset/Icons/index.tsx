@@ -33,6 +33,10 @@ import SurveyManageComp from '@/asset/Icons/survey_manage.svg';
 import SurveyFacilityComp from '@/asset/Icons/survey_facility.svg';
 import SurveyComplaintComp from '@/asset/Icons/survey_complaint.svg';
 import SurveyFinishComp from '@/asset/Icons/survey_finish.svg';
+import NavDashboardIconComp from '@/asset/Icons/nav_dashboard.svg';
+import NavRoomIconComp from '@/asset/Icons/nav_room.svg';
+import NavRatingDetailIconComp from '@/asset/Icons/nav_rating_detail.svg';
+import NavAccountIconComp from '@/asset/Icons/nav_account.svg';
 
 export function XIcon({ ...props }) {
   return <XIconComp {...props} />;
@@ -196,4 +200,20 @@ export function BusinessChart({ ...props }) {
 
 export function SurveyFinish({ ...props }) {
   return <SurveyFinishComp {...props} />;
+}
+
+export function NavDashboardIcon({ ...props }) {
+  return <NavDashboardIconComp {...props} />;
+}
+
+export function NavRoomIcon({ ...props }) {
+  return <NavRoomIconComp {...props} />;
+}
+
+export function NavRatingDetailIcon({ ...props }) {
+  return <NavRatingDetailIconComp {...props} />;
+}
+
+export function NavAccountIcon({ ...props }) {
+  return <NavAccountIconComp {...props} />;
 }
