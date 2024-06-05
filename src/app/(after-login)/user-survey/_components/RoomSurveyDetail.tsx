@@ -12,6 +12,7 @@ import { LocalIcon } from '@icon/index';
 import { Button } from '@/components/ui/button';
 import { LoadingSpinner } from '@/asset/Icons/index';
 import { SURVEY_QUESTION } from '@/constants';
+import UserSurveyToast from '@Atoms/toast/UserSurveyToast';
 
 interface FormInput {
   score: number[];
@@ -32,6 +33,7 @@ const Survey = z.object({
 export default function RoomSurveyDetail({ surveyType, sliderColor, surveyImage }: RoomSurveyDetailProps) {
   const router = useRouter(); // TODO: 폼 전송 후 router
   const [score, setScore] = useState([50]);
+  const [toast, setToast] = useState(false);
   const {
     register,
     resetField,
@@ -39,27 +41,40 @@ export default function RoomSurveyDetail({ surveyType, sliderColor, surveyImage 
     setFocus,
     watch,
     setValue,
-    formState: { isSubmitting, errors },
+    formState: { isSubmitting, errors, dirtyFields },
   } = useForm<FormInput>({
     criteriaMode: 'all',
     resolver: zodResolver(Survey),
     mode: 'onBlur',
+    defaultValues: {
+      score: score,
+      opinion: '',
+    },
   });
 
   // TODO: API 연동시 수정해야 함
   // 서버 전송 값 형태: { score: [scoreValue], opinion: "opinionValue" }
   const onSubmit = async (data: any) => {
+    // 슬라이더 이동이 없다면 제출하지 못하도록 처리
+    if (!dirtyFields.score) {
+      setToast(true);
+      return;
+    }
+
     await new Promise(r => setTimeout(r, 1000));
     router.replace(`/user-survey/scores?id=done`); // TODO: 평가 완료 페이지 연결하기
+    console.log(data); // TODO: 전송되는 데이터 확인용 log(나중에 지우기)
   };
 
   const handleGetScore = (score: number[]) => {
     setScore(score);
-    setValue('score', score); // 동적으로 slider값 업데이트
+    setValue('score', score, { shouldDirty: true }); // 동적으로 slider값 업데이트
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="relative">
       <div className="h-[762px] overflow-y-auto bg-white px-4">
         <div className="flex flex-col items-center bg-white px-4 pb-[34px] pt-5">
           <LocalIcon
@@ -133,6 +148,13 @@ export default function RoomSurveyDetail({ surveyType, sliderColor, surveyImage 
           {isSubmitting ? <LoadingSpinner className="mr-2" /> : '평가 완료하기'}
         </Button>
       </div>
+      {toast && (
+        <UserSurveyToast
+          firstMessage={'점수 입력이 필요합니다.'}
+          secondMessage={'슬라이더를 조절해주세요!'}
+          setToast={setToast}
+        />
+      )}
     </form>
   );
 }
