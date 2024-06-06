@@ -1,6 +1,6 @@
 import { AlertDialogDescription, AlertDialogTitle } from '@/components/ui/alert-dialog';
 import BoxImportant from '@img/box_important.png';
-import StarImg from '@img/star.png';
+import StarImg from '@img/Star.png';
 import BaseModal from '@/components/modals/BaseModal';
 import { useMainModalStore, useCompleteModalStore } from '@/app/(after-login)/dashboard/@RatingTrends/_store';
 import { useState } from 'react';

@@ -20,7 +20,14 @@ import { BuildingSelectboxProps, DummyDataProps } from '@/types/common/selectbox
  * @param {string} onChange: 현재 선택되어있는 옵션 {optionKey: string, id: number} 형식으로 반환.
  * @returns {*}
  */
-export function Selectbox({ lists, optionKey, size, icon, showIcon, onChange }: BuildingSelectboxProps) {
+export function Selectbox({
+  lists,
+  optionKey,
+  size = 'addIconShort',
+  icon = 'BuildingIcon',
+  showIcon = true,
+  onChange,
+}: BuildingSelectboxProps) {
   const [buildingList, setBuildingList] = useState<DummyDataProps[] | undefined>(undefined);
   const [currentOption, setCurrentOption] = useState('');
   const isShowIcon = showIcon ? '' : 'hidden';
@@ -70,7 +77,7 @@ export function Selectbox({ lists, optionKey, size, icon, showIcon, onChange }: 
           {buildingList?.map(item => (
             <SelectItem
               key={item.id}
-              value={`{"title": "${item[optionKey].toString()}", "id": "${item.id}"}`}
+              value={`{"title": "${item[optionKey]?.toString()}", "id": "${item.id}"}`}
               size={size}>
               {item[optionKey]}
             </SelectItem>

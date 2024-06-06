@@ -23,6 +23,17 @@ const nextConfig = {
 
     return config;
   },
+  // TODO: 서버 주소에 맞게 바꾸기
+  async rewrites() {
+    return [
+      {
+        source: '/api/:path*',
+        destination: 'https://jsonplaceholder.typicode.com',
+      },
+    ];
+  },
+
+  output: 'standalone',
 };
 // export default withBundleAnalyzer(nextConfig);
 export default nextConfig;
