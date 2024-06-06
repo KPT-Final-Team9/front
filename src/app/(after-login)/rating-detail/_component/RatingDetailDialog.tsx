@@ -25,11 +25,11 @@ export default function RatingDetailDialog({
     <Dialog
       open={isDialogOpen}
       onOpenChange={onDialogOpen}>
-      <DialogContent className="p-0">
-        <DialogHeader className="h-20 justify-center px-10 py-6">
+      <DialogContent className="w-[343px] p-0 desktop:w-[493px]">
+        <DialogHeader className="justify-center px-4 py-3 desktop:h-20 desktop:px-10 desktop:py-6">
           <DialogTitle className="text-h4 text-text-primary">평가 내용 상세보기</DialogTitle>
         </DialogHeader>
-        <div className="flex gap-3 border-b border-t border-stroke bg-blue-50 px-10 py-6">
+        <div className="flex gap-3 border-b border-t border-stroke bg-blue-50 px-4 py-3 desktop:px-10 desktop:py-6">
           <BuildingRoomAvatar idx={0} />
           <div className="text-h3 text-primary">
             {selectedRow?.getValue(RatingDetailTableAccessorKey.BUILDING)}
@@ -47,7 +47,7 @@ export default function RatingDetailDialog({
             />
           </Button>
         </div>
-        <div className="px-10 pb-16 pt-6">
+        <div className="px-4 pb-12 pt-6 desktop:px-10 desktop:pb-16 desktop:pt-6">
           <div className="mb-16 flex w-full flex-col items-center justify-center">
             <div className="mb-2 text-body2 text-text-secondary">평가점수</div>
             <div className="text-h1 text-text-primary">
