@@ -66,11 +66,15 @@ export const columns: ColumnDef<RatingDetail, unknown>[] = [
     accessorKey: RatingDetailTableAccessorKey.CATEGORY,
     header: () => <div className="pl-2.5 desktop:pl-5">유형</div>,
     cell: ({ row }) => <div className="pl-2.5 desktop:pl-5">{row.getValue(RatingDetailTableAccessorKey.CATEGORY)}</div>,
+    size: 200,
+    minSize: 200,
   },
   {
     accessorKey: RatingDetailTableAccessorKey.SCORE,
     header: () => <div>점수</div>,
     cell: ({ row }) => <div>{row.getValue(RatingDetailTableAccessorKey.SCORE)}점</div>,
+    size: 200,
+    minSize: 200,
   },
   {
     accessorKey: RatingDetailTableAccessorKey.CONTENT,
@@ -206,6 +210,9 @@ export default function RatingDetailDataTable() {
                           'block desktop:hidden': COLUMN_HIDDEN_ON_DESKTOP.includes(
                             cell.column.id as RatingDetailTableAccessorKey,
                           ),
+                          'min-w-[90px]': cell.column.id === RatingDetailTableAccessorKey.CATEGORY,
+                          'min-w-[60px]': cell.column.id === RatingDetailTableAccessorKey.SCORE,
+                          'min-w-[40px]': cell.column.id === RatingDetailTableAccessorKey.ELLIPSIS,
                         },
                       )}
                       key={cell.id}>
