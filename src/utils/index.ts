@@ -1,5 +1,6 @@
 import { FilterChartData } from '@/types/chart';
 import dayjs from 'dayjs';
+import { endOfMonth, getDate, getYear, getMonth } from 'date-fns';
 
 export const filterChartData: FilterChartData = ({ chartData, dataKey }) => {
   if (chartData.length === 0) return [];
@@ -34,4 +35,22 @@ export const formatDateToMM_DD = (date: Date | undefined): string => {
 export const formatDateToYYYYMMDD = (date: Date | undefined): string => {
   if (!date) return '----/--/--';
   return dayjs(date).format('YYYY/MM/DD');
+};
+
+// 이번달 현재 일과 중간일, 말일이 똑같은지 반환해주는 함수
+export const scheduleRegularAlarms = () => {
+  const now = new Date();
+  const year = getYear(now);
+  const month = getMonth(now);
+  const date = getDate(now);
+
+  const lastDay = getDate(endOfMonth(new Date(year, month, date)));
+  const middleDay = Math.ceil(lastDay / 2);
+
+  const middleDate = middleDay === date;
+  const lastDate = lastDay === date;
+
+  const middleDayTest = 8 === date;
+
+  return { middleDate, lastDate, middleDayTest };
 };
