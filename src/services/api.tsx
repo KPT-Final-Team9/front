@@ -1,4 +1,3 @@
-import { headers } from 'next/headers';
 import returnFetch from 'return-fetch';
 // export const baseApi = axios.create({
 //   baseURL: 'http://localhost:3000',
@@ -8,16 +7,34 @@ import returnFetch from 'return-fetch';
 //   }
 // });
 
+// function api() {
+//   const headersList = headers();
+//   const referer = headersList.get('referer');
+//   const baseApi = returnFetch({
+//     baseUrl: 'http://localhost:3000',
+//     headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
+//   });
+//   return baseApi;
+// }
+// export const baseApi1 = api();
+
+// 아래 함수는 정상적으로 동작합니다
 export const baseApi = returnFetch({
   baseUrl: 'http://localhost:3000',
   headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
 });
 
-// TODO: 당장 기능 구현 해야하면 헤더에 토큰 고정으로 박으셔도됩니다
-export const authApi = {
-  baseUrl: 'http://localhost:3000',
-  headers: { Accept: 'application/json', Authorization: `Bearer sadsad5asdSS` },
-};
+// 콜백 url을 붙여주지 않으면 src > auth.ts >  _signIn 에서  정상적으로 동작하지 않습니다.
+export const basePublicApi1 = returnFetch({
+  baseUrl: '/public-api',
+  headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
+});
+
+// 아래 함수는 콜백url을 붙였음에도 src > auth.ts >  _signIn 에서  정상적으로 동작하지 않습니다
+export const basePublicApi2 = returnFetch({
+  baseUrl: 'http://localhost:3000/public-api',
+  headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
+});
 
 // export async function fetchWithHeaders(endpoint: string, options: any) {
 //   const headersList = headers();

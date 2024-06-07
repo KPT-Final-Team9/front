@@ -1,6 +1,6 @@
-import NextAuth, { DefaultSession } from 'next-auth';
-import CredentialsProvider from 'next-auth/providers/credentials';
-import { baseApi } from '@/services/api';
+import NextAuth, { CredentialsSignin, DefaultSession } from 'next-auth';
+import Credentials from 'next-auth/providers/credentials';
+import { baseApi, basePublicApi } from '@/services/api';
 declare module 'next-auth' {
   interface Session {
     accessToken?: string;
@@ -40,18 +40,12 @@ export const {
   unstable_update: update, //Beta!!
 } = NextAuth({
   providers: [
-    CredentialsProvider({
-      credentials: {
-        email: { label: 'Email', type: 'text' },
-        password: { label: 'Password', type: 'password' },
-      },
-      name: 'Credentials',
+    Credentials({
       authorize: async credentials => {
         const userInfo = credentials as unknown as CredentialsType;
         try {
           // 번호가 있으면 회원가입으로 간주
-          // HACK: undefined가 문자열로 전달됨
-          if (userInfo.phoneNumber === 'undefined') {
+          if (!userInfo.phoneNumber) {
             return await _signIn('sign-in', userInfo);
           }
           return await _signIn('sign-up', userInfo);
