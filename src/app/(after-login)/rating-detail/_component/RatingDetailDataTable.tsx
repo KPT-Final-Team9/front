@@ -34,6 +34,7 @@ import { BuildingRoomAvatar } from '@Atoms/avatar/BuildingRoomAvatar';
 import { Button } from '@/components/ui/button';
 import { LocalIcon } from '@icon/index';
 import RatingDetailDialog from './RatingDetailDialog';
+import RatingDetailPagination from './RatingDetailPagination';
 
 enum RatingCategory {
   FACILITY = '시설 평가',
@@ -431,53 +432,11 @@ export default function RatingDetailDataTable() {
       <div className="flex items-center justify-center space-x-2 py-4">
         <div className="space-x-2">
           {pageNum > 0 && (
-            <Pagination>
-              <PaginationContent>
-                <PaginationItem>
-                  <PaginationFirst onClick={handleFirstClick} />
-                </PaginationItem>
-                <PaginationItem>
-                  <PaginationPrevious onClick={handlePreviousClick} />
-                </PaginationItem>
-                {pageNum - currentPage + 1 > 5 ? (
-                  <>
-                    <PaginationItem isActive>
-                      <PaginationLink>{currentPage + 1}</PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem>
-                      <PaginationLink onClick={() => handlePageButtonClick(currentPage + 1)}>
-                        {currentPage + 2}
-                      </PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem>
-                      <PaginationLink onClick={() => handlePageButtonClick(currentPage + 2)}>
-                        {currentPage + 3}
-                      </PaginationLink>
-                    </PaginationItem>
-                    <PaginationEllipsis />
-                    <PaginationItem>
-                      <PaginationLink onClick={() => handlePageButtonClick(pageNum)}>{pageNum}</PaginationLink>
-                    </PaginationItem>
-                  </>
-                ) : (
-                  <>
-                    {new Array(pageNum - currentPage + 1).fill(0).map((_, index) => (
-                      <PaginationItem isActive={index === 0}>
-                        <PaginationLink onClick={() => handlePageButtonClick(index + currentPage)}>
-                          {index + currentPage + 1}
-                        </PaginationLink>
-                      </PaginationItem>
-                    ))}
-                  </>
-                )}
-                <PaginationItem>
-                  <PaginationNext onClick={handleNextClick} />
-                </PaginationItem>
-                <PaginationItem>
-                  <PaginationLast onClick={handleLastClick} />
-                </PaginationItem>
-              </PaginationContent>
-            </Pagination>
+            <RatingDetailPagination
+              currentPage={currentPage}
+              pageNum={pageNum}
+              setCurrentPage={setCurrentPage}
+            />
           )}
         </div>
       </div>
