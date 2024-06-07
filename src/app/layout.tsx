@@ -5,6 +5,7 @@ import { roboto, notoSansKr } from '@/style/font';
 import 'pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css';
 import clsx from 'clsx';
 import ReactQueryProviders from '@/contexts/ReactQueryProvider';
+import AuthProvider from '@/contexts/AuthProviser';
 import './globals.scss';
 import '@radix-ui/themes/styles.css';
 
@@ -15,6 +16,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
+  session,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
@@ -23,7 +25,9 @@ export default function RootLayout({
       <body className={clsx(roboto.variable, notoSansKr.variable)}>
         <MSWComponent />
         <ReactQueryProviders>
-          <Theme>{children}</Theme>
+          <AuthProvider session={session}>
+            <Theme>{children}</Theme>
+          </AuthProvider>
         </ReactQueryProviders>
       </body>
     </html>
