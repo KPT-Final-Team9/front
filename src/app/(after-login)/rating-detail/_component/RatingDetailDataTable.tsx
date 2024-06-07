@@ -21,6 +21,8 @@ import { BookmarkIcon } from '@/asset/Icons';
 import RatingDetailDialog from './RatingDetailDialog';
 import RatingDetailPagination from './RatingDetailPagination';
 import { dummyData } from './dummyData';
+import { cn } from '@/lib/utils';
+import { LocalIcon } from '@icon/index';
 
 export enum RatingCategory {
   FACILITY = '시설 평가',
@@ -47,7 +49,17 @@ export enum RatingDetailTableAccessorKey {
   ROOM = 'room',
   IS_BOOKMARK = 'isBookmark',
   RATING_DATE = 'ratingDate',
+  ELLIPSIS = 'ellipsis',
 }
+
+const COLUMN_HIDDEN_ON_MOBILE = [
+  RatingDetailTableAccessorKey.BUILDING,
+  RatingDetailTableAccessorKey.ROOM,
+  RatingDetailTableAccessorKey.IS_BOOKMARK,
+  RatingDetailTableAccessorKey.RATING_DATE,
+];
+
+const COLUMN_HIDDEN_ON_DESKTOP = [RatingDetailTableAccessorKey.ELLIPSIS];
 
 export const columns: ColumnDef<RatingDetail, unknown>[] = [
   {
@@ -89,6 +101,19 @@ export const columns: ColumnDef<RatingDetail, unknown>[] = [
     accessorKey: RatingDetailTableAccessorKey.RATING_DATE,
     header: () => <div>평가 날짜</div>,
     cell: ({ row }) => <div>{formatDateToYYYY_MM_DD(row.getValue(RatingDetailTableAccessorKey.RATING_DATE))}</div>,
+  },
+  {
+    accessorKey: RatingDetailTableAccessorKey.ELLIPSIS,
+    header: () => (
+      <div>
+        <LocalIcon name="MenuDotsIcon" />
+      </div>
+    ),
+    cell: () => (
+      <div>
+        <LocalIcon name="MenuDotsIcon" />
+      </div>
+    ),
   },
 ];
 
@@ -150,7 +175,12 @@ export default function RatingDetailDataTable() {
                   return (
                     <TableHead
                       key={header.id}
-                      className="text-body3 desktop:text-h4">
+                      className={cn('text-body3 desktop:text-h4', 'table-cell desktop:table-cell', {
+                        hidden: COLUMN_HIDDEN_ON_MOBILE.includes(header.column.id as RatingDetailTableAccessorKey), // column.id가 단순 string으로 추론되어 타입 캐스팅 사용함.
+                        'block desktop:hidden': COLUMN_HIDDEN_ON_DESKTOP.includes(
+                          header.column.id as RatingDetailTableAccessorKey,
+                        ),
+                      })}>
                       {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
                     </TableHead>
                   );
@@ -168,7 +198,16 @@ export default function RatingDetailDataTable() {
                   data-state={row.getIsSelected() && 'selected'}>
                   {row.getVisibleCells().map(cell => (
                     <TableCell
-                      className={cell.column.id === RatingDetailTableAccessorKey.SCORE ? 'text-body1' : 'text-body2'}
+                      className={cn(
+                        cell.column.id === RatingDetailTableAccessorKey.SCORE ? 'text-body1' : 'text-body2',
+                        'table-cell desktop:table-cell',
+                        {
+                          hidden: COLUMN_HIDDEN_ON_MOBILE.includes(cell.column.id as RatingDetailTableAccessorKey), // column.id가 단순 string으로 추론되어 타입 캐스팅 사용함.
+                          'block desktop:hidden': COLUMN_HIDDEN_ON_DESKTOP.includes(
+                            cell.column.id as RatingDetailTableAccessorKey,
+                          ),
+                        },
+                      )}
                       key={cell.id}>
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
                     </TableCell>
