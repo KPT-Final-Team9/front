@@ -83,7 +83,7 @@ export default function RatingDetailPagination({
 
   return (
     <Pagination>
-      <PaginationContent className="gap-3 desktop:gap-4">
+      <PaginationContent className="gap-2 desktop:gap-4">
         <PaginationItem>
           <PaginationFirst onClick={handleFirstClick} />
         </PaginationItem>

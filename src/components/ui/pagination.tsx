@@ -55,6 +55,7 @@ const PaginationLink = ({ className, isActive, size = 'icon', href, ...props }: 
         buttonVariants({
           variant: 'ghost',
           size,
+          className: 'h-8 w-8 text-body4 desktop:h-10 desktop:w-10 desktop:text-body1',
         }),
         className,
       )}
@@ -68,7 +69,7 @@ const PaginationPrevious = ({ className, ...props }: React.ComponentProps<typeof
   <PaginationLink
     aria-label="Go to previous page"
     size="default"
-    className={cn('gap-1 p-3', className)}
+    className={cn('p-0 desktop:p-3', className)}
     {...props}>
     <ChevronLeft className="h-4 w-4" />
   </PaginationLink>
@@ -79,7 +80,7 @@ const PaginationFirst = ({ className, ...props }: React.ComponentProps<typeof Pa
   <PaginationLink
     aria-label="Go to First page"
     size="default"
-    className={cn('gap-1 p-3', className)}
+    className={cn('p-0 desktop:p-3', className)}
     {...props}>
     <ChevronsLeft className="h-4 w-4" />
   </PaginationLink>
@@ -90,7 +91,7 @@ const PaginationNext = ({ className, ...props }: React.ComponentProps<typeof Pag
   <PaginationLink
     aria-label="Go to next page"
     size="default"
-    className={cn('gap-1 p-3', className)}
+    className={cn('p-0 desktop:p-3', className)}
     {...props}>
     <ChevronRight className="h-4 w-4" />
   </PaginationLink>
@@ -101,7 +102,7 @@ const PaginationLast = ({ className, ...props }: React.ComponentProps<typeof Pag
   <PaginationLink
     aria-label="Go to Last page"
     size="default"
-    className={cn('gap-1 p-3', className)}
+    className={cn('p-0 desktop:p-3', className)}
     {...props}>
     <ChevronsRight className="h-4 w-4" />
   </PaginationLink>
