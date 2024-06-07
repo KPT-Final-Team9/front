@@ -1,91 +1,96 @@
 'use client';
-import { LocalIcon } from '@icon/index';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import AuthInput from '@Atoms/input/AuthInput';
-import { cn } from '@/lib/utils';
-import { Input } from '@/components/ui/input';
-import { z } from 'zod';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
 
-const User = z.object({
-  account: z.string().min(1, { message: '이름은 필수' }).min(6, { message: '6이상' }).max(12, { message: '12이하' }),
+import { z } from 'zod';
+import { SubmitHandler } from 'react-hook-form';
+import axios from 'axios';
+import { signInWithCredentials } from '@/serverActions/auth';
+import TabsContainer from '@/app/(before-login)/(auth)/_components/TabsContainer';
+import AuthLayout from '@/app/(before-login)/(auth)/_components/AuthLayout';
+import { useState } from 'react';
+import { useSearchParams } from 'next/navigation';
+import { UserRole } from '@/constants';
+import { FormInput } from '@/types/auth';
+import { AuthInputId } from '@/constants/index';
+
+const LOGIN_INPUT = [
+  {
+    title: '이메일',
+    placeholder: '이메일',
+    id: AuthInputId.Account,
+    type: 'email',
+  },
+  {
+    title: '패스워드',
+    placeholder: '워드패스',
+    id: AuthInputId.Password,
+    type: 'password',
+  },
+];
+
+const LOGIN_TABS = [
+  {
+    title: '입주자',
+    value: UserRole.User,
+    inputs: LOGIN_INPUT,
+  },
+  {
+    title: '소유자',
+    value: UserRole.Owner,
+    inputs: LOGIN_INPUT,
+  },
+  {
+    title: '관리자',
+    value: UserRole.Admin,
+    inputs: LOGIN_INPUT,
+  },
+];
+
+const userSchema = z.object({
+  account: z
+    .string()
+    .min(1, { message: '이 입력란은 필수입니다.' })
+    .email({ message: '유효한 이메일 주소를 입력하세요.' }),
+
+  password: z
+    .string()
+    .min(8, { message: '비밀번호는 최소 8자 이상이어야 합니다.' })
+    .max(16, { message: '비밀번호는 최대 16자 를 넘을 수 없습니다.' })
+    .regex(/[a-z]/, { message: '비밀번호는 최소 하나의 소문자를 포함해야 합니다.' })
+    .regex(/[0-9]/, { message: '비밀번호는 최소 하나의 숫자를 포함해야 합니다.' }),
+
+  // .regex(/[@$!%*?&]/, { message: '비밀번호는 최소 하나의 특수 문자를 포함해야 합니다.' }), // 에바인거같아서 뺌
 });
 
-interface FormInput {
-  inputField: string;
-}
-
 export default function Page() {
-  const tabTriggerClass =
-    'rounded-b-none border-[1px] border-r-0 bg-stroke text-black data-[state=active]:border-b-0 data-[state=active]:bg-white data-[state=active]:shadow-none w-full px-[132px] py-[24px]';
-  const tabContentClass = 'rounded-sm m-0 border-x-[1px] px-28 pt-11 grow pb-[64px] border-b-[1px]';
+  // 현재 로그인 탭 role
+  const [tabState, setTabState] = useState('');
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get('callbackUrl');
 
-  const {
-    register,
-    watch,
-    resetField,
-    setFocus,
-    formState: { errors },
-  } = useForm<FormInput>({
-    criteriaMode: 'all',
-    resolver: zodResolver(User),
-    mode: 'onBlur',
-  });
-  console.log(errors);
+  const handleLogin: SubmitHandler<FormInput> = async data => {
+    setIsLoading(true);
+    const req = {
+      ...data,
+      role: tabState,
+    };
+    const message = await signInWithCredentials(req, callbackUrl);
+    if (message) {
+      alert(message?.message);
+    }
+
+    setIsLoading(false);
+  };
+
   return (
-    <div className="flex h-full flex-col items-center justify-center gap-14">
-      <div className="flex flex-col items-center justify-center gap-5">
-        <LocalIcon
-          className="h-[81px] w-[156px]"
-          name={'OfficenerMainLogo'}
-        />
-        <h1 className="text-h2">로그인</h1>
-      </div>
-      <Tabs defaultValue="account">
-        <TabsList className="bg-whit h-fit w-full p-0 ">
-          <TabsTrigger
-            className={tabTriggerClass}
-            value="account">
-            입주자
-          </TabsTrigger>
-          <TabsTrigger
-            className={tabTriggerClass}
-            value="password">
-            소유자
-          </TabsTrigger>
-        </TabsList>
-        <TabsContent
-          className={tabContentClass}
-          value="account">
-          <form
-            action=""
-            className="flex flex-col gap-8">
-            <AuthInput
-              className={cn(
-                'rounded-sm border-stroke bg-white py-2 pl-4 pr-10 text-overline text-text-primary placeholder:text-overline placeholder:text-text-disabled desktop:pr-11 desktop:text-body4 desktop:placeholder:text-body4',
-              )}
-              placeholder="이메일"
-              id="account"
-              errorMessage={errors}
-              register={register}
-            />
-            <AuthInput
-              className={cn(
-                'rounded-sm border-stroke bg-white py-2 pl-4 pr-10 text-overline text-text-primary placeholder:text-overline placeholder:text-text-disabled desktop:pr-11 desktop:text-body4 desktop:placeholder:text-body4',
-              )}
-              placeholder="이메일"
-              id="password"
-              register={register}
-            />
-          </form>
-        </TabsContent>
-        <TabsContent
-          className={tabContentClass}
-          value="password">
-          Change your password here.
-        </TabsContent>
-      </Tabs>
-    </div>
+    <AuthLayout>
+      <TabsContainer
+        zodSchema={userSchema}
+        onHandleSubmit={handleLogin}
+        tabs={LOGIN_TABS}
+        setTabState={setTabState}
+        isLoading={isLoading}
+      />
+    </AuthLayout>
   );
 }
