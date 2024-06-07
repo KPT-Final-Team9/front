@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react';
-import { Popover as PopoverComp } from '@/components/ui/popover';
+import { Popover as PopoverComp, PopoverContent } from '@/components/ui/popover';
 import DateInputComp from '@Monocles/date-input/DateInput';
 import PopoverTrigger from '@Monocles/popover-trigger/PopoverTrigger';
 import { LocalIcon } from '@icon/index';
@@ -56,13 +56,17 @@ export const DatePicker: StoryObj<typeof DateInputComp> = {
           }
           className="px-4 py-2"
         />
-        <DateInputComp
-          {...args}
-          mode="range"
-          selected={date}
-          onSelect={onDateChange}
-          numberOfMonths={1}
-        />
+        <PopoverContent
+          className="flex w-fit flex-col px-2 py-2"
+          align="start">
+          <DateInputComp
+            {...args}
+            mode="range"
+            selected={date}
+            onSelect={onDateChange}
+            numberOfMonths={1}
+          />
+        </PopoverContent>
       </PopoverComp>
     );
   },

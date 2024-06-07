@@ -45,7 +45,7 @@ export default function RatingDetailFilter() {
             </PopoverClose>
           </div>
         }
-        className="w-[300px] desktop:w-[480px]"
+        className="w-[310px] desktop:w-[480px]"
         align="start">
         <div className="flex flex-col gap-9 desktop:gap-16">
           <div className="flex flex-col gap-6 desktop:gap-9">
