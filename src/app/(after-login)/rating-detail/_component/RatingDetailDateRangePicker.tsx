@@ -6,6 +6,7 @@ import { Popover } from '@/components/ui/popover';
 import React from 'react';
 import PopoverTrigger from '@Monocles/popover-trigger/PopoverTrigger';
 import { useRatingDetailStore } from '../_store';
+import DateInput from '@Monocles/date-input/DateInput';
 
 export default function RatingDetailDateRangePicker() {
   const dateRange = useRatingDetailStore(state => state.dateRange);
@@ -25,12 +26,17 @@ export default function RatingDetailDateRangePicker() {
         labelClassName="px-2"
         className="hidden w-fit px-4 py-2 desktop:flex"
       />
-      <DatePicker
+      <DateInput
+        mode="range"
+        selected={dateRange}
+        onSelect={setDateRange}
+      />
+      {/* <DatePicker
         mode="range"
         selected={dateRange}
         onSelect={setDateRange}
         numberOfMonths={1}
-      />
+      /> */}
     </Popover>
   );
 }
