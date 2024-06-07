@@ -1,15 +1,27 @@
 import { create } from 'zustand';
 
-type SurveyReminderModalStore = {
-  ModalState: boolean;
-  setModal: (val: boolean) => void;
+type MidReminderModalStore = {
+  MidModalState: boolean;
+  setMidModal: (val: boolean) => void;
 };
 
-const useSurveyReminderModalStore = create<SurveyReminderModalStore>()(set => ({
-  ModalState: false,
-  setModal: val => {
-    set({ ModalState: val });
+type LastReminderModalStore = {
+  LastModalState: boolean;
+  setLastModal: (val: boolean) => void;
+};
+
+const useMidReminderModalStore = create<MidReminderModalStore>()(set => ({
+  MidModalState: false,
+  setMidModal: val => {
+    set({ MidModalState: val });
   },
 }));
 
-export { useSurveyReminderModalStore };
+const useLastReminderModalStore = create<LastReminderModalStore>()(set => ({
+  LastModalState: false,
+  setLastModal: val => {
+    set({ LastModalState: val });
+  },
+}));
+
+export { useMidReminderModalStore, useLastReminderModalStore };
