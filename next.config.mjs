@@ -28,11 +28,14 @@ const nextConfig = {
     return [
       {
         source: '/api/:path*',
-        destination: 'https://jsonplaceholder.typicode.com',
+        destination: 'http://13.124.168.137/api/:path*',
+      },
+      {
+        source: '/public-api/:path*',
+        destination: 'http://13.124.168.137/public-api/:path*',
       },
     ];
   },
-
   output: 'standalone',
 };
 // export default withBundleAnalyzer(nextConfig);
