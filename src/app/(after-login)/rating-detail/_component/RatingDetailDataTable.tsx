@@ -14,242 +14,19 @@ import {
   getSortedRowModel,
   useReactTable,
 } from '@tanstack/react-table';
-import {
-  Pagination,
-  PaginationContent,
-  PaginationEllipsis,
-  PaginationFirst,
-  PaginationItem,
-  PaginationLast,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-} from '@/components/ui/pagination';
 
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { formatDateToYYYY_MM_DD } from '@/utils';
 import { BookmarkIcon } from '@/asset/Icons';
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { BuildingRoomAvatar } from '@Atoms/avatar/BuildingRoomAvatar';
-import { Button } from '@/components/ui/button';
-import { LocalIcon } from '@icon/index';
 import RatingDetailDialog from './RatingDetailDialog';
 import RatingDetailPagination from './RatingDetailPagination';
+import { dummyData } from './dummyData';
 
-enum RatingCategory {
+export enum RatingCategory {
   FACILITY = '시설 평가',
   MANAGEMENT = '관리 평가',
   COMPLAINT = '민원 평가',
 }
-
-// FIXME: 더미 데이터
-const dummyData: RatingDetail[] = [
-  // Building A (3 rooms)
-  {
-    id: '1',
-    category: RatingCategory.FACILITY,
-    score: 85,
-    content: 'The gym is well-equipped and clean.',
-    building: 'Building A',
-    room: '101',
-    isBookmark: true,
-    ratingDate: new Date('2023-01-15'),
-  },
-  {
-    id: '2',
-    category: RatingCategory.MANAGEMENT,
-    score: 90,
-    content: 'Management is very responsive and helpful.',
-    building: 'Building A',
-    room: '102',
-    isBookmark: false,
-    ratingDate: new Date('2023-02-10'),
-  },
-  {
-    id: '3',
-    category: RatingCategory.COMPLAINT,
-    score: 40,
-    content: 'There have been repeated issues with water supply.',
-    building: 'Building A',
-    room: '103',
-    isBookmark: false,
-    ratingDate: new Date('2023-03-05'),
-  },
-  // Building B (3 rooms)
-  {
-    id: '4',
-    category: RatingCategory.FACILITY,
-    score: 75,
-    content: 'The parking lot is spacious but needs better lighting.',
-    building: 'Building B',
-    room: '201',
-    isBookmark: true,
-    ratingDate: new Date('2023-04-20'),
-  },
-  {
-    id: '5',
-    category: RatingCategory.MANAGEMENT,
-    score: 95,
-    content: 'The new manager is doing an excellent job.',
-    building: 'Building B',
-    room: '202',
-    isBookmark: false,
-    ratingDate: new Date('2023-05-25'),
-  },
-  {
-    id: '6',
-    category: RatingCategory.COMPLAINT,
-    score: 30,
-    content: 'Noise complaints are not being addressed.',
-    building: 'Building B',
-    room: '203',
-    isBookmark: true,
-    ratingDate: new Date('2023-06-30'),
-  },
-  // Building C (4 rooms)
-  {
-    id: '7',
-    category: RatingCategory.FACILITY,
-    score: 80,
-    content: 'The swimming pool is clean and well-maintained.',
-    building: 'Building C',
-    room: '301',
-    isBookmark: false,
-    ratingDate: new Date('2023-07-10'),
-  },
-  {
-    id: '8',
-    category: RatingCategory.MANAGEMENT,
-    score: 85,
-    content: 'Maintenance requests are handled quickly.',
-    building: 'Building C',
-    room: '302',
-    isBookmark: true,
-    ratingDate: new Date('2023-08-15'),
-  },
-  {
-    id: '9',
-    category: RatingCategory.COMPLAINT,
-    score: 20,
-    content: 'There are pest control issues in the basement.',
-    building: 'Building C',
-    room: '303',
-    isBookmark: false,
-    ratingDate: new Date('2023-09-05'),
-  },
-  {
-    id: '10',
-    category: RatingCategory.FACILITY,
-    score: 50,
-    content: 'The elevator often breaks down.',
-    building: 'Building C',
-    room: '304',
-    isBookmark: true,
-    ratingDate: new Date('2023-10-10'),
-  },
-  {
-    id: '11',
-    category: RatingCategory.FACILITY,
-    score: 85,
-    content: 'The gym is well-equipped and clean.',
-    building: 'Building A',
-    room: '1101',
-    isBookmark: true,
-    ratingDate: new Date('2023-01-15'),
-  },
-  {
-    id: '12',
-    category: RatingCategory.MANAGEMENT,
-    score: 90,
-    content: 'Management is very responsive and helpful.',
-    building: 'Building A',
-    room: '1102',
-    isBookmark: false,
-    ratingDate: new Date('2023-02-10'),
-  },
-  {
-    id: '13',
-    category: RatingCategory.COMPLAINT,
-    score: 40,
-    content: 'There have been repeated issues with water supply.',
-    building: 'Building A',
-    room: '1103',
-    isBookmark: false,
-    ratingDate: new Date('2023-03-05'),
-  },
-  // Building B (3 rooms)
-  {
-    id: '14',
-    category: RatingCategory.FACILITY,
-    score: 75,
-    content: 'The parking lot is spacious but needs better lighting.',
-    building: 'Building B',
-    room: '1201',
-    isBookmark: true,
-    ratingDate: new Date('2023-04-20'),
-  },
-  {
-    id: '15',
-    category: RatingCategory.MANAGEMENT,
-    score: 95,
-    content: 'The new manager is doing an excellent job.',
-    building: 'Building B',
-    room: '1202',
-    isBookmark: false,
-    ratingDate: new Date('2023-05-25'),
-  },
-  {
-    id: '16',
-    category: RatingCategory.COMPLAINT,
-    score: 30,
-    content: 'Noise complaints are not being addressed.',
-    building: 'Building B',
-    room: '1203',
-    isBookmark: true,
-    ratingDate: new Date('2023-06-30'),
-  },
-  // Building C (4 rooms)
-  {
-    id: '17',
-    category: RatingCategory.FACILITY,
-    score: 80,
-    content: 'The swimming pool is clean and well-maintained.',
-    building: 'Building C',
-    room: '1301',
-    isBookmark: false,
-    ratingDate: new Date('2023-07-10'),
-  },
-  {
-    id: '18',
-    category: RatingCategory.MANAGEMENT,
-    score: 85,
-    content: 'Maintenance requests are handled quickly.',
-    building: 'Building C',
-    room: '1302',
-    isBookmark: true,
-    ratingDate: new Date('2023-08-15'),
-  },
-  {
-    id: '19',
-    category: RatingCategory.COMPLAINT,
-    score: 20,
-    content: 'There are pest control issues in the basement.',
-    building: 'Building C',
-    room: '1303',
-    isBookmark: false,
-    ratingDate: new Date('2023-09-05'),
-  },
-  {
-    id: '20',
-    category: RatingCategory.FACILITY,
-    score: 50,
-    content: 'The elevator often breaks down.',
-    building: 'Building C',
-    room: '1304',
-    isBookmark: true,
-    ratingDate: new Date('2023-10-10'),
-  },
-];
 
 export type RatingDetail = {
   id: string;
@@ -316,6 +93,7 @@ export const columns: ColumnDef<RatingDetail, unknown>[] = [
 ];
 
 const PAGE_ROW_LIMIT = 10; // 데이터 10개 씩 보여줌.
+export const FIRST_PAGE_NUM = 1; // 1부터 셈
 
 export default function RatingDetailDataTable() {
   const [sorting, setSorting] = useState<SortingState>([]);
@@ -325,7 +103,7 @@ export default function RatingDetailDataTable() {
   const [selectedRow, setSelectedRow] = useState<Row<RatingDetail> | undefined>(undefined);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-  const [currentPage, setCurrentPage] = useState<number>(0); // 0부터 셈
+  const [currentPage, setCurrentPage] = useState<number>(FIRST_PAGE_NUM);
   const pageNum = Math.round(dummyData.length / PAGE_ROW_LIMIT);
 
   const table = useReactTable({
@@ -344,36 +122,16 @@ export default function RatingDetailDataTable() {
       columnFilters,
       columnVisibility,
       rowSelection,
+      pagination: {
+        pageIndex: currentPage - FIRST_PAGE_NUM, // page는 FIRST_PAGE_NUM부터 시작하지만 index는 0부터 시작
+        pageSize: 10,
+      },
     },
   });
 
   const handleRowClick = (newSelectedRow: Row<RatingDetail>) => {
     setIsDialogOpen(true);
     setSelectedRow(newSelectedRow);
-  };
-
-  const handleFirstClick = () => {
-    if (currentPage === 0) return;
-    setCurrentPage(0);
-  };
-
-  const handlePreviousClick = () => {
-    if (currentPage === 0) return;
-    setCurrentPage(prev => prev - 1);
-  };
-
-  const handleLastClick = () => {
-    if (currentPage === pageNum) return;
-    setCurrentPage(pageNum);
-  };
-
-  const handleNextClick = () => {
-    if (currentPage === pageNum) return;
-    setCurrentPage(prev => prev + 1);
-  };
-
-  const handlePageButtonClick = (newPageNum: number) => {
-    setCurrentPage(newPageNum);
   };
 
   return (

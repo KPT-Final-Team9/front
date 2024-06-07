@@ -5,13 +5,48 @@ import {
   PaginationFirst,
   PaginationPrevious,
   PaginationLink,
-  PaginationEllipsis,
   PaginationNext,
   PaginationLast,
 } from '@/components/ui/pagination';
 import React from 'react';
+import { FIRST_PAGE_NUM } from '@/app/(after-login)/rating-detail/_component/RatingDetailDataTable';
 
-const FIRST_PAGE_NUM = 0;
+// 함수를 분리할까 고민하였으나, 불필요한 읽기 흐름이 추가되어 하나의 함수로 만듬.
+const getPaginationVarianceArr = (pageNum: number, currentPage: number): Array<number> => {
+  // 1페이지 일 때
+  if (pageNum === 1) return [0];
+
+  // 2페이지 일 때
+  if (pageNum < 3) {
+    if (currentPage === pageNum) return [-1, 0];
+    if (currentPage === FIRST_PAGE_NUM) return [0, 1];
+  }
+
+  // 3 ~ 4페이지 일 때
+  if (pageNum < 5) {
+    if (currentPage === pageNum) return [-2, -1, 0];
+    if (currentPage === FIRST_PAGE_NUM) return [0, 1, 2];
+    return [-1, 0, 1];
+  }
+
+  // 5페이지 이상일 때
+  let paginationVarianceArr: Array<number>;
+  switch (pageNum - currentPage) {
+    case 0:
+      paginationVarianceArr = [-4, -3, -2, -1, 0];
+      break;
+    case 1:
+      paginationVarianceArr = [-3, -2, -1, 0, 1];
+      break;
+    default:
+      paginationVarianceArr = [-2, -1, 0, 1, 2];
+  }
+
+  if (currentPage === FIRST_PAGE_NUM + 1) paginationVarianceArr = [-1, 0, 1, 2, 3];
+  if (currentPage === FIRST_PAGE_NUM) paginationVarianceArr = [0, 1, 2, 3, 4];
+
+  return paginationVarianceArr;
+};
 
 export default function RatingDetailPagination({
   pageNum = 0, // undefined가 오면 DEFAULT는 0
@@ -55,33 +90,16 @@ export default function RatingDetailPagination({
         <PaginationItem>
           <PaginationPrevious onClick={handlePreviousClick} />
         </PaginationItem>
-        {pageNum - currentPage + 1 > 5 ? (
-          <>
-            <PaginationItem isActive>
-              <PaginationLink>{currentPage + 1}</PaginationLink>
+        {getPaginationVarianceArr(pageNum, currentPage).map(pageVariance => {
+          const paginationNumber = pageVariance + currentPage;
+          return (
+            <PaginationItem
+              isActive={paginationNumber === currentPage}
+              onClick={() => handlePageButtonClick(paginationNumber)}>
+              <PaginationLink>{paginationNumber}</PaginationLink>
             </PaginationItem>
-            <PaginationItem>
-              <PaginationLink onClick={() => handlePageButtonClick(currentPage + 1)}>{currentPage + 2}</PaginationLink>
-            </PaginationItem>
-            <PaginationItem>
-              <PaginationLink onClick={() => handlePageButtonClick(currentPage + 2)}>{currentPage + 3}</PaginationLink>
-            </PaginationItem>
-            <PaginationEllipsis />
-            <PaginationItem>
-              <PaginationLink onClick={() => handlePageButtonClick(pageNum)}>{pageNum}</PaginationLink>
-            </PaginationItem>
-          </>
-        ) : (
-          <>
-            {new Array(pageNum - currentPage + 1).fill(0).map((_, index) => (
-              <PaginationItem isActive={index === 0}>
-                <PaginationLink onClick={() => handlePageButtonClick(index + currentPage)}>
-                  {index + currentPage + 1}
-                </PaginationLink>
-              </PaginationItem>
-            ))}
-          </>
-        )}
+          );
+        })}
         <PaginationItem>
           <PaginationNext onClick={handleNextClick} />
         </PaginationItem>
