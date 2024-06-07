@@ -85,10 +85,16 @@ export default function RatingDetailPagination({
     <Pagination>
       <PaginationContent className="gap-2 desktop:gap-4">
         <PaginationItem>
-          <PaginationFirst onClick={handleFirstClick} />
+          <PaginationFirst
+            disabled={currentPage === FIRST_PAGE_NUM}
+            onClick={handleFirstClick}
+          />
         </PaginationItem>
         <PaginationItem>
-          <PaginationPrevious onClick={handlePreviousClick} />
+          <PaginationPrevious
+            disabled={currentPage === FIRST_PAGE_NUM}
+            onClick={handlePreviousClick}
+          />
         </PaginationItem>
         {getPaginationVarianceArr(pageNum, currentPage).map(pageVariance => {
           const paginationNumber = pageVariance + currentPage;
@@ -101,10 +107,16 @@ export default function RatingDetailPagination({
           );
         })}
         <PaginationItem>
-          <PaginationNext onClick={handleNextClick} />
+          <PaginationNext
+            disabled={currentPage === pageNum}
+            onClick={handleNextClick}
+          />
         </PaginationItem>
         <PaginationItem>
-          <PaginationLast onClick={handleLastClick} />
+          <PaginationLast
+            disabled={currentPage === pageNum}
+            onClick={handleLastClick}
+          />
         </PaginationItem>
       </PaginationContent>
     </Pagination>

@@ -44,7 +44,14 @@ type PaginationLinkProps = {
 } & Pick<ButtonProps, 'size'> &
   React.ComponentProps<'a'>;
 
-const PaginationLink = ({ className, isActive, size = 'icon', href, ...props }: PaginationLinkProps) => (
+const PaginationLink = ({
+  className,
+  isActive,
+  disabled,
+  size = 'icon',
+  href,
+  ...props
+}: PaginationLinkProps & { disabled?: boolean }) => (
   <Link
     href={href ?? '#'}
     passHref
@@ -57,6 +64,7 @@ const PaginationLink = ({ className, isActive, size = 'icon', href, ...props }: 
           size,
           className: 'h-8 w-8 text-body4 desktop:h-10 desktop:w-10 desktop:text-body1',
         }),
+        { 'pointer-events-none opacity-50': disabled },
         className,
       )}
       {...props}
