@@ -5,7 +5,7 @@ import RatingDetailFilter from './_component/RatingDetailFilter';
 
 export default function Page() {
   return (
-    <section className="w-full">
+    <section className="mb-20 w-full desktop:mb-0">
       <div className="flex flex-grow flex-col-reverse justify-between gap-4 desktop:flex-row">
         <div className="mb-8 flex w-full justify-between">
           <BookmarkButtons />

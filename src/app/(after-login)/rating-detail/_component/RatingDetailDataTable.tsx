@@ -429,16 +429,14 @@ export default function RatingDetailDataTable() {
           </TableBody>
         </Table>
       </div>
-      <div className="flex items-center justify-center space-x-2 py-4">
-        <div className="space-x-2">
-          {pageNum > 0 && (
-            <RatingDetailPagination
-              currentPage={currentPage}
-              pageNum={pageNum}
-              setCurrentPage={setCurrentPage}
-            />
-          )}
-        </div>
+      <div className="mt-8 flex items-center justify-center space-x-2 py-4 desktop:mt-10">
+        {pageNum > 0 && (
+          <RatingDetailPagination
+            currentPage={currentPage}
+            pageNum={pageNum}
+            setCurrentPage={setCurrentPage}
+          />
+        )}
       </div>
     </div>
   );
