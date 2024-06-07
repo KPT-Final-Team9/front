@@ -5,9 +5,10 @@ import { roboto, notoSansKr } from '@/style/font';
 import 'pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css';
 import clsx from 'clsx';
 import ReactQueryProviders from '@/contexts/ReactQueryProvider';
-import AuthProvider from '@/contexts/AuthProviser';
+
 import './globals.scss';
 import '@radix-ui/themes/styles.css';
+import AuthProvider from '@/contexts/AuthProvider';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
