@@ -28,6 +28,7 @@ export function Selectbox({
   icon = 'BuildingIcon',
   showIcon = true,
   onChange,
+  disableSort,
   ...props
 }: BuildingSelectboxProps & SelectProps) {
   const [buildingList, setBuildingList] = useState<DummyDataProps[] | undefined>(undefined);
@@ -35,8 +36,15 @@ export function Selectbox({
   const isShowIcon = showIcon ? '' : 'hidden';
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
+  const defaultValue = lists.find(option => option.id === 0)?.[optionKey] || '-';
+
   // 문자열 정렬
   useEffect(() => {
+    if (disableSort) {
+      setBuildingList(lists);
+      return;
+    }
+
     const sortList = lists.slice().sort((a, b) => a[optionKey]?.localeCompare(b[optionKey]));
     setBuildingList(sortList);
   }, [lists]);
@@ -51,7 +59,7 @@ export function Selectbox({
   return (
     <Select
       value={currentOption}
-      defaultValue="-"
+      defaultValue={defaultValue}
       onOpenChange={setIsOpen}
       onValueChange={value => {
         setCurrentOption(value);
