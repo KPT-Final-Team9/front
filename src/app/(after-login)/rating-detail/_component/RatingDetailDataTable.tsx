@@ -79,7 +79,13 @@ export const columns: ColumnDef<RatingDetail, unknown>[] = [
   {
     accessorKey: RatingDetailTableAccessorKey.CONTENT,
     header: () => <div>평가 내용</div>,
-    cell: ({ row }) => <div>{row.getValue(RatingDetailTableAccessorKey.CONTENT)}</div>,
+    cell: ({ row }) => (
+      // table-cell의 max-width를 정확히 계산해주어야 해서 calc 사용
+      // 100vw - 250px이 모바일 대응을 고려했을 때 가장 저합한 width 였음.
+      <div className={`max-w-[calc(100vw_-_250px)] overflow-hidden text-ellipsis text-nowrap`}>
+        {row.getValue(RatingDetailTableAccessorKey.CONTENT)}
+      </div>
+    ),
   },
   {
     accessorKey: RatingDetailTableAccessorKey.BUILDING,
