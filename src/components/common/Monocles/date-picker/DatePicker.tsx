@@ -1,13 +1,13 @@
 import { Button } from '@/components/ui/button';
 import { Calendar, CalendarProps } from '@/components/ui/calendar';
-import { PopoverContent } from '@/components/ui/popover';
 import { cn } from '@/lib/utils';
-import { PopoverClose, PopoverContentProps } from '@radix-ui/react-popover';
+import { PopoverClose } from '@radix-ui/react-popover';
 import React, { useState } from 'react';
 import { ko } from 'date-fns/locale';
 import { formatDateToMM_DD } from '@/utils';
 import { addMonths } from 'date-fns';
 import { ActiveModifiers } from 'react-day-picker';
+import { ClassNameValue } from 'tailwind-merge';
 
 enum ActivePreset {
   NONE = 'none',
@@ -23,12 +23,12 @@ const presetListStyle =
 const activeMarkStyle = 'absolute left-0 top-0 h-full w-[6px] rounded-br-[8px] rounded-tr-[8px] bg-primary';
 
 export default function DatePicker({
-  popoverContentProps,
+  containerClassName,
   className,
   hiddenPreset,
   ...props
 }: CalendarProps & {
-  popoverContentProps?: PopoverContentProps;
+  containerClassName?: ClassNameValue;
   hiddenPreset?: boolean;
 }) {
   const [activePreset, setActivePreset] = useState<ActivePreset>(ActivePreset.ONE_MONTH);
@@ -88,10 +88,7 @@ export default function DatePicker({
   };
 
   return (
-    <PopoverContent
-      className="flex w-min px-0 py-0"
-      align="start"
-      {...popoverContentProps}>
+    <div className={cn(containerClassName)}>
       {!hiddenPreset && (
         <aside className="w-[133px] border-r border-stroke py-3">
           <ul>
@@ -154,6 +151,6 @@ export default function DatePicker({
           </PopoverClose>
         </footer>
       </div>
-    </PopoverContent>
+    </div>
   );
 }

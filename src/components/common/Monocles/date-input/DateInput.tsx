@@ -1,12 +1,12 @@
 import { Button } from '@/components/ui/button';
 import { CalendarProps } from '@/components/ui/calendar';
-import { PopoverContent } from '@/components/ui/popover';
 import { cn } from '@/lib/utils';
-import { PopoverClose, PopoverContentProps } from '@radix-ui/react-popover';
+import { PopoverClose } from '@radix-ui/react-popover';
 import React, { useRef, useState } from 'react';
-import { formatDateToMM_DD, formatDateToYYYYMMDD } from '@/utils';
+import { formatDateToYYYYMMDD } from '@/utils';
 import { addMonths, isValid, parse } from 'date-fns';
 import { ActiveModifiers } from 'react-day-picker';
+import { ClassNameValue } from 'tailwind-merge';
 
 enum ActivePreset {
   NONE = 'none',
@@ -23,12 +23,12 @@ enum DateRangeInput {
 }
 
 export default function DateInput({
-  popoverContentProps,
+  containerClassName,
   className,
   hiddenPreset,
   ...props
 }: CalendarProps & {
-  popoverContentProps?: PopoverContentProps;
+  containerClassName?: ClassNameValue;
   hiddenPreset?: boolean;
 }) {
   const [fromInputValue, setFromInputValue] = useState<string>(
@@ -177,10 +177,7 @@ export default function DateInput({
   };
 
   return (
-    <PopoverContent
-      className="flex w-fit flex-col px-2 py-2"
-      align="start"
-      {...popoverContentProps}>
+    <div className={cn(containerClassName)}>
       {!hiddenPreset && (
         <div className="border-b border-stroke">
           <ul className="menu px-0 py-0 text-body1">
@@ -250,6 +247,6 @@ export default function DateInput({
           </PopoverClose>
         </footer>
       </div>
-    </PopoverContent>
+    </div>
   );
 }

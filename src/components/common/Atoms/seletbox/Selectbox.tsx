@@ -10,6 +10,7 @@ import {
 } from '@Atoms/seletbox/CustomSelect';
 import { LocalIcon } from '@icon/index';
 import { BuildingSelectboxProps, DummyDataProps } from '@/types/common/selectbox';
+import { SelectProps } from '@radix-ui/react-select';
 
 /**
  * @param {string} lists: [{
@@ -27,14 +28,24 @@ export function Selectbox({
   icon = 'BuildingIcon',
   showIcon = true,
   onChange,
-}: BuildingSelectboxProps) {
+  disableSort,
+  value,
+  ...props
+}: BuildingSelectboxProps & SelectProps) {
   const [buildingList, setBuildingList] = useState<DummyDataProps[] | undefined>(undefined);
   const [currentOption, setCurrentOption] = useState('');
   const isShowIcon = showIcon ? '' : 'hidden';
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
+  const defaultValue = lists.find(option => option.id === 0)?.[optionKey] || '-';
+
   // 문자열 정렬
   useEffect(() => {
+    if (disableSort) {
+      setBuildingList(lists);
+      return;
+    }
+
     const sortList = lists.slice().sort((a, b) => a[optionKey]?.localeCompare(b[optionKey]));
     setBuildingList(sortList);
   }, [lists]);
@@ -48,13 +59,14 @@ export function Selectbox({
 
   return (
     <Select
-      value={currentOption}
-      defaultValue="-"
+      value={value || currentOption}
+      defaultValue={defaultValue}
       onOpenChange={setIsOpen}
       onValueChange={value => {
         setCurrentOption(value);
         onChange(JSON.parse(value));
-      }}>
+      }}
+      {...props}>
       <SelectTrigger
         size={size}
         isOpen={isOpen}>
@@ -68,7 +80,7 @@ export function Selectbox({
             />
           </div>
           <div className="truncate">
-            <SelectValue />
+            <SelectValue>{(value && JSON.parse(value)?.[optionKey]) || undefined}</SelectValue>
           </div>
         </div>
       </SelectTrigger>
