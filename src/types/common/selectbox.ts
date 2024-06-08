@@ -12,4 +12,5 @@ export interface BuildingSelectboxProps {
   showIcon?: boolean;
   onChange: (option: { title: string; id: string }) => void | ((selectedBuilding: string) => void);
   disableSort?: boolean;
+  defaultId?: number;
 }

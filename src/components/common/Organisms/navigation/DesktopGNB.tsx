@@ -98,46 +98,57 @@ function NavListComp() {
   );
 }
 
+interface BuildingData {
+  id: number;
+  buildingName: string;
+}
+const dummyBuildingData: Array<BuildingData> = [
+  {
+    id: 1,
+    buildingName: '미왕빌딩',
+  },
+  {
+    id: 2,
+    buildingName: '가산드림타워',
+  },
+  {
+    id: 3,
+    buildingName: '더스카이밸리1차',
+  },
+  {
+    id: 4,
+    buildingName: '서울숲더스페이스',
+  },
+];
+
 // 렌더링 최적화를 위해 분리
 function SelectBoxComp() {
-  const [selectBuilding, setSelectBuilding] = useState([{ buildingName: '-', id: 1 }]);
+  const [selectBuildingOptions, setSelectBuildingOptions] = useState([{ buildingName: '-', id: 1 }]);
   // TODO: 선택된 빌딩 전역 상태로 추가하기
-  const [currentSelectBuilding, SetCurrentSelectBuilding] = useState('');
+  const [currentSelectBuilding, setCurrentSelectBuilding] = useState<number | undefined>(undefined);
+  const selectedBuilding = JSON.stringify(selectBuildingOptions.find(data => data.id === currentSelectBuilding));
+
+  const handleBuildingChange = (newOption: { title: string; id: string }) => {
+    setCurrentSelectBuilding(parseInt(newOption.id));
+  };
+
   useEffect(() => {
     setTimeout(() => {
-      const data = [
-        {
-          id: 1,
-          buildingName: '미왕빌딩',
-        },
-        {
-          id: 2,
-          buildingName: '가산드림타워',
-        },
-        {
-          id: 3,
-          buildingName: '더스카이밸리1차',
-        },
-        {
-          id: 4,
-          buildingName: '서울숲더스페이스',
-        },
-      ];
       // 데이터가 없다면 기본 '-'로 유지
-      if (data) {
-        setSelectBuilding(data);
-        // 첫 번째 빌딩 이름을 기본값으로 설정
-        SetCurrentSelectBuilding(data[0].buildingName);
+      if (dummyBuildingData) {
+        setSelectBuildingOptions(dummyBuildingData);
       }
     }, 1000);
   }, []);
+
   return (
     <Selectbox
       optionKey="buildingName"
       icon="BuildingIcon"
       showIcon={true}
-      onChange={SetCurrentSelectBuilding}
-      lists={selectBuilding}
+      value={selectedBuilding}
+      onChange={newOption => handleBuildingChange(newOption)}
+      lists={selectBuildingOptions}
       size={'addIconShort'}
     />
   );
