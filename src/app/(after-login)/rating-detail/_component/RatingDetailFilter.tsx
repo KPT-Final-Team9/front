@@ -9,8 +9,15 @@ import React, { useEffect, useState } from 'react';
 import { PopoverClose } from '@radix-ui/react-popover';
 import RatingDetailDateRangePicker from '@/app/(after-login)/rating-detail/_component/RatingDetailDateRangePicker';
 import { RatingCategory } from '@/app/(after-login)/rating-detail/_component/RatingDetailDataTable';
-import { CategorySelectId, useRatingDetailStore } from '@/app/(after-login)/rating-detail/_store';
+import {
+  CategorySelectId,
+  DEFAULT_CATEGORY_ID,
+  DEFAULT_DATE_RANGE,
+  DEFAULT_ROOM_ID,
+  useRatingDetailStore,
+} from '@/app/(after-login)/rating-detail/_store';
 import PopoverTrigger from '@Monocles/popover-trigger/PopoverTrigger';
+import { isSameDateRange } from '@/utils';
 
 const CATEGORY_LIST = [
   { id: CategorySelectId.ALL, category: RatingCategory.ALL },
@@ -34,6 +41,9 @@ export default function RatingDetailFilter() {
   const dateRange = useRatingDetailStore(state => state.dateRange);
   const setDateRange = useRatingDetailStore(state => state.setDateRange);
 
+  const isFilterActive =
+    roomId !== DEFAULT_ROOM_ID || categoryId !== DEFAULT_CATEGORY_ID || !isSameDateRange(dateRange, DEFAULT_DATE_RANGE);
+
   const handleRoomChange = (newRoomOption: { title: string; id: string }) => {
     setRoomId(parseInt(newRoomOption.id));
   };
@@ -52,6 +62,7 @@ export default function RatingDetailFilter() {
   return (
     <Popover>
       <PopoverTrigger
+        isActive={isFilterActive}
         icon={
           <LocalIcon
             name="FilterIcon"
@@ -107,6 +118,7 @@ export default function RatingDetailFilter() {
                   optionKey="category"
                   size="addIconShort"
                   onChange={newOption => handleCategoryChange(newOption)}
+                  disableSort
                 />
               </div>
             </div>
