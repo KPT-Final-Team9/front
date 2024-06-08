@@ -50,20 +50,24 @@ export default function UserSurveyModal({
       <AlertDialogContent className="w-[337px] gap-10 rounded-container sm:rounded-container">
         <AlertDialogHeader className="flex w-full flex-col items-center justify-center gap-2">
           {isCloseButton && (
-            <AlertDialogCancel
+            // FIXME: 모달이 바로 뜰 때 AlertDialogCancel 사용시 버튼에 pointer-events로 검은 테두리가 계속 포커싱되어 Action으로 처리함
+            <AlertDialogAction
               disabled={isLoading}
               onClick={() => {
                 if (setClose) {
                   setClose(false);
                 }
               }}
-              className={cn(buttonVariants({ variant: 'none', size: 'default' }), 'w-fit self-end border-0 p-0')}>
+              className={cn(
+                buttonVariants({ variant: 'ghost', size: 'default' }),
+                'w-fit self-end border-0 bg-transparent p-0 hover:bg-transparent',
+              )}>
               <LocalIcon
                 strokeWidth={0.2}
                 className="h-6 w-6"
                 name="CgClose"
               />
-            </AlertDialogCancel>
+            </AlertDialogAction>
           )}
           {imgSrc && (
             <AlertDialogDescription className="flex h-16 w-16 items-center justify-center self-center rounded-full bg-blue-100">
@@ -82,20 +86,21 @@ export default function UserSurveyModal({
             <AlertDialogAction
               disabled={isLoading}
               onClick={onAcceptClick}
-              className={cn('w-full rounded-btn', buttonVariants({ variant: 'none', size: 'default' }))}>
+              className={cn('w-full rounded-btn', buttonVariants({ variant: 'default', size: 'default' }))}>
               {acceptText}
             </AlertDialogAction>
           )}
           {cancelText && (
-            <AlertDialogCancel
+            // FIXME: 모달이 바로 뜰 때 AlertDialogCancel 사용시 버튼에 pointer-events로 검은 테두리가 계속 포커싱되어 Action으로 처리함
+            <AlertDialogAction
               disabled={isLoading}
               className={cn(
-                'w-full rounded-btn border-0 font-medium text-text-secondary',
+                'w-full rounded-btn border-0 bg-transparent font-medium text-text-secondary hover:bg-transparent',
                 buttonVariants({ variant: 'none', size: 'default' }),
               )}
               onClick={onCancleClick}>
               {isLoading ? <LoadingSpinner /> : cancelText}
-            </AlertDialogCancel>
+            </AlertDialogAction>
           )}
         </AlertDialogFooter>
       </AlertDialogContent>
