@@ -6,7 +6,7 @@ import SurveyReminderModal from '@/components/modals/SurveyReminderModal';
 import { AlertDialogDescription } from '@/components/ui/alert-dialog';
 import { useMidReminderModalStore } from '@/app/(after-login)/user-survey/_store';
 
-export default function RoomSurveyModal() {
+export default function RoomSurveyMidModal() {
   const { MidModalState, setMidModal } = useMidReminderModalStore();
   const [isLoading, setIsLoading] = useState(false);
 

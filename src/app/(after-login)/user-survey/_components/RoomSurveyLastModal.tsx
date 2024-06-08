@@ -6,7 +6,7 @@ import SurveyReminderModal from '@/components/modals/SurveyReminderModal';
 import { AlertDialogDescription } from '@/components/ui/alert-dialog';
 import { useLastReminderModalStore } from '@/app/(after-login)/user-survey/_store';
 
-export default function RoomSurveyModal() {
+export default function RoomSurveyLastModal() {
   const { LastModalState, setLastModal } = useLastReminderModalStore();
   const [isLoading, setIsLoading] = useState(false);
 
