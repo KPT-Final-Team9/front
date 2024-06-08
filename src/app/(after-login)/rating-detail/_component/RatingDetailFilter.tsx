@@ -14,7 +14,6 @@ export default function RatingDetailFilter() {
   return (
     <Popover>
       <PopoverTrigger
-        isHiddenOnMobile
         label="옵션 선택"
         icon={
           <LocalIcon
