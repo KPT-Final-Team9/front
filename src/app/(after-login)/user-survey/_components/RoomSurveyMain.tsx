@@ -1,7 +1,11 @@
+'use client';
+
 import clsx from 'clsx';
 import Link from 'next/link';
 import { LocalIcon } from '@icon/index';
 import { SURVEY_BUTTON_DATA } from '@/constants';
+import RoomSurveyMidModal from '@/app/(after-login)/user-survey/_components/RoomSurveyMidModal';
+import RoomSurveyLastModal from '@/app/(after-login)/user-survey/_components/RoomSurveyLastModal';
 
 // TODO: 평가 완료 후 홈으로 왔을 때 평가여부 확인해서 버튼 비활성화 처리 추가해야함
 export default function RoomSurvey() {
@@ -42,6 +46,8 @@ export default function RoomSurvey() {
           ))}
         </div>
       </div>
+      <RoomSurveyMidModal />
+      <RoomSurveyLastModal />
     </div>
   );
 }
