@@ -14,14 +14,14 @@ export const enum CategorySelectId {
   COMPLAINT = 3,
 }
 
+export const DEFAULT_ROOM_ID = 0; // room 기본 값은 가나다 오름차순 첫 번째
+export const DEFAULT_CATEGORY_ID = 0; // category 기본 값은 가나다 오름차순 첫 번째
+
 const currentDate = new Date();
-const DEFAULT_DATE_RANGE = {
+export const DEFAULT_DATE_RANGE = {
   from: addMonths(currentDate, -1),
   to: currentDate,
 };
-
-const DEFAULT_ROOM_INDEX = 0; // room 기본 값은 가나다 오름차순 첫 번째
-const DEFAULT_CATEGORY_INDEX = 0; // category 기본 값은 가나다 오름차순 첫 번째
 
 interface RatingDetailStore {
   viewState: ViewState;
@@ -45,8 +45,8 @@ export const useRatingDetailStore = create<RatingDetailStore>(set => ({
   setSearchValue: (newValue: string) => set({ searchValue: newValue }),
   dateRange: DEFAULT_DATE_RANGE,
   setDateRange: (newDateRange: DateRange | undefined) => set({ dateRange: newDateRange }),
-  roomId: DEFAULT_ROOM_INDEX,
+  roomId: DEFAULT_ROOM_ID,
   setRoomId: (newRoomId: number) => set({ roomId: newRoomId }),
-  categoryId: DEFAULT_CATEGORY_INDEX,
+  categoryId: DEFAULT_CATEGORY_ID,
   setCategoryId: (newCategoryId: number) => set({ categoryId: newCategoryId }),
 }));
