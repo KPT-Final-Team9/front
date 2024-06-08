@@ -7,11 +7,15 @@ import React from 'react';
 import PopoverTrigger from '@Monocles/popover-trigger/PopoverTrigger';
 import { useRatingDetailStore } from '../_store';
 import DateInput from '@Monocles/date-input/DateInput';
+import { DateRange } from 'react-day-picker';
 
-export default function RatingDetailDateRangePicker() {
-  const dateRange = useRatingDetailStore(state => state.dateRange);
-  const setDateRange = useRatingDetailStore(state => state.setDateRange);
-
+export default function RatingDetailDateRangePicker({
+  dateRange,
+  setDateRange,
+}: {
+  dateRange: DateRange | undefined;
+  setDateRange: (newDateRange: DateRange | undefined) => void;
+}) {
   return (
     <Popover>
       <PopoverTrigger

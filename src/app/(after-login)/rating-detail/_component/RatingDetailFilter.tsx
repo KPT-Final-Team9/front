@@ -4,24 +4,62 @@ import { Popover } from '@/components/ui/popover';
 import { XIconButton } from '@Atoms/buttons/IconButtons';
 import { Selectbox } from '@Atoms/seletbox/Selectbox';
 import PopoverContent from '@Monocles/popover-trigger/PopoverContent';
-import PopoverTrigger from '@Monocles/popover-trigger/PopoverTrigger';
 import { LocalIcon } from '@icon/index';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { PopoverClose } from '@radix-ui/react-popover';
 import RatingDetailDateRangePicker from '@/app/(after-login)/rating-detail/_component/RatingDetailDateRangePicker';
+import { RatingCategory } from '@/app/(after-login)/rating-detail/_component/RatingDetailDataTable';
+import { CategorySelectId, useRatingDetailStore } from '@/app/(after-login)/rating-detail/_store';
+import PopoverTrigger from '@Monocles/popover-trigger/PopoverTrigger';
+
+const CATEGORY_LIST = [
+  { id: CategorySelectId.ALL, category: RatingCategory.ALL },
+  { id: CategorySelectId.FACILITY, category: RatingCategory.FACILITY },
+  { id: CategorySelectId.MANAGEMENT, category: RatingCategory.MANAGEMENT },
+  { id: CategorySelectId.COMPLAINT, category: RatingCategory.COMPLAINT },
+];
+
+// FIXME: dummy
+const DUMMY_ROOM_LIST = [
+  { id: 0, roomName: 'test1' },
+  { id: 1, roomName: 'test2' },
+];
 
 export default function RatingDetailFilter() {
+  const [roomData, setRoomData] = useState<Array<{ roomName: string; id: number }>>([]);
+  const roomId = useRatingDetailStore(state => state.roomId);
+  const setRoomId = useRatingDetailStore(state => state.setRoomId);
+  const categoryId = useRatingDetailStore(state => state.categoryId);
+  const setCategoryId = useRatingDetailStore(state => state.setCategoryId);
+  const dateRange = useRatingDetailStore(state => state.dateRange);
+  const setDateRange = useRatingDetailStore(state => state.setDateRange);
+
+  const handleRoomChange = (newRoomOption: { title: string; id: string }) => {
+    setRoomId(parseInt(newRoomOption.id));
+  };
+
+  const handleCategoryChange = (newCategoryOption: { title: string; id: string }) => {
+    setCategoryId(parseInt(newCategoryOption.id));
+  };
+
+  // FIXME: fetch하는 로직으로 수정하기
+  useEffect(() => {
+    setTimeout(() => {
+      setRoomData(DUMMY_ROOM_LIST);
+    }, 100);
+  }, []);
+
   return (
     <Popover>
       <PopoverTrigger
-        label="옵션 선택"
         icon={
           <LocalIcon
+            name="FilterIcon"
             width={24}
             height={24}
-            name="FilterIcon"
           />
         }
+        label="옵션 선택"
       />
       <PopoverContent
         headerSlot={
@@ -50,42 +88,34 @@ export default function RatingDetailFilter() {
           <div className="flex flex-col gap-6 desktop:gap-9">
             <div className="flex flex-col gap-6 desktop:flex-row desktop:gap-8">
               <div className="flex flex-col gap-2 desktop:gap-3">
-                <div>동/호실</div>
+                <div>동/호실 {roomId}</div>
                 <Selectbox
                   showIcon
-                  lists={[
-                    { id: 0, roomName: 'test1' },
-                    { id: 1, roomName: 'test2' },
-                  ]}
+                  lists={roomData}
                   icon="RoomIcon"
                   optionKey="roomName"
                   size="addIconLarge"
-                  onChange={selectedRoom => {
-                    alert('호실 변경');
-                  }}
+                  onChange={newOption => handleRoomChange(newOption)}
                 />
               </div>
               <div className="flex flex-col gap-2 desktop:gap-3">
-                <div>평가 항목</div>
+                <div>평가 항목 {categoryId}</div>
                 <Selectbox
                   showIcon={false}
-                  lists={[
-                    { id: 0, category: '시설 평가' },
-                    { id: 1, category: '관리 평가' },
-                    { id: 2, category: '민원 평가' },
-                  ]}
+                  lists={CATEGORY_LIST}
                   icon="RoomIcon"
                   optionKey="category"
                   size="addIconShort"
-                  onChange={selectedRoom => {
-                    alert('평가 항목 변경');
-                  }}
+                  onChange={newOption => handleCategoryChange(newOption)}
                 />
               </div>
             </div>
             <div className="flex flex-col gap-2 desktop:gap-3">
-              <div>날짜</div>
-              <RatingDetailDateRangePicker />
+              <div>날짜 {dateRange?.from?.toString()}</div>
+              <RatingDetailDateRangePicker
+                dateRange={dateRange}
+                setDateRange={setDateRange}
+              />
             </div>
           </div>
           <div className="flex flex-col justify-between gap-3 desktop:flex-row desktop:gap-8">

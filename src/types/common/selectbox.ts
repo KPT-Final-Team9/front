@@ -10,5 +10,5 @@ export interface BuildingSelectboxProps {
   size?: 'addIconLarge' | 'addIconShort' | 'quarter';
   icon?: 'BuildingIcon' | 'CalendarIcon' | 'RoomIcon';
   showIcon?: boolean;
-  onChange: (selectedBuilding: string) => void;
+  onChange: (option: { title: string; id: string }) => void | ((selectedBuilding: string) => void);
 }

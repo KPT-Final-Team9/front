@@ -25,6 +25,7 @@ import { cn } from '@/lib/utils';
 import { LocalIcon } from '@icon/index';
 
 export enum RatingCategory {
+  ALL = '전체보기',
   FACILITY = '시설 평가',
   MANAGEMENT = '관리 평가',
   COMPLAINT = '민원 평가',
