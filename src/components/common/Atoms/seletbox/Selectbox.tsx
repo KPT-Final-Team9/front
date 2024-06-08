@@ -29,6 +29,7 @@ export function Selectbox({
   showIcon = true,
   onChange,
   disableSort,
+  value,
   ...props
 }: BuildingSelectboxProps & SelectProps) {
   const [buildingList, setBuildingList] = useState<DummyDataProps[] | undefined>(undefined);
@@ -58,7 +59,7 @@ export function Selectbox({
 
   return (
     <Select
-      value={currentOption}
+      value={value || currentOption}
       defaultValue={defaultValue}
       onOpenChange={setIsOpen}
       onValueChange={value => {
@@ -79,7 +80,7 @@ export function Selectbox({
             />
           </div>
           <div className="truncate">
-            <SelectValue />
+            <SelectValue>{(value && JSON.parse(value)?.[optionKey]) || undefined}</SelectValue>
           </div>
         </div>
       </SelectTrigger>
