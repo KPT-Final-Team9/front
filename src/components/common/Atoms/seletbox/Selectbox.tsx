@@ -30,6 +30,7 @@ export function Selectbox({
   onChange,
   disableSort,
   value,
+  defaultId = 0,
   ...props
 }: BuildingSelectboxProps & SelectProps) {
   const [buildingList, setBuildingList] = useState<DummyDataProps[] | undefined>(undefined);
@@ -37,17 +38,22 @@ export function Selectbox({
   const isShowIcon = showIcon ? '' : 'hidden';
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  const defaultValue = lists.find(option => option.id === 0)?.[optionKey] || '-';
+  const defaultValue = lists.find(option => option.id === defaultId)?.[optionKey] || '-';
+  const controlledValue = value && JSON.parse(value)?.[optionKey];
 
   // 문자열 정렬
   useEffect(() => {
     if (disableSort) {
       setBuildingList(lists);
+      // 정렬하지 않을 때는 외부에서 정한 초기 값을 따르면 됨.
       return;
     }
 
     const sortList = lists.slice().sort((a, b) => a[optionKey]?.localeCompare(b[optionKey]));
     setBuildingList(sortList);
+
+    // 정렬 할 경우, 정렬에 맞는 초기 값 설정
+    onChange({ title: sortList[0]?.[optionKey], id: (sortList[0]?.id).toString() });
   }, [lists]);
 
   // default value 설정
@@ -80,7 +86,7 @@ export function Selectbox({
             />
           </div>
           <div className="truncate">
-            <SelectValue>{(value && JSON.parse(value)?.[optionKey]) || undefined}</SelectValue>
+            <SelectValue>{controlledValue || undefined}</SelectValue>
           </div>
         </div>
       </SelectTrigger>

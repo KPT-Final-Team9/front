@@ -100,6 +100,7 @@ export default function RatingDetailPagination({
           const paginationNumber = pageVariance + currentPage;
           return (
             <PaginationItem
+              key={'pagination-rating-detail-' + { paginationNumber }}
               isActive={paginationNumber === currentPage}
               onClick={() => handlePageButtonClick(paginationNumber)}>
               <PaginationLink>{paginationNumber}</PaginationLink>
