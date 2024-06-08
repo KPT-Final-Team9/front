@@ -91,10 +91,12 @@ export default function RatingDetailFilter() {
           <div className="flex flex-col justify-between gap-3 desktop:flex-row desktop:gap-8">
             <Button
               variant="outline"
-              className="w-[200px] flex-grow self-center desktop:max-w-full">
+              className="h-[48px] w-[200px] flex-grow self-center desktop:h-[54px] desktop:max-w-full">
               옵션 초기화
             </Button>
-            <Button className="w-[200px] flex-grow self-center text-white desktop:max-w-full">옵션 적용</Button>
+            <Button className="h-[48px] w-[200px] flex-grow self-center text-white desktop:h-[54px] desktop:max-w-full">
+              옵션 적용
+            </Button>
           </div>
         </div>
       </PopoverContent>
