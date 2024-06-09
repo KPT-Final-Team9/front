@@ -67,10 +67,8 @@ export default function Page() {
         />
 
         {/* 평가 알람 뱃지 */}
-        {scoreData ? (
+        {scoreData && (
           <div className="absolute left-[75px] top-[490px] z-50 h-[6px] w-[6px] rounded-full bg-primary-badge-new"></div>
-        ) : (
-          ''
         )}
 
         <LocalIcon
