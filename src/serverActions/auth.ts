@@ -34,6 +34,7 @@ export const signInWithCredentials = async (formData: any, redirectUrl?: string 
   redirect('/');
 };
 
+//로그아웃
 export const signOutWithForm = async () => {
   await signOut();
 };
