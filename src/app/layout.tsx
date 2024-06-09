@@ -5,10 +5,9 @@ import { roboto, notoSansKr } from '@/style/font';
 import 'pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css';
 import clsx from 'clsx';
 import ReactQueryProviders from '@/contexts/ReactQueryProvider';
-
 import './globals.scss';
 import '@radix-ui/themes/styles.css';
-import AuthProvider from '@/contexts/AuthProvider';
+import { SessionProvider } from 'next-auth/react';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -17,7 +16,6 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-  session,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
@@ -26,9 +24,9 @@ export default function RootLayout({
       <body className={clsx(roboto.variable, notoSansKr.variable)}>
         <MSWComponent />
         <ReactQueryProviders>
-          <AuthProvider session={session}>
+          <SessionProvider>
             <Theme>{children}</Theme>
-          </AuthProvider>
+          </SessionProvider>
         </ReactQueryProviders>
       </body>
     </html>
