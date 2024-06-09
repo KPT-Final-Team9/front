@@ -1,5 +1,6 @@
 import { FilterChartData } from '@/types/chart';
 import dayjs from 'dayjs';
+import { DateRange } from 'react-day-picker';
 import { endOfMonth, getDate, getYear, getMonth } from 'date-fns';
 
 export const filterChartData: FilterChartData = ({ chartData, dataKey }) => {
@@ -35,6 +36,14 @@ export const formatDateToMM_DD = (date: Date | undefined): string => {
 export const formatDateToYYYYMMDD = (date: Date | undefined): string => {
   if (!date) return '----/--/--';
   return dayjs(date).format('YYYY/MM/DD');
+};
+
+export const isSameDateRange = (dateRangeA: DateRange | undefined, dateRangeB: DateRange | undefined) => {
+  if (dateRangeA === undefined || dateRangeB === undefined) return undefined; // 한 쪽이 undefined인 경우라면 true, false가 아닌 undefined를 반환.
+  const result =
+    formatDateToYYYY_MM_DD(dateRangeA.from) === formatDateToYYYY_MM_DD(dateRangeB.from) &&
+    formatDateToYYYY_MM_DD(dateRangeA.to) === formatDateToYYYY_MM_DD(dateRangeB.to);
+  return result;
 };
 
 // 이번달 현재 일과 중간일, 말일이 똑같은지 반환해주는 함수
