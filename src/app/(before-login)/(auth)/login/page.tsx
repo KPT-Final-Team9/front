@@ -2,7 +2,6 @@
 
 import { z } from 'zod';
 import { SubmitHandler } from 'react-hook-form';
-import axios from 'axios';
 import { signInWithCredentials } from '@/serverActions/auth';
 import TabsContainer from '@/app/(before-login)/(auth)/_components/TabsContainer';
 import AuthLayout from '@/app/(before-login)/(auth)/_components/AuthLayout';

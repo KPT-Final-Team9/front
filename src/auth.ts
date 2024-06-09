@@ -1,10 +1,12 @@
+import { nodePublicApi } from '@/services/intercepter';
 import NextAuth, { DefaultSession } from 'next-auth';
-import CredentialsProvider from 'next-auth/providers/credentials';
-import { baseApi } from '@/services/api';
+import Credentials from 'next-auth/providers/credentials';
+
 declare module 'next-auth' {
   interface Session {
-    accessToken?: string;
+    token?: string;
     role?: string;
+
     user: {
       role?: string;
       accessToken?: string;
@@ -40,18 +42,12 @@ export const {
   unstable_update: update, //Beta!!
 } = NextAuth({
   providers: [
-    CredentialsProvider({
-      credentials: {
-        email: { label: 'Email', type: 'text' },
-        password: { label: 'Password', type: 'password' },
-      },
-      name: 'Credentials',
+    Credentials({
       authorize: async credentials => {
         const userInfo = credentials as unknown as CredentialsType;
         try {
           // 번호가 있으면 회원가입으로 간주
-          // HACK: undefined가 문자열로 전달됨
-          if (userInfo.phoneNumber === 'undefined') {
+          if (!userInfo.phoneNumber) {
             return await _signIn('sign-in', userInfo);
           }
           return await _signIn('sign-up', userInfo);
@@ -63,7 +59,7 @@ export const {
   ],
   session: {
     strategy: 'jwt',
-    maxAge: 60 * 60 * 24, // 세션 만료 시간(sec)
+    maxAge: 60 * 60, // 세션 만료 시간(sec)
   },
   pages: {
     signIn: '/login',
@@ -77,9 +73,10 @@ export const {
       return token;
     },
     session: async ({ session, token, user }) => {
-      // console.log(session, token, user);
-      session.accessToken = token.accessToken;
+      // console.log('session', session, 'token', token, 'user', user);
+      session.token = token.token as string;
       session.role = token.role;
+      // session.hi = 'token';
 
       return session;
     },
@@ -91,9 +88,9 @@ async function _signIn(
   userInfo: { account?: string; password: string; role: string; phoneNumber?: string },
 ) {
   const { account, password, role, phoneNumber } = userInfo;
-  console.log('역할이 있어요', account, password, role, phoneNumber, type, `/public-api/${type}/${role}`);
+  console.log('역할이 있어요', account, password, role, phoneNumber, type, `public-api/${type}/${role}`);
   try {
-    const res = await baseApi(`/public-api/${type}/${role}`, {
+    const res = await nodePublicApi(`/${type}/${role}`, {
       cache: 'no-store',
       method: 'POST',
       body: JSON.stringify({
@@ -101,11 +98,12 @@ async function _signIn(
         password: password,
       }),
     });
-
     if (res.ok) {
       const data = await res.json();
       console.log(data);
       return data;
+    } else if (res.status >= 500) {
+      console.log('서버에러입니다!');
     } else {
       const errorMessage = await res.text();
       throw new Error(errorMessage);

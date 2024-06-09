@@ -25,4 +25,5 @@ export interface CustomSession {
   user: User;
   expires: string;
   role: string;
+  token: string;
 }

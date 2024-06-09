@@ -1,38 +1,116 @@
-import { headers } from 'next/headers';
-import returnFetch from 'return-fetch';
-// export const baseApi = axios.create({
-//   baseURL: 'http://localhost:3000',
-//   headers: {
-//     Accept: 'application/json',
-//     'Content-Type': 'application/json'
+import { apisBaseUrl, logRequestInterceptor, publicApiBaseUrl } from '@/services/intercepter';
+import { getAuth } from '@/serverActions/index';
+
+// async function createApiInstance(headers) {
+//   let baseUrl = '/';
+//   let headersList = null;
+
+//   if (typeof window === 'undefined') {
+//     // 서버 사이드에서 실행될 때
+//     const { headers: serverHeaders } = await import('next/headers');
+//     headersList = serverHeaders();
+//     const host = headersList.get('host');
+//     if (host) {
+//       baseUrl = host;
+//     }
+//   } else {
+//     baseUrl = '/';
 //   }
-// });
 
-export const baseApi = returnFetch({
-  baseUrl: 'http://localhost:3000',
-  headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
-});
+//   return {
+//     baseUrl,
+//     headers,
+//   };
+// }
 
-// TODO: 당장 기능 구현 해야하면 헤더에 토큰 고정으로 박으셔도됩니다
-export const authApi = {
-  baseUrl: 'http://localhost:3000',
-  headers: { Accept: 'application/json', Authorization: `Bearer sadsad5asdSS` },
-};
+// // /api
+// export async function baseApis() {
+//   const userInfo = await getAuth();
 
-// export async function fetchWithHeaders(endpoint: string, options: any) {
-//   const headersList = headers();
-//   const referer = headersList.get('referer');
-//   console.log(headersList);
+//   const apiInstanceConfig = await createApiInstance({
+//     Accept: 'application/json',
+//     'Content-Type': 'application/json',
+//     Authorization: `Bearer ${userInfo.token}`,
+//   });
 
-//   return await returnFetch({
-//     baseUrl: 'http://localhost:3000',
-//     endpoint,
-//     headers: {
-//       ...options.headers,
-//       Accept: 'application/json',
-//       'Content-Type': 'application/json',
-//       Referer: referer || '',
-//     },
-//     ...options,
+//   return logRequestInterceptor({
+//     fetch: apisBaseUrl({
+//       ...apiInstanceConfig,
+//     }),
 //   });
 // }
+
+// // public-api
+// export async function basePublicApi() {
+//   const publicApiInstanceConfig = await createApiInstance({
+//     Accept: 'application/json',
+//     'Content-Type': 'application/json',
+//   });
+//   return publicApiBaseUrl({
+//     fetch: logRequestInterceptor({
+//       ...publicApiInstanceConfig,
+//     }),
+//   });
+// }
+
+export async function baseApis() {
+  let baseUrl = process.env.HOST_URL;
+  let headersList = null;
+  const userInfo = await getAuth();
+
+  const base = {
+    baseUrl: baseUrl,
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${userInfo.token}`,
+    },
+  };
+
+  if (typeof window === 'undefined') {
+    // 서버 사이드에서 실행될 때
+    const { headers } = await import('next/headers');
+    headersList = headers();
+    const host = headersList.get('host');
+    if (host) {
+      baseUrl = host;
+    }
+  } else {
+    baseUrl = '/';
+  }
+  return apisBaseUrl({
+    fetch: logRequestInterceptor({
+      ...base,
+    }),
+  });
+}
+
+export async function basePublicApi() {
+  let baseUrl = process.env.HOST_URL;
+  let headersList = null;
+
+  const base = {
+    baseUrl: baseUrl,
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+  };
+
+  if (typeof window === 'undefined') {
+    // 서버 사이드에서 실행될 때
+    const { headers } = await import('next/headers');
+    headersList = headers();
+    const host = headersList.get('host');
+    if (host) {
+      baseUrl = host;
+    }
+  } else {
+    baseUrl = '/';
+  }
+  return logRequestInterceptor({
+    fetch: publicApiBaseUrl({
+      ...base,
+    }),
+  });
+}

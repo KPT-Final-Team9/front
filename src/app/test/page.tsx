@@ -2,7 +2,52 @@
 import { useSession } from 'next-auth/react';
 import { auth } from '@/auth';
 import { CustomSession } from '@/types/auth';
+import axios from 'axios';
+import { useEffect } from 'react';
+import { basePublicApi } from '@/services/api';
+
 export default function Page() {
+  // const { data: session, status } = useSession();
+
+  async function fetchData() {
+    const fetchInstance = await basePublicApi();
+
+    const response = await fetchInstance('/health', {
+      cache: 'no-store',
+      method: 'get',
+    });
+
+    return response;
+  }
+  // fetchData()
+  //   .then(response => {
+  //     console.log('패칭 결과');
+  //     console.log(response);
+  //     return response.json();
+  //     // 추가 처리 로직
+  //   })
+  //   .then(res => {
+  //     console.log(res);
+  //   })
+  //   .catch(error => {
+  //     console.error('Error fetching data:', error);
+  //   });
+  useEffect(() => {
+    fetchData()
+      .then(response => {
+        console.log('패칭 결과');
+        console.log(response);
+        return response.json();
+        // 추가 처리 로직
+      })
+      .then(res => {
+        console.log(res);
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+      });
+  }, []);
+
   try {
     // const userInfo = (await auth()) as CustomSession;
     // console.log('terminal log!', userInfo);
@@ -19,12 +64,15 @@ export default function Page() {
     // at async getSession (react.js:109:21)
     // at async __NEXTAUTH._getSession (react.js:272:43)
 
-    const { data: session, status } = useSession();
-    console.log('session');
-    console.log(session);
-    if (status === 'authenticated') {
-      return <p>Signed in as {session.user.email}</p>;
-    }
+    // axios.get('/public-api/health').then(res => {
+    //   console.log(res);
+    // });
+    // console.log('session');
+    // console.log(session);
+
+    // if (status === 'authenticated') {
+    //   return <p>Signed in as {session.user.email}</p>;
+    // }
 
     return <div>{/* <p>{res.data.hello}</p> */}</div>;
   } catch (err) {
