@@ -89,3 +89,16 @@ export const SURVEY_QUESTION: { [key: string]: string } = {
   facility: '시설',
   complaint: '민원 처리',
 };
+
+export enum UserRole {
+  Role = 'role',
+  User = 'user',
+  Owner = 'owner',
+  Admin = 'admin',
+}
+
+export enum AuthInputId {
+  Account = 'account',
+  Password = 'password',
+  PhoneNumber = 'phoneNumber',
+}

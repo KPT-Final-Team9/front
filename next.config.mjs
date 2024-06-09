@@ -23,16 +23,20 @@ const nextConfig = {
 
     return config;
   },
-  // TODO: 서버 주소에 맞게 바꾸기
+  // TODO: auth js에서 내부 api에 접근할 때 프록시되는 문제가 있어서 api -> apis 로 변경
+
   async rewrites() {
     return [
       {
-        source: '/api/:path*',
-        destination: 'https://jsonplaceholder.typicode.com',
+        source: '/apis/:path*',
+        destination: 'https://officeback.site/api/:path*',
+      },
+      {
+        source: '/public-api/:path*',
+        destination: 'https://officeback.site/public-api/:path*',
       },
     ];
   },
-
   output: 'standalone',
 };
 // export default withBundleAnalyzer(nextConfig);

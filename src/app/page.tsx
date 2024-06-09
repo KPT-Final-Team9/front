@@ -1,3 +1,13 @@
+import { signOutWithForm } from '@/serverActions/auth';
 export default function Home() {
-  return <>Hello World!!!!!!!!!!</>;
+  return (
+    <>
+      <form
+        action={signOutWithForm}
+        className="p-16">
+        <button className="btn">logout</button>
+      </form>
+      Hello World!!!!!!!!!!
+    </>
+  );
 }
