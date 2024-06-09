@@ -12,7 +12,7 @@ export default function RatingDeatilSearchInput() {
 
   return (
     <SearchInput
-      className="w-full desktop:w-[313px]"
+      className="w-full desktop:w-[350px]"
       onChange={onSearchInputChange}
       value={searchValue}
     />
