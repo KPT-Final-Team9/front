@@ -90,20 +90,23 @@ async function _signIn(
   const { account, password, role, phoneNumber } = userInfo;
   console.log('역할이 있어요', account, password, role, phoneNumber, type, `public-api/${type}/${role}`);
   try {
+    const bodyData: { email: string | undefined; password: string; phone_number?: string } = {
+      email: account,
+      password: password,
+    };
+    if (type === 'sign-up' && phoneNumber) {
+      bodyData['phone_number'] = phoneNumber;
+    }
+
     const res = await nodePublicApi(`/${type}/${role}`, {
       cache: 'no-store',
       method: 'POST',
-      body: JSON.stringify({
-        email: account,
-        password: password,
-      }),
+      body: JSON.stringify(bodyData),
     });
     if (res.ok) {
       const data = await res.json();
       console.log(data);
       return data;
-    } else if (res.status >= 500) {
-      console.log('서버에러입니다!');
     } else {
       const errorMessage = await res.text();
       throw new Error(errorMessage);
