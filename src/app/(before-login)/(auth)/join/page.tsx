@@ -69,13 +69,11 @@ export default function Page() {
   const callbackUrl = searchParams.get('callbackUrl');
 
   const handleSignUp: SubmitHandler<FormInput> = async data => {
-    console.log(callbackUrl);
     setIsLoading(true);
     const req = {
       ...data,
       role: tabState,
     };
-    console.log(req);
     const message = await signInWithCredentials(req, callbackUrl);
     if (message) {
       alert(message?.message);

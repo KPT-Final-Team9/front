@@ -13,7 +13,5 @@ export async function wait(duration = 1000): Promise<{ message: string }> {
 
 // 클라이언트 사이드에서 auth 정보 취득용
 export async function getAuth() {
-  const a = (await auth()) as CustomSession;
-  console.log(a);
   return (await auth()) as CustomSession;
 }

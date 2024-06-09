@@ -88,7 +88,7 @@ async function _signIn(
   userInfo: { account?: string; password: string; role: string; phoneNumber?: string },
 ) {
   const { account, password, role, phoneNumber } = userInfo;
-  console.log('역할이 있어요', account, password, role, phoneNumber, type, `public-api/${type}/${role}`);
+  // console.log('역할이 있어요', account, password, role, phoneNumber, type, `public-api/${type}/${role}`);
   try {
     const bodyData: { email: string | undefined; password: string; phone_number?: string } = {
       email: account,
@@ -105,7 +105,7 @@ async function _signIn(
     });
     if (res.ok) {
       const data = await res.json();
-      console.log(data);
+      // console.log(data);
       return data;
     } else {
       const errorMessage = await res.text();

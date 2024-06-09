@@ -32,7 +32,6 @@ export const baseUrlInterceptor =
       interceptors: {
         request: async args => {
           let url = args[0];
-          console.log('url 엄준:', url);
           if (url instanceof URL) {
             url.href = `${url.origin}/${publicApiPath}${url.pathname}`;
           }
@@ -40,7 +39,6 @@ export const baseUrlInterceptor =
             url = `/${publicApiPath}${url}`;
           }
           args[0] = url;
-          console.log(url);
           return args;
         },
       },
