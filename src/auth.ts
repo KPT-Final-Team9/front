@@ -1,4 +1,4 @@
-import { nodePublicApi } from '@/services/intercepter';
+import { nodePublicApi, apisBaseUrl, logRequestInterceptor } from '@/services/intercepter';
 import NextAuth, { DefaultSession } from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
 import returnFetch from 'return-fetch';
@@ -98,15 +98,21 @@ async function _signIn(
     if (type === 'sign-up' && phoneNumber) {
       bodyData['phone_number'] = phoneNumber;
     }
-    const returnFetchFnc = returnFetch({
+    // const returnFetchFnc = returnFetch({
+    //   baseUrl: `${process.env.HOST_URL}`,
+    //   headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
+    // });
+    const returnFetchFnc = logRequestInterceptor({
       baseUrl: `${process.env.HOST_URL}`,
       headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
     });
+
     const res = await returnFetchFnc(`/public-api/${type}/${role}`, {
       cache: 'no-store',
       method: 'POST',
       body: JSON.stringify(bodyData),
     });
+
     if (res.ok) {
       const data = await res.json();
       // console.log(data);
