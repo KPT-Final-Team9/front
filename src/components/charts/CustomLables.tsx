@@ -39,14 +39,20 @@ export const SpeechBubbleCustomLabel = (props: LabelListProp) => {
   );
 };
 
-export const TextCustomLabel = (props: LabelListProp) => {
+export const TextCustomLabel = ({ formatType = '', ...props }) => {
   const { x, y, width, height, value } = props;
 
   const parsedX = typeof x === 'number' ? x : parseFloat(x || '0');
   const parsedY = typeof y === 'number' ? y : parseFloat(y || '0');
   const parsedWidth = typeof width === 'number' ? width : parseFloat(width || '0');
   const parsedHeight = typeof height === 'number' ? height : parseFloat(height || '0');
-
+  let formattedValue = value;
+  if (formatType === 'percent') {
+    formattedValue = `${value}%`;
+  } else if (formatType === 'comma') {
+    formattedValue = value && parseFloat(value)?.toLocaleString();
+  }
+  console.log('formattedValue', formattedValue);
   return (
     <text
       x={parsedX + parsedWidth + 10}
@@ -58,7 +64,7 @@ export const TextCustomLabel = (props: LabelListProp) => {
       fontSize={17}
       style={{ fontFamily: 'var(--font-pretendard)', fontWeight: '600' }}
       fontWeight={'600'}>
-      {value}
+      {formattedValue}
     </text>
   );
 };
