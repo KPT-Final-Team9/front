@@ -2,6 +2,7 @@ import { nodePublicApi, apisBaseUrl, logRequestInterceptor } from '@/services/in
 import NextAuth, { DefaultSession } from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
 import returnFetch from 'return-fetch';
+import axios from 'axios';
 
 declare module 'next-auth' {
   interface Session {
@@ -102,15 +103,14 @@ async function _signIn(
     //   baseUrl: `${process.env.HOST_URL}`,
     //   headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
     // });
-    const returnFetchFnc = logRequestInterceptor({
-      baseUrl: `${process.env.HOST_URL}`,
-      headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
-    });
 
-    const res = await returnFetchFnc(`/public-api/${type}/${role}`, {
+    const res = await fetch(`${process.env.HOST_URL}/public-api/${type}/${role}`, {
       cache: 'no-store',
       method: 'POST',
       body: JSON.stringify(bodyData),
+      headers: {
+        'Content-Type': 'application/json',
+      },
     });
 
     if (res.ok) {
