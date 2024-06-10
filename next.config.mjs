@@ -23,6 +23,21 @@ const nextConfig = {
 
     return config;
   },
+  // TODO: auth js에서 내부 api에 접근할 때 프록시되는 문제가 있어서 api -> apis 로 변경
+
+  async rewrites() {
+    return [
+      {
+        source: '/apis/:path*',
+        destination: 'https://officeback.site/api/:path*',
+      },
+      {
+        source: '/public-api/:path*',
+        destination: 'https://officeback.site/public-api/:path*',
+      },
+    ];
+  },
+  output: 'standalone',
 };
 // export default withBundleAnalyzer(nextConfig);
 export default nextConfig;

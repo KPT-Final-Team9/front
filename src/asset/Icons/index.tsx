@@ -1,5 +1,5 @@
 import { MdNavigateNext } from 'react-icons/md';
-
+import { CgClose as CgCloseComp } from 'react-icons/cg';
 import SpeechBubbleIconComp from '@/asset/Icons/ic-speechbubble.svg';
 import TooltipIconComp from '@/asset/Icons/ic-tooltip.svg';
 import XIconComp from '@/asset/Icons/ic-x.svg';
@@ -24,9 +24,21 @@ import UserIconComp from '@/asset/Icons/ic-user.svg';
 import SurveyIconComp from '@/asset/Icons/icon_survey.svg';
 import ArrowLeftIconComp from '@/asset/Icons/icon_arrow_left.svg';
 import SurveyRoomComp from '@/asset/Icons/survey_room.svg';
-import ServeyBtnIcon1Comp from '@/asset/Icons/icon_survey_btn1.svg';
-import ServeyBtnIcon2Comp from '@/asset/Icons/icon_survey_btn2.svg';
-import ServeyBtnIcon3Comp from '@/asset/Icons/icon_survey_btn3.svg';
+import SurveyBtnIcon1Comp from '@/asset/Icons/icon_survey_btn1.svg';
+import SurveyBtnIcon2Comp from '@/asset/Icons/icon_survey_btn2.svg';
+import SurveyBtnIcon3Comp from '@/asset/Icons/icon_survey_btn3.svg';
+import LoadingSpinnerComp from '@/asset/Icons/loading-spinner.svg';
+import BusinessChartComp from '@/asset/Icons/ic-business-chart.svg';
+import SurveyManageComp from '@/asset/Icons/survey_manage.svg';
+import SurveyFacilityComp from '@/asset/Icons/survey_facility.svg';
+import SurveyComplaintComp from '@/asset/Icons/survey_complaint.svg';
+import SurveyFinishComp from '@/asset/Icons/survey_finish.svg';
+import NavDashboardIconComp from '@/asset/Icons/nav_dashboard.svg';
+import NavRoomIconComp from '@/asset/Icons/nav_room.svg';
+import NavRatingDetailIconComp from '@/asset/Icons/nav_rating_detail.svg';
+import NavAccountIconComp from '@/asset/Icons/nav_account.svg';
+import DangerTriangleComp from '@/asset/Icons/danger_triangle.svg';
+import MenuDotsIconComp from '@/asset/Icons/icon-menu-dots.svg';
 
 export function XIcon({ ...props }) {
   return <XIconComp {...props} />;
@@ -74,11 +86,21 @@ export function DashLineIcon({ ...props }) {
 }
 
 export function ExclamationMark({ ...props }) {
-  return <ExclamationMarkComp {...props} />;
+  return (
+    <ExclamationMarkComp
+      fill="#6B7280"
+      {...props}
+    />
+  );
 }
 
 export function RoundStarIcon({ ...props }) {
-  return <RoundStarIconComp {...props} />;
+  return (
+    <RoundStarIconComp
+      fill={'#FFD233'}
+      {...props}
+    />
+  );
 }
 
 export function RoundUnselectedStarIcon({ ...props }) {
@@ -137,14 +159,71 @@ export function SurveyRoom({ ...props }) {
   return <SurveyRoomComp {...props} />;
 }
 
-export function ServeyBtnIcon1({ ...props }) {
-  return <ServeyBtnIcon1Comp {...props} />;
+export function SurveyBtnIcon1({ ...props }) {
+  return <SurveyBtnIcon1Comp {...props} />;
 }
 
-export function ServeyBtnIcon2({ ...props }) {
-  return <ServeyBtnIcon2Comp {...props} />;
+export function SurveyBtnIcon2({ ...props }) {
+  return <SurveyBtnIcon2Comp {...props} />;
 }
 
-export function ServeyBtnIcon3({ ...props }) {
-  return <ServeyBtnIcon3Comp {...props} />;
+export function SurveyBtnIcon3({ ...props }) {
+  return <SurveyBtnIcon3Comp {...props} />;
+}
+
+export function SurveyManage({ ...props }) {
+  return <SurveyManageComp {...props} />;
+}
+
+export function SurveyFacility({ ...props }) {
+  return <SurveyFacilityComp {...props} />;
+}
+
+export function SurveyComplaint({ ...props }) {
+  return <SurveyComplaintComp {...props} />;
+}
+
+export function CgClose({ ...props }) {
+  return <CgCloseComp {...props} />;
+}
+
+export function LoadingSpinner({ ...props }) {
+  return (
+    <LoadingSpinnerComp
+      className="animate-spin"
+      {...props}
+    />
+  );
+}
+
+export function BusinessChart({ ...props }) {
+  return <BusinessChartComp {...props} />;
+}
+
+export function SurveyFinish({ ...props }) {
+  return <SurveyFinishComp {...props} />;
+}
+
+export function NavDashboardIcon({ ...props }) {
+  return <NavDashboardIconComp {...props} />;
+}
+
+export function NavRoomIcon({ ...props }) {
+  return <NavRoomIconComp {...props} />;
+}
+
+export function NavRatingDetailIcon({ ...props }) {
+  return <NavRatingDetailIconComp {...props} />;
+}
+
+export function NavAccountIcon({ ...props }) {
+  return <NavAccountIconComp {...props} />;
+}
+
+export function DangerTriangle({ ...props }) {
+  return <DangerTriangleComp />;
+}
+
+export function MenuDotsIcon({ ...props }) {
+  return <MenuDotsIconComp {...props} />;
 }

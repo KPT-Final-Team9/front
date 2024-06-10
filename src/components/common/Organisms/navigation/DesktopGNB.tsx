@@ -22,7 +22,7 @@ const NAV_ITEMS: NavItemsType = {
   [NAV_TYPE.EVALUATION]: { path: '/room', label: '호실관리' },
   [NAV_TYPE.ROOM_DETAIL]: { path: '/rating-detail', label: '평가상세' },
 };
-const GNB_HEIGHT = 'desktop:h-desktop-gnb h-[68px] ';
+const GNB_HEIGHT = 'desktop:h-gnb h-[68px] ';
 
 export default function DesktopGNB() {
   const [NotibellCount, setNotibellCount] = useState<number | undefined>(undefined);
@@ -35,7 +35,11 @@ export default function DesktopGNB() {
 
   return (
     <>
-      <nav className={cn('top-0 z-40 flex w-full bg-white p-[16px] desktop:px-5', GNB_HEIGHT)}>
+      <nav
+        className={cn(
+          'top-0 z-40 hidden w-full border-b-2 border-stroke bg-white p-[16px] desktop:flex desktop:px-5',
+          GNB_HEIGHT,
+        )}>
         <div className="mx-auto flex h-full w-[1440px] items-center justify-between">
           <div className={cn(' flex items-center gap-4', GNB_HEIGHT)}>
             <LocalIcon
@@ -94,46 +98,57 @@ function NavListComp() {
   );
 }
 
+interface BuildingData {
+  id: number;
+  buildingName: string;
+}
+const dummyBuildingData: Array<BuildingData> = [
+  {
+    id: 1,
+    buildingName: '미왕빌딩',
+  },
+  {
+    id: 2,
+    buildingName: '가산드림타워',
+  },
+  {
+    id: 3,
+    buildingName: '더스카이밸리1차',
+  },
+  {
+    id: 4,
+    buildingName: '서울숲더스페이스',
+  },
+];
+
 // 렌더링 최적화를 위해 분리
 function SelectBoxComp() {
-  const [selectBuilding, setSelectBuilding] = useState([{ buildingName: '-', id: 1 }]);
+  const [selectBuildingOptions, setSelectBuildingOptions] = useState([{ buildingName: '-', id: 1 }]);
   // TODO: 선택된 빌딩 전역 상태로 추가하기
-  const [currentSelectBuilding, SetCurrentSelectBuilding] = useState('');
+  const [currentSelectBuilding, setCurrentSelectBuilding] = useState<number | undefined>(undefined);
+  const selectedBuilding = JSON.stringify(selectBuildingOptions.find(data => data.id === currentSelectBuilding));
+
+  const handleBuildingChange = (newOption: { title: string; id: string }) => {
+    setCurrentSelectBuilding(parseInt(newOption.id));
+  };
+
   useEffect(() => {
     setTimeout(() => {
-      const data = [
-        {
-          id: 1,
-          buildingName: '미왕빌딩',
-        },
-        {
-          id: 2,
-          buildingName: '가산드림타워',
-        },
-        {
-          id: 3,
-          buildingName: '더스카이밸리1차',
-        },
-        {
-          id: 4,
-          buildingName: '서울숲더스페이스',
-        },
-      ];
       // 데이터가 없다면 기본 '-'로 유지
-      if (data) {
-        setSelectBuilding(data);
-        // 첫 번째 빌딩 이름을 기본값으로 설정
-        SetCurrentSelectBuilding(data[0].buildingName);
+      if (dummyBuildingData) {
+        setSelectBuildingOptions(dummyBuildingData);
       }
     }, 1000);
   }, []);
+
   return (
     <Selectbox
       optionKey="buildingName"
       icon="BuildingIcon"
       showIcon={true}
-      onChange={SetCurrentSelectBuilding}
-      lists={selectBuilding}
+      value={selectedBuilding}
+      onChange={newOption => handleBuildingChange(newOption)}
+      lists={selectBuildingOptions}
       size={'addIconShort'}
     />
   );

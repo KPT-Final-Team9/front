@@ -1,9 +1,10 @@
 'use client';
 
-import * as React from 'react';
+import { useState } from 'react';
 import {
   ColumnDef,
   ColumnFiltersState,
+  Row,
   SortingState,
   VisibilityState,
   flexRender,
@@ -13,234 +14,22 @@ import {
   getSortedRowModel,
   useReactTable,
 } from '@tanstack/react-table';
-import {
-  Pagination,
-  PaginationContent,
-  PaginationEllipsis,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-} from '@/components/ui/pagination';
 
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { formatDateToYYYY_MM_DD } from '@/utils';
 import { BookmarkIcon } from '@/asset/Icons';
+import RatingDetailDialog from './RatingDetailDialog';
+import RatingDetailPagination from './RatingDetailPagination';
+import { dummyData } from './dummyData';
+import { cn } from '@/lib/utils';
+import { LocalIcon } from '@icon/index';
 
-enum RatingCategory {
+export enum RatingCategory {
+  ALL = '전체보기',
   FACILITY = '시설 평가',
   MANAGEMENT = '관리 평가',
   COMPLAINT = '민원 평가',
 }
-
-// FIXME: 더미 데이터
-const dummyData: RatingDetail[] = [
-  // Building A (3 rooms)
-  {
-    id: '1',
-    category: RatingCategory.FACILITY,
-    score: 85,
-    content: 'The gym is well-equipped and clean.',
-    building: 'Building A',
-    room: '101',
-    isBookmark: true,
-    ratingDate: new Date('2023-01-15'),
-  },
-  {
-    id: '2',
-    category: RatingCategory.MANAGEMENT,
-    score: 90,
-    content: 'Management is very responsive and helpful.',
-    building: 'Building A',
-    room: '102',
-    isBookmark: false,
-    ratingDate: new Date('2023-02-10'),
-  },
-  {
-    id: '3',
-    category: RatingCategory.COMPLAINT,
-    score: 40,
-    content: 'There have been repeated issues with water supply.',
-    building: 'Building A',
-    room: '103',
-    isBookmark: false,
-    ratingDate: new Date('2023-03-05'),
-  },
-  // Building B (3 rooms)
-  {
-    id: '4',
-    category: RatingCategory.FACILITY,
-    score: 75,
-    content: 'The parking lot is spacious but needs better lighting.',
-    building: 'Building B',
-    room: '201',
-    isBookmark: true,
-    ratingDate: new Date('2023-04-20'),
-  },
-  {
-    id: '5',
-    category: RatingCategory.MANAGEMENT,
-    score: 95,
-    content: 'The new manager is doing an excellent job.',
-    building: 'Building B',
-    room: '202',
-    isBookmark: false,
-    ratingDate: new Date('2023-05-25'),
-  },
-  {
-    id: '6',
-    category: RatingCategory.COMPLAINT,
-    score: 30,
-    content: 'Noise complaints are not being addressed.',
-    building: 'Building B',
-    room: '203',
-    isBookmark: true,
-    ratingDate: new Date('2023-06-30'),
-  },
-  // Building C (4 rooms)
-  {
-    id: '7',
-    category: RatingCategory.FACILITY,
-    score: 80,
-    content: 'The swimming pool is clean and well-maintained.',
-    building: 'Building C',
-    room: '301',
-    isBookmark: false,
-    ratingDate: new Date('2023-07-10'),
-  },
-  {
-    id: '8',
-    category: RatingCategory.MANAGEMENT,
-    score: 85,
-    content: 'Maintenance requests are handled quickly.',
-    building: 'Building C',
-    room: '302',
-    isBookmark: true,
-    ratingDate: new Date('2023-08-15'),
-  },
-  {
-    id: '9',
-    category: RatingCategory.COMPLAINT,
-    score: 20,
-    content: 'There are pest control issues in the basement.',
-    building: 'Building C',
-    room: '303',
-    isBookmark: false,
-    ratingDate: new Date('2023-09-05'),
-  },
-  {
-    id: '10',
-    category: RatingCategory.FACILITY,
-    score: 50,
-    content: 'The elevator often breaks down.',
-    building: 'Building C',
-    room: '304',
-    isBookmark: true,
-    ratingDate: new Date('2023-10-10'),
-  },
-  {
-    id: '11',
-    category: RatingCategory.FACILITY,
-    score: 85,
-    content: 'The gym is well-equipped and clean.',
-    building: 'Building A',
-    room: '1101',
-    isBookmark: true,
-    ratingDate: new Date('2023-01-15'),
-  },
-  {
-    id: '12',
-    category: RatingCategory.MANAGEMENT,
-    score: 90,
-    content: 'Management is very responsive and helpful.',
-    building: 'Building A',
-    room: '1102',
-    isBookmark: false,
-    ratingDate: new Date('2023-02-10'),
-  },
-  {
-    id: '13',
-    category: RatingCategory.COMPLAINT,
-    score: 40,
-    content: 'There have been repeated issues with water supply.',
-    building: 'Building A',
-    room: '1103',
-    isBookmark: false,
-    ratingDate: new Date('2023-03-05'),
-  },
-  // Building B (3 rooms)
-  {
-    id: '14',
-    category: RatingCategory.FACILITY,
-    score: 75,
-    content: 'The parking lot is spacious but needs better lighting.',
-    building: 'Building B',
-    room: '1201',
-    isBookmark: true,
-    ratingDate: new Date('2023-04-20'),
-  },
-  {
-    id: '15',
-    category: RatingCategory.MANAGEMENT,
-    score: 95,
-    content: 'The new manager is doing an excellent job.',
-    building: 'Building B',
-    room: '1202',
-    isBookmark: false,
-    ratingDate: new Date('2023-05-25'),
-  },
-  {
-    id: '16',
-    category: RatingCategory.COMPLAINT,
-    score: 30,
-    content: 'Noise complaints are not being addressed.',
-    building: 'Building B',
-    room: '1203',
-    isBookmark: true,
-    ratingDate: new Date('2023-06-30'),
-  },
-  // Building C (4 rooms)
-  {
-    id: '17',
-    category: RatingCategory.FACILITY,
-    score: 80,
-    content: 'The swimming pool is clean and well-maintained.',
-    building: 'Building C',
-    room: '1301',
-    isBookmark: false,
-    ratingDate: new Date('2023-07-10'),
-  },
-  {
-    id: '18',
-    category: RatingCategory.MANAGEMENT,
-    score: 85,
-    content: 'Maintenance requests are handled quickly.',
-    building: 'Building C',
-    room: '1302',
-    isBookmark: true,
-    ratingDate: new Date('2023-08-15'),
-  },
-  {
-    id: '19',
-    category: RatingCategory.COMPLAINT,
-    score: 20,
-    content: 'There are pest control issues in the basement.',
-    building: 'Building C',
-    room: '1303',
-    isBookmark: false,
-    ratingDate: new Date('2023-09-05'),
-  },
-  {
-    id: '20',
-    category: RatingCategory.FACILITY,
-    score: 50,
-    content: 'The elevator often breaks down.',
-    building: 'Building C',
-    room: '1304',
-    isBookmark: true,
-    ratingDate: new Date('2023-10-10'),
-  },
-];
 
 export type RatingDetail = {
   id: string;
@@ -253,7 +42,7 @@ export type RatingDetail = {
   ratingDate: Date;
 };
 
-enum RatingDetailTableAccessorKey {
+export enum RatingDetailTableAccessorKey {
   CATEGORY = 'category',
   SCORE = 'score',
   CONTENT = 'content',
@@ -261,56 +50,97 @@ enum RatingDetailTableAccessorKey {
   ROOM = 'room',
   IS_BOOKMARK = 'isBookmark',
   RATING_DATE = 'ratingDate',
+  ELLIPSIS = 'ellipsis',
 }
+
+const COLUMN_HIDDEN_ON_MOBILE = [
+  RatingDetailTableAccessorKey.BUILDING,
+  RatingDetailTableAccessorKey.ROOM,
+  RatingDetailTableAccessorKey.IS_BOOKMARK,
+  RatingDetailTableAccessorKey.RATING_DATE,
+];
+
+const COLUMN_HIDDEN_ON_DESKTOP = [RatingDetailTableAccessorKey.ELLIPSIS];
 
 export const columns: ColumnDef<RatingDetail, unknown>[] = [
   {
     accessorKey: RatingDetailTableAccessorKey.CATEGORY,
-    header: '유형',
-    cell: ({ row }) => <div>{row.getValue(RatingDetailTableAccessorKey.CATEGORY)}</div>,
+    header: () => <div className="pl-2.5 desktop:pl-5">유형</div>,
+    cell: ({ row }) => <div className="pl-2.5 desktop:pl-5">{row.getValue(RatingDetailTableAccessorKey.CATEGORY)}</div>,
+    size: 200,
+    minSize: 200,
   },
   {
     accessorKey: RatingDetailTableAccessorKey.SCORE,
-    header: '점수',
+    header: () => <div>점수</div>,
     cell: ({ row }) => <div>{row.getValue(RatingDetailTableAccessorKey.SCORE)}점</div>,
+    size: 200,
+    minSize: 200,
   },
   {
     accessorKey: RatingDetailTableAccessorKey.CONTENT,
-    header: '평가 내용',
-    cell: ({ row }) => <div>{row.getValue(RatingDetailTableAccessorKey.CONTENT)}</div>,
+    header: () => <div>평가 내용</div>,
+    cell: ({ row }) => (
+      // table-cell의 max-width를 정확히 계산해주어야 해서 calc 사용
+      // 100vw - 250px이 모바일 대응을 고려했을 때 가장 저합한 width 였음.
+      <div className={`max-w-[calc(100vw_-_250px)] overflow-hidden text-ellipsis text-nowrap`}>
+        {row.getValue(RatingDetailTableAccessorKey.CONTENT)}
+      </div>
+    ),
   },
   {
     accessorKey: RatingDetailTableAccessorKey.BUILDING,
-    header: '건물',
+    header: () => <div>건물</div>,
     cell: ({ row }) => <div>{row.getValue(RatingDetailTableAccessorKey.BUILDING)}</div>,
   },
   {
     accessorKey: RatingDetailTableAccessorKey.ROOM,
-    header: '호실',
+    header: () => <div>호실</div>,
     cell: ({ row }) => <div>{row.getValue(RatingDetailTableAccessorKey.ROOM)}</div>,
   },
   {
     accessorKey: RatingDetailTableAccessorKey.IS_BOOKMARK,
-    header: () => <BookmarkIcon />,
+    header: () => <BookmarkIcon className="w-5" />,
     cell: ({ row }) => (
       <BookmarkIcon
-        className="cursor-pointer hover:fill-text-primary active:scale-95"
+        className="w-5 cursor-pointer hover:fill-text-primary active:scale-95"
         fill={row.getValue(RatingDetailTableAccessorKey.IS_BOOKMARK) ? 'text-text-primary' : 'none'}
       />
     ),
   },
   {
     accessorKey: RatingDetailTableAccessorKey.RATING_DATE,
-    header: '평가 날짜',
+    header: () => <div>평가 날짜</div>,
     cell: ({ row }) => <div>{formatDateToYYYY_MM_DD(row.getValue(RatingDetailTableAccessorKey.RATING_DATE))}</div>,
+  },
+  {
+    accessorKey: RatingDetailTableAccessorKey.ELLIPSIS,
+    header: () => (
+      <div>
+        <LocalIcon name="MenuDotsIcon" />
+      </div>
+    ),
+    cell: () => (
+      <div>
+        <LocalIcon name="MenuDotsIcon" />
+      </div>
+    ),
   },
 ];
 
+const PAGE_ROW_LIMIT = 10; // 데이터 10개 씩 보여줌.
+export const FIRST_PAGE_NUM = 1; // 1부터 셈
+
 export default function RatingDetailDataTable() {
-  const [sorting, setSorting] = React.useState<SortingState>([]);
-  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
-  const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({});
-  const [rowSelection, setRowSelection] = React.useState({});
+  const [sorting, setSorting] = useState<SortingState>([]);
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
+  const [rowSelection, setRowSelection] = useState({});
+  const [selectedRow, setSelectedRow] = useState<Row<RatingDetail> | undefined>(undefined);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+  const [currentPage, setCurrentPage] = useState<number>(FIRST_PAGE_NUM);
+  const pageNum = Math.round(dummyData.length / PAGE_ROW_LIMIT);
 
   const table = useReactTable({
     data: dummyData,
@@ -328,11 +158,25 @@ export default function RatingDetailDataTable() {
       columnFilters,
       columnVisibility,
       rowSelection,
+      pagination: {
+        pageIndex: currentPage - FIRST_PAGE_NUM, // page는 FIRST_PAGE_NUM부터 시작하지만 index는 0부터 시작
+        pageSize: 10,
+      },
     },
   });
 
+  const handleRowClick = (newSelectedRow: Row<RatingDetail>) => {
+    setIsDialogOpen(true);
+    setSelectedRow(newSelectedRow);
+  };
+
   return (
     <div className="w-full">
+      <RatingDetailDialog
+        selectedRow={selectedRow}
+        isDialogOpen={isDialogOpen}
+        onDialogOpen={setIsDialogOpen}
+      />
       <div className="rounded-container border bg-white">
         <Table>
           <TableHeader className="h-10 text-text-secondary desktop:h-16">
@@ -342,7 +186,12 @@ export default function RatingDetailDataTable() {
                   return (
                     <TableHead
                       key={header.id}
-                      className="text-body3 desktop:text-h4">
+                      className={cn('text-body3 desktop:text-h4', 'table-cell desktop:table-cell', {
+                        hidden: COLUMN_HIDDEN_ON_MOBILE.includes(header.column.id as RatingDetailTableAccessorKey), // column.id가 단순 string으로 추론되어 타입 캐스팅 사용함.
+                        'block desktop:hidden': COLUMN_HIDDEN_ON_DESKTOP.includes(
+                          header.column.id as RatingDetailTableAccessorKey,
+                        ),
+                      })}>
                       {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
                     </TableHead>
                   );
@@ -354,12 +203,25 @@ export default function RatingDetailDataTable() {
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map(row => (
                 <TableRow
-                  className="h-12 text-text-primary desktop:h-16"
+                  onClick={() => handleRowClick(row)}
+                  className="h-12 cursor-pointer text-text-primary desktop:h-16"
                   key={row.id}
                   data-state={row.getIsSelected() && 'selected'}>
                   {row.getVisibleCells().map(cell => (
                     <TableCell
-                      className={cell.column.id === RatingDetailTableAccessorKey.SCORE ? 'text-body1' : 'text-body2'}
+                      className={cn(
+                        cell.column.id === RatingDetailTableAccessorKey.SCORE ? 'text-body1' : 'text-body2',
+                        'table-cell desktop:table-cell',
+                        {
+                          hidden: COLUMN_HIDDEN_ON_MOBILE.includes(cell.column.id as RatingDetailTableAccessorKey), // column.id가 단순 string으로 추론되어 타입 캐스팅 사용함.
+                          'block desktop:hidden': COLUMN_HIDDEN_ON_DESKTOP.includes(
+                            cell.column.id as RatingDetailTableAccessorKey,
+                          ),
+                          'min-w-[90px]': cell.column.id === RatingDetailTableAccessorKey.CATEGORY,
+                          'min-w-[60px]': cell.column.id === RatingDetailTableAccessorKey.SCORE,
+                          'min-w-[40px]': cell.column.id === RatingDetailTableAccessorKey.ELLIPSIS,
+                        },
+                      )}
                       key={cell.id}>
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
                     </TableCell>
@@ -378,25 +240,14 @@ export default function RatingDetailDataTable() {
           </TableBody>
         </Table>
       </div>
-      <div className="flex items-center justify-center space-x-2 py-4">
-        <div className="space-x-2">
-          <Pagination>
-            <PaginationContent>
-              <PaginationItem>
-                <PaginationPrevious href="#" />
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationLink href="#">1</PaginationLink>
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationEllipsis />
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationNext href="#" />
-              </PaginationItem>
-            </PaginationContent>
-          </Pagination>
-        </div>
+      <div className="mt-8 flex items-center justify-center space-x-2 py-4 desktop:mt-10">
+        {pageNum > 0 && (
+          <RatingDetailPagination
+            currentPage={currentPage}
+            pageNum={pageNum}
+            setCurrentPage={setCurrentPage}
+          />
+        )}
       </div>
     </div>
   );

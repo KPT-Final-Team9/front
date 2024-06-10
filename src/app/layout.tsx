@@ -7,6 +7,7 @@ import clsx from 'clsx';
 import ReactQueryProviders from '@/contexts/ReactQueryProvider';
 import './globals.scss';
 import '@radix-ui/themes/styles.css';
+import { SessionProvider } from 'next-auth/react';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -23,7 +24,9 @@ export default function RootLayout({
       <body className={clsx(roboto.variable, notoSansKr.variable)}>
         <MSWComponent />
         <ReactQueryProviders>
-          <Theme>{children}</Theme>
+          <SessionProvider>
+            <Theme>{children}</Theme>
+          </SessionProvider>
         </ReactQueryProviders>
       </body>
     </html>

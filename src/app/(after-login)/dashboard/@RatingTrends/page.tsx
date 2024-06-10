@@ -1,23 +1,36 @@
+'use client';
 import LineChartComp from '@/app/(after-login)/dashboard/@RatingTrends/_components/LineChartComp';
+import {
+  MainRoomSetting,
+  MainRoomSettingComplete,
+} from '@/app/(after-login)/dashboard/@RatingTrends/_components/Modal';
 
-export default async function Page() {
+export default function Page() {
   return (
-    // 리엑트 쿼리 사용해서 컴포넌트 내부에서 mutation후 mainRoom 받아올 수 있게
-    <div className="flex flex-row gap-6 after:h-4 after:content-[''] desktop:flex-col">
-      <LineChartComp mainRoom={true}></LineChartComp>
-      <LineChartComp></LineChartComp>
-      <LineChartComp></LineChartComp>
-      <LineChartComp></LineChartComp>
-      <LineChartComp></LineChartComp>
-      <LineChartComp></LineChartComp>
-      <LineChartComp></LineChartComp>
-      <LineChartComp></LineChartComp>
-      <LineChartComp></LineChartComp>
-      <LineChartComp></LineChartComp>
-      <LineChartComp></LineChartComp>
-      <LineChartComp></LineChartComp>
-      <LineChartComp></LineChartComp>
-      <LineChartComp></LineChartComp>
-    </div>
+    //메인 룸은 true false 로 결정된다고 함.
+
+    <>
+      <div className="flex flex-row gap-6 after:h-4 after:content-[''] desktop:flex-col">
+        <LineChartComp
+          mainRoom={true}
+          roomId={1}
+        />
+        <LineChartComp roomId={2}></LineChartComp>
+        <LineChartComp></LineChartComp>
+        <LineChartComp></LineChartComp>
+        <LineChartComp></LineChartComp>
+        <LineChartComp></LineChartComp>
+        <LineChartComp></LineChartComp>
+        <LineChartComp></LineChartComp>
+        <LineChartComp></LineChartComp>
+        <LineChartComp></LineChartComp>
+        <LineChartComp></LineChartComp>
+        <LineChartComp></LineChartComp>
+        <LineChartComp></LineChartComp>
+        <LineChartComp></LineChartComp>
+      </div>
+      <MainRoomSetting />
+      <MainRoomSettingComplete />
+    </>
   );
 }

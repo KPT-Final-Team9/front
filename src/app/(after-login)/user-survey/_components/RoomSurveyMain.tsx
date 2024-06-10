@@ -1,15 +1,20 @@
+'use client';
+
 import clsx from 'clsx';
 import Link from 'next/link';
 import { LocalIcon } from '@icon/index';
 import { SURVEY_BUTTON_DATA } from '@/constants';
+import RoomSurveyMidModal from '@/app/(after-login)/user-survey/_components/RoomSurveyMidModal';
+import RoomSurveyLastModal from '@/app/(after-login)/user-survey/_components/RoomSurveyLastModal';
 
+// TODO: 평가 완료 후 홈으로 왔을 때 평가여부 확인해서 버튼 비활성화 처리 추가해야함
 export default function RoomSurvey() {
   const surveyButton = clsx(
     'block mb-6 h-[136px] w-full flex items-center justify-center gap-3 rounded-base bg-white border-stroke border cursor-pointer hover:border-2 hover:border-primary',
   );
 
   return (
-    <div className="bg-background">
+    <div className="h-[762px] bg-background">
       <div className="flex flex-col items-center bg-white px-4 pb-[34px] pt-5">
         <LocalIcon
           name={'SurveyRoom'}
@@ -35,12 +40,14 @@ export default function RoomSurvey() {
               </div>
               <div className="flex flex-col gap-1">
                 <span className="text-h4">{item.btnTitle}</span>
-                <span className="text-body4">{item.btnDescription}</span>
+                <span className="text-body4 text-text-secondary">{item.btnDescription}</span>
               </div>
             </Link>
           ))}
         </div>
       </div>
+      <RoomSurveyMidModal />
+      <RoomSurveyLastModal />
     </div>
   );
 }

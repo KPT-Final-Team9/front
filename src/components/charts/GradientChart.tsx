@@ -35,7 +35,6 @@ export default function GradientChart({
     const xIndex = data.findLastIndex(d => d.score === medianValueData.score);
     const x = (xIndex / data.length) * 230; // 너비 237
     const y = ((100 - medianValueData.score) / 100) * 86 - 35; // 높이 86
-    console.log('index', y);
     setTooltipPosition({ x, y });
   }, []);
 
