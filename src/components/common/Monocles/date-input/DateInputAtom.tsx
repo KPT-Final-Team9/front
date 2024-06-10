@@ -25,7 +25,6 @@ export default function DateInputAtom({
   // 따라서 onKeydown 핸들러를 만들고 ref로 관리해주면, change 이벤트에서 입력된 키가 backspace인지 캐치할 수 있음.
   const handleDateInputKeydown = (e: React.KeyboardEvent) => {
     if (e.key === 'Backspace') {
-      console.log('backspace');
       isBackspacePressed.current = true;
     } else {
       isBackspacePressed.current = false;
@@ -74,9 +73,13 @@ export default function DateInputAtom({
 
   return (
     <input
-      className={cn('w-[90px] placeholder:text-body4 focus:outline-none focus-visible:outline', {
-        'text-destructive': isError,
-      })}
+      className={cn(
+        'h-10 w-[134px] rounded-sm border p-2 text-body2 placeholder:text-body2 focus:outline-none focus-visible:outline desktop:w-[180px]',
+        {
+          'text-destructive': isError,
+        },
+        className,
+      )}
       value={inputValue}
       onChange={handleDateInputChange}
       onKeyDown={handleDateInputKeydown}
