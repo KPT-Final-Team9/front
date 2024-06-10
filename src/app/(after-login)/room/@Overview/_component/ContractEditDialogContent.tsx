@@ -4,6 +4,7 @@ import { DialogFooter } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { cn } from '@/lib/utils';
+import { formatDateToYYYY_MM_DD } from '@/utils';
 import DateInputAtom from '@Monocles/date-input/DateInputAtom';
 import React, { useState } from 'react';
 
@@ -119,11 +120,15 @@ export default function ContractEditDialogContent({ closeDialog }: { closeDialog
         <div className="flex flex-col gap-3">
           <Label className="text-body2">계약 기간</Label>
           <div className="flex items-center gap-1 desktop:gap-5">
-            <DateInputAtom
-              mode="single"
-              selected={fromDate}
-              onSelect={setFromDate}
-            />
+            {contractDialogState === ContractEditState.CONTRACT_RENEWAK ? (
+              <div>{formatDateToYYYY_MM_DD(fromDate)}</div>
+            ) : (
+              <DateInputAtom
+                mode="single"
+                selected={fromDate}
+                onSelect={setFromDate}
+              />
+            )}
             ~
             <DateInputAtom
               mode="single"
