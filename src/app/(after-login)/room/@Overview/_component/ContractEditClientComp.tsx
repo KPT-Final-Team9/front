@@ -50,8 +50,11 @@ export default function ContractEditClientComp() {
           </div>
         </div>
       </div>
-      <DialogFooter className="items-end border-t px-8 py-4 desktop:px-10">
-        <Button className="px-8 py-3 text-body3 desktop:w-[193px] desktop:py-4 desktop:text-body1">
+      <DialogFooter className="flex flex-row flex-wrap items-end justify-between border-t px-8 py-4 desktop:px-10">
+        <Button className="px-6 py-3 text-body3 desktop:w-[193px] desktop:py-4 desktop:text-body1">
+          계약 정보 추가
+        </Button>
+        <Button className="px-6 py-3 text-body3 desktop:w-[193px] desktop:py-4 desktop:text-body1">
           계약 정보 추가
         </Button>
       </DialogFooter>
