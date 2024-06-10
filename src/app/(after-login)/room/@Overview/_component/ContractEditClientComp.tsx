@@ -6,11 +6,72 @@ import { Label } from '@/components/ui/label';
 import DateInputAtom from '@Monocles/date-input/DateInputAtom';
 import React, { useState } from 'react';
 
+export enum ContractEditState {
+  VACANT = 'vacanct',
+  CONTRACT_INFO = 'contract info',
+  CONTRACT_EDIT = 'contract edit',
+  CONTRACT_RENEWAK = 'contract renewal',
+}
+
 export default function ContractEditClientComp() {
   const [fromDate, setFromDate] = useState<Date | undefined>();
   const [toDate, setToDate] = useState<Date | undefined>();
   const [deposit, setDeposit] = useState<string>('');
   const [rent, setRent] = useState<string>('');
+
+  const ButtonGroupByState = (state: ContractEditState): React.ReactNode => {
+    switch (state) {
+      case ContractEditState.VACANT:
+        return (
+          <Button className="px-6 py-3 text-body3 desktop:w-[193px] desktop:py-4 desktop:text-body1">
+            계약 정보 추가
+          </Button>
+        );
+      case ContractEditState.CONTRACT_INFO:
+        return (
+          <>
+            <Button
+              className="px-6 py-3 text-body3 desktop:w-[193px] desktop:py-4 desktop:text-body1"
+              variant="orange">
+              공실로 설정하기
+            </Button>
+            <Button className="px-6 py-3 text-body3 desktop:w-[193px] desktop:py-4 desktop:text-body1">
+              재계약하기
+            </Button>
+          </>
+        );
+      case ContractEditState.CONTRACT_EDIT:
+        return (
+          <>
+            <Button
+              variant="outline"
+              className="px-6 py-3 text-body3 desktop:w-[193px] desktop:py-4 desktop:text-body1">
+              취소하기
+            </Button>
+            <Button
+              variant="secondary"
+              className="px-6 py-3 text-body3 desktop:w-[193px] desktop:py-4 desktop:text-body1">
+              저장하기
+            </Button>
+          </>
+        );
+      case ContractEditState.CONTRACT_RENEWAK:
+        return (
+          <>
+            <Button
+              variant="ghost"
+              className="px-6 py-3 text-body3 desktop:w-[193px] desktop:py-4 desktop:text-body1">
+              취소하기
+            </Button>
+            <Button
+              variant="secondary"
+              className="px-6 py-3 text-body3 desktop:w-[193px] desktop:py-4 desktop:text-body1">
+              재계약하기
+            </Button>
+          </>
+        );
+    }
+  };
 
   return (
     <>
@@ -51,12 +112,8 @@ export default function ContractEditClientComp() {
         </div>
       </div>
       <DialogFooter className="flex flex-row flex-wrap items-end justify-between border-t px-8 py-4 desktop:px-10">
-        <Button className="px-6 py-3 text-body3 desktop:w-[193px] desktop:py-4 desktop:text-body1">
-          계약 정보 추가
-        </Button>
-        <Button className="px-6 py-3 text-body3 desktop:w-[193px] desktop:py-4 desktop:text-body1">
-          계약 정보 추가
-        </Button>
+        {/* FIXME: state 추가하며 수정하기 */}
+        {ButtonGroupByState(ContractEditState.CONTRACT_INFO)}
       </DialogFooter>
     </>
   );
