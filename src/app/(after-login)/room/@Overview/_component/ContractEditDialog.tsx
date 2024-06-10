@@ -1,12 +1,20 @@
+'use client';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { LocalIcon } from '@icon/index';
-import React from 'react';
-import ContractEditClientComp from './ContractEditClientComp';
+import React, { useState } from 'react';
+import ContractEditDialogContent from './ContractEditDialogContent';
 
-export default function ContractEditServerComp() {
+export default function ContractEditDialog() {
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const closeDialog = () => {
+    setIsDialogOpen(false);
+  };
+
   return (
-    <Dialog>
+    <Dialog
+      open={isDialogOpen}
+      onOpenChange={setIsDialogOpen}>
       <DialogTrigger>
         <Button
           asChild
@@ -25,7 +33,7 @@ export default function ContractEditServerComp() {
         <DialogHeader className="border-b px-10 py-5">
           <DialogTitle>계약 정보</DialogTitle>
         </DialogHeader>
-        <ContractEditClientComp />
+        <ContractEditDialogContent closeDialog={closeDialog} />
       </DialogContent>
     </Dialog>
   );

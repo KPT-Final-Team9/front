@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { DialogFooter } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { cn } from '@/lib/utils';
 import DateInputAtom from '@Monocles/date-input/DateInputAtom';
 import React, { useState } from 'react';
 
@@ -13,17 +14,48 @@ export enum ContractEditState {
   CONTRACT_RENEWAK = 'contract renewal',
 }
 
-export default function ContractEditClientComp() {
+export default function ContractEditDialogContent({ closeDialog }: { closeDialog: () => void }) {
+  const [contractDialogState, setContractDialogState] = useState<ContractEditState>(ContractEditState.CONTRACT_INFO);
   const [fromDate, setFromDate] = useState<Date | undefined>();
   const [toDate, setToDate] = useState<Date | undefined>();
   const [deposit, setDeposit] = useState<string>('');
   const [rent, setRent] = useState<string>('');
 
+  const handleAddContractClick = () => {
+    window && window.alert('수정사항 저장됨');
+    closeDialog();
+  };
+
+  const handleVacantClick = () => {
+    window && window.alert('공실로 설정됨');
+    closeDialog();
+  };
+
+  const handleSubmitEditClick = () => {
+    window && window.alert('수정사항 저장됨');
+    setContractDialogState(ContractEditState.CONTRACT_INFO);
+  };
+
+  const handleCancelRenewalEditClick = () => {
+    setContractDialogState(ContractEditState.CONTRACT_INFO);
+  };
+
+  const handleRenewalClick = () => {
+    setContractDialogState(ContractEditState.CONTRACT_RENEWAK);
+  };
+
+  const handleSumbitRenewalClick = () => {
+    window && window.alert('재계약 저장됨');
+    closeDialog();
+  };
+
   const ButtonGroupByState = (state: ContractEditState): React.ReactNode => {
     switch (state) {
       case ContractEditState.VACANT:
         return (
-          <Button className="px-6 py-3 text-body3 desktop:w-[193px] desktop:py-4 desktop:text-body1">
+          <Button
+            onClick={handleAddContractClick}
+            className="px-6 py-3 text-body3 desktop:w-[193px] desktop:py-4 desktop:text-body1">
             계약 정보 추가
           </Button>
         );
@@ -31,11 +63,14 @@ export default function ContractEditClientComp() {
         return (
           <>
             <Button
+              onClick={handleVacantClick}
               className="px-6 py-3 text-body3 desktop:w-[193px] desktop:py-4 desktop:text-body1"
               variant="orange">
               공실로 설정하기
             </Button>
-            <Button className="px-6 py-3 text-body3 desktop:w-[193px] desktop:py-4 desktop:text-body1">
+            <Button
+              className="px-6 py-3 text-body3 desktop:w-[193px] desktop:py-4 desktop:text-body1"
+              onClick={handleRenewalClick}>
               재계약하기
             </Button>
           </>
@@ -44,11 +79,13 @@ export default function ContractEditClientComp() {
         return (
           <>
             <Button
+              onClick={handleCancelRenewalEditClick}
               variant="outline"
               className="px-6 py-3 text-body3 desktop:w-[193px] desktop:py-4 desktop:text-body1">
               취소하기
             </Button>
             <Button
+              onClick={handleSubmitEditClick}
               variant="secondary"
               className="px-6 py-3 text-body3 desktop:w-[193px] desktop:py-4 desktop:text-body1">
               저장하기
@@ -59,11 +96,13 @@ export default function ContractEditClientComp() {
         return (
           <>
             <Button
+              onClick={handleCancelRenewalEditClick}
               variant="ghost"
               className="px-6 py-3 text-body3 desktop:w-[193px] desktop:py-4 desktop:text-body1">
               취소하기
             </Button>
             <Button
+              onClick={handleSumbitRenewalClick}
               variant="secondary"
               className="px-6 py-3 text-body3 desktop:w-[193px] desktop:py-4 desktop:text-body1">
               재계약하기
@@ -111,9 +150,11 @@ export default function ContractEditClientComp() {
           </div>
         </div>
       </div>
-      <DialogFooter className="flex flex-row flex-wrap items-end justify-between border-t px-8 py-4 desktop:px-10">
-        {/* FIXME: state 추가하며 수정하기 */}
-        {ButtonGroupByState(ContractEditState.CONTRACT_INFO)}
+      <DialogFooter
+        className={cn('flex flex-row flex-wrap items-end justify-between border-t px-8 py-4 desktop:px-10', {
+          'justify-end': contractDialogState === ContractEditState.VACANT,
+        })}>
+        {ButtonGroupByState(contractDialogState)}
       </DialogFooter>
     </>
   );
