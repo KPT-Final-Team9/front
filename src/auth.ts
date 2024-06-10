@@ -104,7 +104,7 @@ async function _signIn(
     //   headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
     // });
 
-    const res = await fetch(`/public-api/${type}/${role}`, {
+    const res = await fetch(`${process.env.HOST_URL}/public-api/${type}/${role}`, {
       cache: 'no-store',
       method: 'POST',
       body: JSON.stringify(bodyData),
