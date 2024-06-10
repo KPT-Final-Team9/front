@@ -1,16 +1,31 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
+
 import clsx from 'clsx';
-import Link from 'next/link';
+import { cn } from '@/lib/utils';
 import { LocalIcon } from '@icon/index';
-import { SURVEY_BUTTON_DATA } from '@/constants';
 import RoomSurveyMidModal from '@/app/(after-login)/user-survey/_components/RoomSurveyMidModal';
 import RoomSurveyLastModal from '@/app/(after-login)/user-survey/_components/RoomSurveyLastModal';
+import { Button, buttonVariants } from '@/components/ui/button';
+
+interface surveyButtonProps {
+  id: number;
+  imgName: 'SurveyBtnIcon1' | 'SurveyBtnIcon2' | 'SurveyBtnIcon3';
+  btnTitle: string;
+  btnDescription: string;
+  path: string;
+  scoreId: number;
+  isComplated: boolean;
+  ratingType: string;
+}
 
 // TODO: 평가 완료 후 홈으로 왔을 때 평가여부 확인해서 버튼 비활성화 처리 추가해야함
-export default function RoomSurvey() {
+export default function RoomSurvey({ data }: { data: surveyButtonProps[] }) {
+  const router = useRouter();
+
   const surveyButton = clsx(
-    'block mb-6 h-[136px] w-full flex items-center justify-center gap-3 rounded-base bg-white border-stroke border cursor-pointer hover:border-2 hover:border-primary',
+    'mb-6 flex h-[136px] w-full cursor-pointer items-center justify-center gap-3 rounded-base border border-stroke bg-white text-left text-text-primary hover:border-2 hover:border-primary hover:bg-white active:scale-100',
   );
 
   return (
@@ -26,11 +41,14 @@ export default function RoomSurvey() {
       </div>
       <div className="bg-background py-[26px] pt-[22px]">
         <div className="px-4">
-          {SURVEY_BUTTON_DATA.map(item => (
-            <Link
-              href={item.path}
+          {data.map(item => (
+            <Button
+              disabled={item.isComplated}
               key={item.id}
-              className={surveyButton}>
+              className={cn(buttonVariants({ variant: 'default' }), surveyButton)}
+              onClick={() => {
+                router.push(`${item.path}&num=${item.scoreId}`);
+              }}>
               <div className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-100 ">
                 <LocalIcon
                   name={item.imgName}
@@ -42,7 +60,7 @@ export default function RoomSurvey() {
                 <span className="text-h4">{item.btnTitle}</span>
                 <span className="text-body4 text-text-secondary">{item.btnDescription}</span>
               </div>
-            </Link>
+            </Button>
           ))}
         </div>
       </div>
