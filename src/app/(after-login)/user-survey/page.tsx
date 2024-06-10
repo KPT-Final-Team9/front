@@ -10,6 +10,8 @@ import { useMidReminderModalStore, useLastReminderModalStore } from '@/app/(afte
 import { LocalIcon } from '@icon/index';
 import { scheduleRegularAlarms } from '@/utils';
 
+import { Button, buttonVariants } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 import { baseApis } from '@/services/api';
 
 export default function Page() {
@@ -44,7 +46,7 @@ export default function Page() {
           method: 'get',
         }).then(res => res.json());
 
-        const evaluationStatus = response.map((data: { score: number }) => data.score).includes(-1);
+        const evaluationStatus = response.map((data: { completed: boolean }) => data.completed).includes(false);
         setScoreData(evaluationStatus);
       } catch (error) {
         console.error('Error fetching Unsplash data:', error);
@@ -71,13 +73,19 @@ export default function Page() {
           <div className="absolute left-[75px] top-[490px] z-50 h-[6px] w-[6px] rounded-full bg-primary-badge-new"></div>
         )}
 
-        <LocalIcon
-          name={'SurveyIcon'}
-          width={32}
-          height={58}
-          className="absolute left-[49px] top-[495px] cursor-pointer active:scale-[.98]"
+        <Button
           onClick={handleSurveyButtonClick}
-        />
+          disabled={!scoreData}
+          className={cn(
+            buttonVariants({ variant: 'ghost' }),
+            'absolute left-[49px] top-[495px] cursor-pointer bg-transparent p-0 hover:bg-transparent',
+          )}>
+          <LocalIcon
+            name={'SurveyIcon'}
+            width={32}
+            height={58}
+          />
+        </Button>
 
         {/* mobile view GNB */}
         <Image
