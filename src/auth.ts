@@ -1,6 +1,7 @@
 import { nodePublicApi } from '@/services/intercepter';
 import NextAuth, { DefaultSession } from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
+import returnFetch from 'return-fetch';
 
 declare module 'next-auth' {
   interface Session {
@@ -97,8 +98,11 @@ async function _signIn(
     if (type === 'sign-up' && phoneNumber) {
       bodyData['phone_number'] = phoneNumber;
     }
-
-    const res = await nodePublicApi(`/${type}/${role}`, {
+    const returnFetchFnc = returnFetch({
+      baseUrl: `${process.env.HOST_URL}`,
+      headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
+    });
+    const res = await returnFetchFnc(`/public-api/${type}/${role}`, {
       cache: 'no-store',
       method: 'POST',
       body: JSON.stringify(bodyData),
