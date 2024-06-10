@@ -16,6 +16,7 @@ export const logRequestInterceptor: ReturnFetch = args =>
       },
       response: async (response, requestArgs) => {
         console.log('********* after receiving response *********');
+        console.log(response);
         console.log('url:', requestArgs[0].toString());
         console.log('requestInit:', requestArgs[1], '\n\n');
         return response;

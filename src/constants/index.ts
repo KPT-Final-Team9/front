@@ -102,3 +102,8 @@ export enum AuthInputId {
   Password = 'password',
   PhoneNumber = 'phoneNumber',
 }
+
+export enum QueryOptions {
+  Id = 'id',
+  BuildingName = 'buildingName',
+}

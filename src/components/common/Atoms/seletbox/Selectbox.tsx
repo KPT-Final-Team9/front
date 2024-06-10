@@ -48,18 +48,16 @@ export function Selectbox({
       // 정렬하지 않을 때는 외부에서 정한 초기 값을 따르면 됨.
       return;
     }
-
     const sortList = lists.slice().sort((a, b) => a[optionKey]?.localeCompare(b[optionKey]));
     setBuildingList(sortList);
-
     // 정렬 할 경우, 정렬에 맞는 초기 값 설정
-    onChange({ title: sortList[0]?.[optionKey], id: (sortList[0]?.id).toString() });
+    onChange({ title: sortList[0][optionKey], id: sortList[0]?.id.toString() });
   }, [lists]);
 
   // default value 설정
   useEffect(() => {
     if (buildingList?.length) {
-      setCurrentOption(`{"title": "${buildingList[0][optionKey].toString()}", "id": "${buildingList[0].id}"}`);
+      setCurrentOption(`{"title": "${buildingList[0][optionKey]}", "id": "${buildingList[0].id}"}`);
     }
   }, [buildingList]);
 
