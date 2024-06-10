@@ -6,6 +6,7 @@ import { Label } from '@/components/ui/label';
 import { cn } from '@/lib/utils';
 import { formatDateToYYYY_MM_DD } from '@/utils';
 import DateInputAtom from '@Monocles/date-input/DateInputAtom';
+import dayjs from 'dayjs';
 import React, { useState } from 'react';
 
 export enum ContractEditState {
@@ -15,12 +16,33 @@ export enum ContractEditState {
   CONTRACT_RENEWAK = 'contract renewal',
 }
 
-export default function ContractEditDialogContent({ closeDialog }: { closeDialog: () => void }) {
+export default function ContractEditDialogContent({
+  closeDialog,
+  fromDate,
+  toDate,
+  deposit = '',
+  rent = '',
+}: {
+  closeDialog: () => void;
+  fromDate?: Date;
+  toDate?: Date;
+  deposit?: string;
+  rent?: string;
+}) {
   const [contractDialogState, setContractDialogState] = useState<ContractEditState>(ContractEditState.CONTRACT_INFO);
-  const [fromDate, setFromDate] = useState<Date | undefined>();
-  const [toDate, setToDate] = useState<Date | undefined>();
-  const [deposit, setDeposit] = useState<string>('');
-  const [rent, setRent] = useState<string>('');
+  const [editedFromDate, setEditedFromDate] = useState<Date | undefined>(fromDate);
+  const [editedToDate, setEditedToDate] = useState<Date | undefined>(toDate);
+  const [editedDeposit, setEditedDeposit] = useState<string>(deposit);
+  const [editedRent, setEditedRent] = useState<string>(rent);
+
+  const checkIsDiff = (newFrom: Date | undefined, newTo: Date | undefined, newDeposit: string, newRent: string) => {
+    return !(
+      formatDateToYYYY_MM_DD(fromDate) === formatDateToYYYY_MM_DD(newFrom) &&
+      formatDateToYYYY_MM_DD(toDate) === formatDateToYYYY_MM_DD(newTo) &&
+      deposit === newDeposit &&
+      rent === newRent
+    );
+  };
 
   const handleAddContractClick = () => {
     window && window.alert('수정사항 저장됨');
@@ -48,6 +70,45 @@ export default function ContractEditDialogContent({ closeDialog }: { closeDialog
   const handleSumbitRenewalClick = () => {
     window && window.alert('재계약 저장됨');
     closeDialog();
+  };
+
+  const handleFromChange = (newDate: Date | undefined) => {
+    if (!newDate) return;
+    setEditedFromDate(newDate);
+
+    if (checkIsDiff(newDate, editedToDate, editedDeposit, editedRent)) {
+      setContractDialogState(ContractEditState.CONTRACT_EDIT);
+    } else {
+      setContractDialogState(ContractEditState.CONTRACT_INFO);
+    }
+  };
+  const handleToChange = (newDate: Date | undefined) => {
+    if (!newDate) return;
+    setEditedToDate(newDate);
+
+    if (checkIsDiff(editedFromDate, newDate, editedDeposit, editedRent)) {
+      setContractDialogState(ContractEditState.CONTRACT_EDIT);
+    } else {
+      setContractDialogState(ContractEditState.CONTRACT_INFO);
+    }
+  };
+  const handleDepositChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEditedDeposit(e.target.value);
+
+    if (checkIsDiff(editedFromDate, editedToDate, e.target.value, editedRent)) {
+      setContractDialogState(ContractEditState.CONTRACT_EDIT);
+    } else {
+      setContractDialogState(ContractEditState.CONTRACT_INFO);
+    }
+  };
+  const handleRentChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEditedRent(e.target.value);
+
+    if (checkIsDiff(editedFromDate, editedToDate, editedDeposit, e.target.value)) {
+      setContractDialogState(ContractEditState.CONTRACT_EDIT);
+    } else {
+      setContractDialogState(ContractEditState.CONTRACT_INFO);
+    }
   };
 
   const ButtonGroupByState = (state: ContractEditState): React.ReactNode => {
@@ -121,19 +182,19 @@ export default function ContractEditDialogContent({ closeDialog }: { closeDialog
           <Label className="text-body2">계약 기간</Label>
           <div className="flex items-center gap-1 desktop:gap-5">
             {contractDialogState === ContractEditState.CONTRACT_RENEWAK ? (
-              <div>{formatDateToYYYY_MM_DD(fromDate)}</div>
+              <div>{formatDateToYYYY_MM_DD(editedFromDate)}</div>
             ) : (
               <DateInputAtom
                 mode="single"
-                selected={fromDate}
-                onSelect={setFromDate}
+                selected={contractDialogState === ContractEditState.CONTRACT_EDIT ? editedFromDate : fromDate}
+                onSelect={handleFromChange}
               />
             )}
             ~
             <DateInputAtom
               mode="single"
-              selected={toDate}
-              onSelect={setToDate}
+              selected={contractDialogState === ContractEditState.CONTRACT_EDIT ? editedToDate : toDate}
+              onSelect={handleToChange}
             />
           </div>
         </div>
@@ -141,14 +202,14 @@ export default function ContractEditDialogContent({ closeDialog }: { closeDialog
           <Label className="text-body2">보증금 / 임대료</Label>
           <div className="flex items-center gap-3">
             <Input
-              value={deposit}
-              onChange={e => setDeposit(e.target.value)}
+              value={contractDialogState === ContractEditState.CONTRACT_EDIT ? editedDeposit : deposit}
+              onChange={handleDepositChange}
               className="w-[80px] desktop:w-[100px]"
             />
             /
             <Input
-              value={rent}
-              onChange={e => setRent(e.target.value)}
+              value={contractDialogState === ContractEditState.CONTRACT_EDIT ? editedRent : rent}
+              onChange={handleRentChange}
               className="w-[50px] desktop:w-[65px]"
             />
             만 원

@@ -1,7 +1,7 @@
 import { CalendarProps } from '@/components/ui/calendar';
 import { cn } from '@/lib/utils';
 import React, { useRef, useState } from 'react';
-import { formatDateToYYYYMMDD } from '@/utils';
+import { formatDateToYYYYMMDD, formatDateToYYYY_MM_DD } from '@/utils';
 import { isValid, parse } from 'date-fns';
 import { ActiveModifiers } from 'react-day-picker';
 import { ClassNameValue } from 'tailwind-merge';
@@ -16,7 +16,7 @@ export default function DateInputAtom({
   hiddenPreset?: boolean;
 }) {
   const [inputValue, setInputValue] = useState<string>(
-    props.mode === 'single' && props.selected ? formatDateToYYYYMMDD(props.selected) : '',
+    props.mode === 'single' && props.selected ? formatDateToYYYY_MM_DD(props.selected) : '',
   );
   const [isError, setIsError] = useState(false);
   const isBackspacePressed = useRef(false);

@@ -5,6 +5,9 @@ import { LocalIcon } from '@icon/index';
 import React, { useState } from 'react';
 import ContractEditDialogContent from './ContractEditDialogContent';
 
+const DUMMY_FROM = new Date('2022-07-30');
+const DUMMY_TO = new Date('2024-07-30');
+
 export default function ContractEditDialog() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const closeDialog = () => {
@@ -33,7 +36,11 @@ export default function ContractEditDialog() {
         <DialogHeader className="border-b px-10 py-5">
           <DialogTitle>계약 정보</DialogTitle>
         </DialogHeader>
-        <ContractEditDialogContent closeDialog={closeDialog} />
+        <ContractEditDialogContent
+          closeDialog={closeDialog}
+          fromDate={DUMMY_FROM}
+          toDate={DUMMY_TO}
+        />
       </DialogContent>
     </Dialog>
   );
