@@ -70,7 +70,7 @@ export default function Page({ searchParams }: { searchParams: { id: string } })
 
         // 각 항목별 id값 전달을 위해 평가여부 및 score id 데이터 업데이트
         const fetchScoreData = complateState.map(data => {
-          const matchingType = response.find(
+          const matchingType = response?.find(
             (fetchData: { rating_type: string }) => fetchData.rating_type === data.ratingType,
           );
           return matchingType
@@ -124,7 +124,7 @@ export default function Page({ searchParams }: { searchParams: { id: string } })
   return (
     <div className="flex w-full flex-col justify-center">
       <SurveyHeader />
-      <section>{renderPage()}</section>
+      <section className="relative">{renderPage()}</section>
     </div>
   );
 }

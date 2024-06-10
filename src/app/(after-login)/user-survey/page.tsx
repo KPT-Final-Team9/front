@@ -46,7 +46,7 @@ export default function Page() {
           method: 'get',
         }).then(res => res.json());
 
-        const evaluationStatus = response.map((data: { completed: boolean }) => data.completed).includes(false);
+        const evaluationStatus = response?.map((data: { completed: boolean }) => data.completed).includes(false);
         setScoreData(evaluationStatus);
       } catch (error) {
         console.error('Error fetching Unsplash data:', error);
