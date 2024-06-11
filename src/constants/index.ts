@@ -103,7 +103,22 @@ export enum AuthInputId {
   PhoneNumber = 'phoneNumber',
 }
 
+// 쿼리스트링 값
 export enum QueryOptions {
   Id = 'id',
   BuildingName = 'buildingName',
 }
+
+interface ContractStatus {
+  status: string;
+  description: string;
+}
+
+export const CONTRACT_STATUSES: { [key: string]: ContractStatus } = {
+  PENDING: { status: 'PENDING', description: '계약 대기' },
+  COMPLETED: { status: 'COMPLETED', description: '계약 완료' },
+  CANCELED: { status: 'CANCELED', description: '계약 취소' },
+  IN_PROGRESS: { status: 'IN_PROGRESS', description: '계약 이행' },
+  TERMINATED: { status: 'TERMINATED', description: '계약 파기' },
+  EXPIRED: { status: 'EXPIRED', description: '계약 만료' },
+};
