@@ -1,6 +1,6 @@
 import { CalendarProps } from '@/components/ui/calendar';
 import { cn } from '@/lib/utils';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { formatDateToYYYYMMDD, formatDateToYYYY_MM_DD } from '@/utils';
 import { isValid, parse } from 'date-fns';
 import { ActiveModifiers } from 'react-day-picker';
@@ -56,7 +56,7 @@ export default function DateInputAtom({
     setInputValue(newValue);
     newSelected = parsedDate;
 
-    if (!isValid(parsedDate)) {
+    if (!isValid(parsedDate) || newValue.length !== 10) {
       setIsError(true);
 
       newSelected = props.selected;
@@ -70,6 +70,10 @@ export default function DateInputAtom({
       undefined as unknown as React.MouseEvent,
     );
   };
+
+  useEffect(() => {
+    props.mode === 'single' && props.selected && setInputValue(formatDateToYYYY_MM_DD(props.selected));
+  }, [props.selected]);
 
   return (
     <input

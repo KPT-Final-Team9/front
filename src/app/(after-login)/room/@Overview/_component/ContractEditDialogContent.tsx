@@ -68,6 +68,10 @@ export default function ContractEditDialogContent({
   };
 
   const handleCancelRenewalEditClick = () => {
+    setEditedFromDate(fromDate);
+    setEditedToDate(toDate);
+    setEditedDeposit(deposit);
+    setEditedRent(rent);
     setContractDialogState(ContractEditState.CONTRACT_INFO);
   };
 
@@ -213,6 +217,9 @@ export default function ContractEditDialogContent({
                 mode="single"
                 selected={contractDialogState === ContractEditState.CONTRACT_EDIT ? editedFromDate : fromDate}
                 onSelect={handleFromChange}
+                className={cn({
+                  'border-green-500': formatDateToYYYY_MM_DD(editedFromDate) !== formatDateToYYYY_MM_DD(fromDate),
+                })}
               />
             )}
             ~
@@ -220,6 +227,9 @@ export default function ContractEditDialogContent({
               mode="single"
               selected={contractDialogState === ContractEditState.CONTRACT_EDIT ? editedToDate : toDate}
               onSelect={handleToChange}
+              className={cn({
+                'border-green-500': formatDateToYYYY_MM_DD(editedToDate) !== formatDateToYYYY_MM_DD(toDate),
+              })}
             />
           </div>
         </div>
@@ -229,13 +239,13 @@ export default function ContractEditDialogContent({
             <Input
               value={contractDialogState === ContractEditState.CONTRACT_EDIT ? editedDeposit : deposit}
               onChange={handleDepositChange}
-              className="w-[80px] desktop:w-[100px]"
+              className={cn('w-[80px] desktop:w-[100px]', { 'border-green-500': editedDeposit !== deposit })}
             />
             /
             <Input
               value={contractDialogState === ContractEditState.CONTRACT_EDIT ? editedRent : rent}
               onChange={handleRentChange}
-              className="w-[50px] desktop:w-[65px]"
+              className={cn('w-[50px] desktop:w-[65px]', { 'border-green-500': editedRent !== rent })}
             />
             만 원
           </div>
