@@ -15,7 +15,9 @@ const meta: Meta = {
 export default meta;
 
 export const BlackTooltip: StoryObj<typeof BlackTooltipContentComp> = {
-  args: {},
+  args: {
+    title: '툴팁 제목 테스트',
+  },
   render: args => {
     return (
       <TooltipProvider>
@@ -23,7 +25,9 @@ export const BlackTooltip: StoryObj<typeof BlackTooltipContentComp> = {
           <TooltipTrigger>
             <div>hover me</div>
           </TooltipTrigger>
-          <BlackTooltipContentComp>Tooltip</BlackTooltipContentComp>
+          <BlackTooltipContentComp {...args}>
+            <div>툴팁 내용 테스트</div>
+          </BlackTooltipContentComp>
         </Tooltip>
       </TooltipProvider>
     );

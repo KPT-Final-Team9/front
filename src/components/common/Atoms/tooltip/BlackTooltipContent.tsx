@@ -9,11 +9,21 @@ export default function BlackTooltipContent({ title, ...props }: TooltipContentP
   return (
     <TooltipContent
       {...props}
+      align={props.align ?? 'start'}
       className={cn(
-        'border-black bg-black px-4 py-3 text-overline text-white desktop:px-8 desktop:py-4',
+        'flex flex-col gap-1 border-black bg-black px-4 py-3 text-overline text-white desktop:gap-2 desktop:px-8 desktop:py-4 desktop:text-body2',
         props.className,
       )}>
-      {title && <div>{title}</div>}
+      {title && (
+        <div className="flex items-center gap-2">
+          <LocalIcon
+            className="h-4 w-4 desktop:h-6 desktop:w-6"
+            name="ExclamationMark"
+            color="white"
+          />
+          {title}
+        </div>
+      )}
       {props.children}
       <TooltipPrimitive.Arrow />
     </TooltipContent>
