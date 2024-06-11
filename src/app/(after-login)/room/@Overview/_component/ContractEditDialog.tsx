@@ -9,7 +9,7 @@ const DUMMY_FROM = new Date('2022-07-30');
 const DUMMY_TO = new Date('2024-07-30');
 
 export default function ContractEditDialog() {
-  const [isDialogOpen, setIsDialogOpen] = useState(true);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
   const closeDialog = () => {
     setIsDialogOpen(false);
   };

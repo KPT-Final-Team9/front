@@ -38,11 +38,9 @@ export default function ContractEditDialogContent({
   const [editedRent, setEditedRent] = useState<string>(rent);
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
 
-  useEffect(() => {
-    setTimeout(() => {
-      setIsConfirmOpen(true);
-    }, 100);
-  }, []);
+  const closeConfirnDialog = () => {
+    setIsConfirmOpen(false);
+  };
 
   const checkIsDiff = (newFrom: Date | undefined, newTo: Date | undefined, newDeposit: string, newRent: string) => {
     return !(
@@ -61,6 +59,7 @@ export default function ContractEditDialogContent({
   const handleVacantClick = () => {
     window && window.alert('공실로 설정됨');
     closeDialog();
+    closeConfirnDialog();
   };
 
   const handleSubmitEditClick = () => {
@@ -78,8 +77,8 @@ export default function ContractEditDialogContent({
 
   const handleSumbitRenewalClick = () => {
     window && window.alert('재계약 저장됨');
-    setIsConfirmOpen(false);
     closeDialog();
+    closeConfirnDialog();
   };
 
   const handleFromChange = (newDate: Date | undefined) => {
@@ -134,12 +133,18 @@ export default function ContractEditDialogContent({
       case ContractEditState.CONTRACT_INFO:
         return (
           <>
-            <Button
-              onClick={handleVacantClick}
-              className="px-6 py-3 text-body3 desktop:w-[193px] desktop:py-4 desktop:text-body1"
-              variant="orange">
-              공실로 설정하기
-            </Button>
+            <ContractVacantConfirmDialog
+              dialogProps={{ open: isConfirmOpen, onOpenChange: setIsConfirmOpen }}
+              triggerButton={
+                <Button
+                  className="px-6 py-3 text-body3 desktop:w-[193px] desktop:py-4 desktop:text-body1"
+                  variant="orange">
+                  공실로 설정하기
+                </Button>
+              }
+              onSubmitClick={handleVacantClick}
+              onCancelClick={() => setIsConfirmOpen(false)}
+            />
             <Button
               className="px-6 py-3 text-body3 desktop:w-[193px] desktop:py-4 desktop:text-body1"
               onClick={handleRenewalClick}>
@@ -197,18 +202,6 @@ export default function ContractEditDialogContent({
   return (
     <>
       <div className="flex flex-col gap-6 bg-gray-50 px-6 py-8 desktop:px-10">
-        <ContractVacantConfirmDialog
-          dialogProps={{ open: isConfirmOpen, onOpenChange: setIsConfirmOpen }}
-          triggerButton={
-            <Button
-              variant="secondary"
-              className="px-6 py-3 text-body3 desktop:w-[193px] desktop:py-4 desktop:text-body1">
-              재계약하기
-            </Button>
-          }
-          onSubmitClick={handleSumbitRenewalClick}
-          onCancelClick={() => setIsConfirmOpen(false)}
-        />
         <h4 className="text-h4 text-primary">미왕빌딩 A동 201호</h4>
         <div className="flex flex-col gap-3">
           <Label className="text-body2">계약 기간</Label>
