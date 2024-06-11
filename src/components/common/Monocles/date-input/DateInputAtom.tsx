@@ -15,7 +15,6 @@ export default function DateInputAtom({
   containerClassName?: ClassNameValue;
   hiddenPreset?: boolean;
 }) {
-  console.log(props.selected);
   const [inputValue, setInputValue] = useState<string>(
     props.mode === 'single' && props.selected ? formatDateToYYYY_MM_DD(props.selected) : '',
   );

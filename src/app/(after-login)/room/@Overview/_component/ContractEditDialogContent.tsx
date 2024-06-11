@@ -4,7 +4,7 @@ import { DialogFooter } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { cn } from '@/lib/utils';
-import { formatDateToYYYY_MM_DD } from '@/utils';
+import { formatDateRangeToYYYY_MM_DD, formatDateToYYYY_MM_DD } from '@/utils';
 import DateInputAtom from '@Monocles/date-input/DateInputAtom';
 import dayjs from 'dayjs';
 import React, { useEffect, useState } from 'react';
@@ -150,10 +150,10 @@ export default function ContractEditDialogContent({
         return (
           <ContractEditConfirmDialog
             dialogProps={{ open: isConfirmOpen, onOpenChange: setIsConfirmOpen }}
-            title={'재계약을 진행하시겠습니까?'}
+            title={'입력한 계약 정보가 맞습니까?'}
             roomName={roomName}
-            contractPeriod="2022.07.30 ~ 2024.07.30"
-            rent="1,000 / 65만 원"
+            contractPeriod={formatDateRangeToYYYY_MM_DD(editedFromDate, editedToDate)}
+            rent={`${Number(editedDeposit).toLocaleString()} / ${Number(editedRent).toLocaleString()}만 원`}
             triggerButton={
               <Button className="px-6 py-3 text-body3 desktop:w-[193px] desktop:py-4 desktop:text-body1">
                 계약 정보 추가
@@ -194,8 +194,12 @@ export default function ContractEditDialogContent({
               className="px-6 py-3 text-body3 desktop:w-[193px] desktop:py-4 desktop:text-body1">
               취소하기
             </Button>
-            <ContractVacantConfirmDialog
+            <ContractEditConfirmDialog
               dialogProps={{ open: isConfirmOpen, onOpenChange: setIsConfirmOpen }}
+              title={'계약 정보를 변경하시겠습니까?'}
+              roomName={roomName}
+              contractPeriod={formatDateRangeToYYYY_MM_DD(editedFromDate, editedToDate)}
+              rent={`${Number(editedDeposit).toLocaleString()} / ${Number(editedRent).toLocaleString()}만 원`}
               triggerButton={
                 <Button
                   variant="secondary"
@@ -221,8 +225,8 @@ export default function ContractEditDialogContent({
               dialogProps={{ open: isConfirmOpen, onOpenChange: setIsConfirmOpen }}
               title={'재계약을 진행하시겠습니까?'}
               roomName={roomName}
-              contractPeriod="2022.07.30 ~ 2024.07.30"
-              rent="1,000 / 65만 원"
+              contractPeriod={formatDateRangeToYYYY_MM_DD(editedFromDate, editedToDate)}
+              rent={`${Number(editedDeposit).toLocaleString()} / ${Number(editedRent).toLocaleString()}만 원`}
               triggerButton={
                 <Button
                   variant="secondary"

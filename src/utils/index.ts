@@ -64,6 +64,6 @@ export const scheduleRegularAlarms = () => {
   return { middleDate, lastDate, middleDayTest };
 };
 
-export const formatDateRangeToYYYY_MM_DD = (fromDate: Date, toDate: Date) => {
+export const formatDateRangeToYYYY_MM_DD = (fromDate?: Date, toDate?: Date) => {
   return formatDateToYYYY_MM_DD(fromDate) + ' ~ ' + formatDateToYYYY_MM_DD(toDate);
 };
