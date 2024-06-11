@@ -22,6 +22,7 @@ interface QuarterlyData {
   total_avg: number;
 }
 
+// 이번분기와 지난분기 평균값 차트컴포넌트에 맞게 매핑하는 함수입니다.
 const mergedData = ({ before, current }) => {
   console.log(before, current);
   return before.reduce((acc, beforeItem) => {
@@ -94,6 +95,7 @@ export default function Page() {
           console.error('Error fetching rooms quarterly score', roomsQuarterlyScoreResult.reason);
         }
       } catch (error) {
+        //  TODO: 에러핸들링 추가
         console.error('Error in fetching data', error);
       }
     };
