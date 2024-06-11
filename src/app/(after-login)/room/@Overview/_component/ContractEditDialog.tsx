@@ -5,8 +5,11 @@ import { LocalIcon } from '@icon/index';
 import React, { useEffect, useState } from 'react';
 import ContractEditDialogContent from './ContractEditDialogContent';
 
+const DUMMY_VACANT = false;
 const DUMMY_FROM = new Date('2022-07-30');
 const DUMMY_TO = new Date('2024-07-30');
+const DUMMY_DEPOSIT = '1000';
+const DUMMY_RENT = '65';
 
 export default function ContractEditDialog() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -38,6 +41,9 @@ export default function ContractEditDialog() {
         </DialogHeader>
         <ContractEditDialogContent
           closeDialog={closeDialog}
+          isVacant={DUMMY_VACANT}
+          deposit={DUMMY_DEPOSIT}
+          rent={DUMMY_RENT}
           fromDate={DUMMY_FROM}
           toDate={DUMMY_TO}
         />

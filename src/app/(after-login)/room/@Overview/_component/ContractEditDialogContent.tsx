@@ -20,12 +20,14 @@ export enum ContractEditState {
 
 export default function ContractEditDialogContent({
   closeDialog,
+  isVacant,
   fromDate,
   toDate,
   deposit = '',
   rent = '',
 }: {
   closeDialog: () => void;
+  isVacant?: boolean;
   fromDate?: Date;
   toDate?: Date;
   deposit?: string;
@@ -52,18 +54,18 @@ export default function ContractEditDialogContent({
   };
 
   const handleAddContractClick = () => {
-    window && window.alert('수정사항 저장됨');
+    console.log('수정사항 저장됨');
     closeDialog();
   };
 
   const handleVacantClick = () => {
-    window && window.alert('공실로 설정됨');
+    console.log('공실로 설정됨');
     closeDialog();
     closeConfirnDialog();
   };
 
   const handleSubmitEditClick = () => {
-    window && window.alert('수정사항 저장됨');
+    console.log('수정사항 저장됨');
     setContractDialogState(ContractEditState.CONTRACT_INFO);
   };
 
@@ -80,7 +82,7 @@ export default function ContractEditDialogContent({
   };
 
   const handleSumbitRenewalClick = () => {
-    window && window.alert('재계약 저장됨');
+    console.log('재계약 저장됨');
     closeDialog();
     closeConfirnDialog();
   };
@@ -210,6 +212,11 @@ export default function ContractEditDialogContent({
         );
     }
   };
+
+  useEffect(() => {
+    if (!isVacant) return;
+    setContractDialogState(ContractEditState.VACANT);
+  }, [isVacant]);
 
   return (
     <>
