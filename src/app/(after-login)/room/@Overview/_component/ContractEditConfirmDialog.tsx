@@ -42,13 +42,13 @@ export default function ContractEditConfirmDialog({
           </div>
           <div className="flex flex-col gap-2.5 rounded-desktop-stroke bg-gray-50 p-2">
             <div className="text-body1">{roomName}</div>
-            <div className="flex gap-3">
+            <div className="flex gap-3 text-body2 text-text-secondary">
               <div>계약기간</div>
-              <div>{contractPeriod}</div>
+              <div className="text-body2 text-text-primary">{contractPeriod}</div>
             </div>
-            <div className="flex gap-3">
+            <div className="flex gap-3 text-body2 text-text-secondary">
               <div>보증금 / 임대료</div>
-              <div>{rent}</div>
+              <div className="text-body2 text-text-primary">{rent}</div>
             </div>
           </div>
         </div>
