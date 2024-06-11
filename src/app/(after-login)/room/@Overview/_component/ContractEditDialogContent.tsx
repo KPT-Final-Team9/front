@@ -8,6 +8,7 @@ import { formatDateToYYYY_MM_DD } from '@/utils';
 import DateInputAtom from '@Monocles/date-input/DateInputAtom';
 import dayjs from 'dayjs';
 import React, { useState } from 'react';
+import ContractEditConfirmDialog from './ContractEditConfirmDialog';
 
 export enum ContractEditState {
   VACANT = 'vacanct',
@@ -34,6 +35,7 @@ export default function ContractEditDialogContent({
   const [editedToDate, setEditedToDate] = useState<Date | undefined>(toDate);
   const [editedDeposit, setEditedDeposit] = useState<string>(deposit);
   const [editedRent, setEditedRent] = useState<string>(rent);
+  const [isConfirmOpen, setIsConfirmOpen] = useState(false);
 
   const checkIsDiff = (newFrom: Date | undefined, newTo: Date | undefined, newDeposit: string, newRent: string) => {
     return !(
@@ -69,6 +71,7 @@ export default function ContractEditDialogContent({
 
   const handleSumbitRenewalClick = () => {
     window && window.alert('재계약 저장됨');
+    setIsConfirmOpen(false);
     closeDialog();
   };
 
@@ -163,12 +166,22 @@ export default function ContractEditDialogContent({
               className="px-6 py-3 text-body3 desktop:w-[193px] desktop:py-4 desktop:text-body1">
               취소하기
             </Button>
-            <Button
-              onClick={handleSumbitRenewalClick}
-              variant="secondary"
-              className="px-6 py-3 text-body3 desktop:w-[193px] desktop:py-4 desktop:text-body1">
-              재계약하기
-            </Button>
+            <ContractEditConfirmDialog
+              dialogProps={{ open: isConfirmOpen, onOpenChange: setIsConfirmOpen }}
+              title={'재계약을 진행하시겠습니까?'}
+              roomName="미왕빌딩 A동 201호"
+              contractPeriod="2022.07.30 ~ 2024.07.30"
+              rent="1,000 / 65만 원"
+              triggerButton={
+                <Button
+                  variant="secondary"
+                  className="px-6 py-3 text-body3 desktop:w-[193px] desktop:py-4 desktop:text-body1">
+                  재계약하기
+                </Button>
+              }
+              onSubmitClick={handleSumbitRenewalClick}
+              onCancelClick={() => setIsConfirmOpen(false)}
+            />
           </>
         );
     }
