@@ -6,6 +6,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { RENT_DATA } from '@/constants/index';
 import { LocalIcon } from '@icon/index';
 import { z } from 'zod';
+import RoomTooltip from '../../_component/RoomTooltip';
 
 const mockRoomData = [
   {
@@ -57,9 +58,9 @@ export default function RatingCompareComp() {
     <div className="flex h-full min-w-[325px] flex-col gap-2 desktop:p-8">
       <div className=" flex items-center">
         <h3 className="mr-2 text-h3 text-text-primary">임대 지표 비교 </h3>
-        <LocalIcon
-          name="ExclamationMark"
-          className="h-[24px] w-[24px]"
+        <RoomTooltip
+          content="비슷한 면적과 점수를 가진 다른 호실들의 
+재계약률, 공실률, 임대료 평균을 확인하실 수 있어요."
         />
       </div>
       <p className="text-body2 text-text-secondary">내 호실과 유사한 조건을 가진 타 호실과 임대 지표를 비교해 드려요</p>
