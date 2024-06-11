@@ -28,9 +28,7 @@ export async function baseApis() {
     baseUrl = '/';
   }
   return apisBaseUrl({
-    fetch: logRequestInterceptor({
-      ...base,
-    }),
+    ...base,
   });
 }
 
@@ -63,4 +61,14 @@ export async function basePublicApi() {
       ...base,
     }),
   });
+}
+
+//
+export async function fetchJsonData(url: string, requestInit: RequestInit) {
+  const fetchInstance = await baseApis();
+  const response = await fetchInstance(url, requestInit);
+  if (!response.ok) {
+    throw new Error(`Error fetching data from ${url}`);
+  }
+  return response.json();
 }
