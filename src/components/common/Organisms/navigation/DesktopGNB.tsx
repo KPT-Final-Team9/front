@@ -138,7 +138,7 @@ function SelectBoxComp() {
     const fetchInstance = await baseApis();
     const response = await fetchInstance(`/buildings`, {
       cache: 'no-store',
-      method: 'get',
+      method: 'GET',
     });
 
     if (response.ok) {
