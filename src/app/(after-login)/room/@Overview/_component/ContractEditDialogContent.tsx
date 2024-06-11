@@ -9,6 +9,7 @@ import DateInputAtom from '@Monocles/date-input/DateInputAtom';
 import dayjs from 'dayjs';
 import React, { useEffect, useState } from 'react';
 import ContractEditConfirmDialog from './ContractEditConfirmDialog';
+import ContractVacantConfirmDialog from './ContractVacantConfirmDialog';
 
 export enum ContractEditState {
   VACANT = 'vacanct',
@@ -196,12 +197,8 @@ export default function ContractEditDialogContent({
   return (
     <>
       <div className="flex flex-col gap-6 bg-gray-50 px-6 py-8 desktop:px-10">
-        <ContractEditConfirmDialog
+        <ContractVacantConfirmDialog
           dialogProps={{ open: isConfirmOpen, onOpenChange: setIsConfirmOpen }}
-          title={'재계약을 진행하시겠습니까?'}
-          roomName="미왕빌딩 A동 201호"
-          contractPeriod="2022.07.30 ~ 2024.07.30"
-          rent="1,000 / 65만 원"
           triggerButton={
             <Button
               variant="secondary"
