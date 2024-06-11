@@ -1,6 +1,6 @@
 import { LocalIcon } from '@icon/index';
 import RoomBadge from '@Atoms/badge/RoomBadge';
-export default function Layout() {
+export default function MainRoomCompareLoading() {
   return (
     <div className="flex flex-col gap-3 rounded-container bg-white px-[24px] py-[32px]  desktop:w-full desktop:px-[40px]">
       <div className="flex w-[240px] flex-row items-center justify-between">
