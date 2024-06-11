@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { useRouter } from 'next/navigation';
+import { useForm, SubmitHandler } from 'react-hook-form';
+import { useSearchParams } from 'next/navigation';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 
@@ -13,11 +13,13 @@ import { Button } from '@/components/ui/button';
 import { LoadingSpinner } from '@/asset/Icons/index';
 import { SURVEY_QUESTION } from '@/constants';
 import UserSurveyToast from '@Atoms/toast/UserSurveyToast';
+import { updateSurveyScore } from '@/serverActions/survey';
 
-interface FormInput {
+export type FormInput = {
+  scoreId: number;
   score: number[];
-  opinion: string;
-}
+  opinion?: string;
+};
 
 interface RoomSurveyDetailProps {
   surveyType: 'manage' | 'facility' | 'complaint';
@@ -31,9 +33,12 @@ const Survey = z.object({
 });
 
 export default function RoomSurveyDetail({ surveyType, sliderColor, surveyImage }: RoomSurveyDetailProps) {
-  const router = useRouter(); // TODO: 폼 전송 후 router
   const [score, setScore] = useState([50]);
   const [toast, setToast] = useState(false);
+  const searchParams = useSearchParams().get('num');
+
+  const scoreId: number = searchParams ? Number(searchParams) : 0;
+
   const {
     register,
     resetField,
@@ -49,21 +54,26 @@ export default function RoomSurveyDetail({ surveyType, sliderColor, surveyImage 
     defaultValues: {
       score: score,
       opinion: '',
+      scoreId: scoreId,
     },
   });
 
   // TODO: API 연동시 수정해야 함
   // 서버 전송 값 형태: { score: [scoreValue], opinion: "opinionValue" }
-  const onSubmit = async (data: any) => {
+  const onSubmit: SubmitHandler<FormInput> = async data => {
     // 슬라이더 이동이 없다면 제출하지 못하도록 처리
     if (!dirtyFields.score) {
       setToast(true);
       return;
     }
 
-    await new Promise(r => setTimeout(r, 1000));
-    router.replace(`/user-survey/scores?id=done`); // TODO: 평가 완료 페이지 연결하기
-    console.log(data); // TODO: 전송되는 데이터 확인용 log(나중에 지우기)
+    // 서버액션으로 form data 처리
+    const response = {
+      ...data,
+      scoreId,
+    };
+
+    await updateSurveyScore(response);
   };
 
   const handleGetScore = (score: number[]) => {
