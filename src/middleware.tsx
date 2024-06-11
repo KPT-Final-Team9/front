@@ -8,6 +8,8 @@ const matchersForAuth = [
   // '/dashboard/:path*', // '/dashboard', '/dashboard/1', '/dashboard/1/2'
   '/myaccount/:path+', // '/myaccount/1', '/myaccount/1/2/3'
   '/settings/:path', // '/settings/1'
+  '/user-survey',
+  '/user-survey/scores', // '/user-survey/scores', '/user-survey/scores?id=manage&num={scoreId}', '/user-survey/scores?id=done'
 ];
 
 const secret = process.env.AUTH_SECRET as string;

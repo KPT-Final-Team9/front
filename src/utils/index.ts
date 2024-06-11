@@ -49,17 +49,15 @@ export const isSameDateRange = (dateRangeA: DateRange | undefined, dateRangeB: D
 // 이번달 현재 일과 중간일, 말일이 똑같은지 반환해주는 함수
 export const scheduleRegularAlarms = () => {
   const now = new Date();
-  const year = getYear(now);
-  const month = getMonth(now);
   const date = getDate(now);
 
-  const lastDay = getDate(endOfMonth(new Date(year, month, date)));
+  const lastDay = getDate(endOfMonth(new Date()));
   const middleDay = Math.ceil(lastDay / 2);
 
   const middleDate = middleDay === date;
   const lastDate = lastDay === date;
 
-  const middleDayTest = 8 === date;
+  const middleDayTest = 10 === date; // TODO: 기능 작업 이후 지우기
 
   return { middleDate, lastDate, middleDayTest };
 };
