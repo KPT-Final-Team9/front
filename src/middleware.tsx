@@ -5,7 +5,7 @@ import { match } from 'path-to-regexp';
 import { CustomSession } from '@/types/auth';
 
 const matchersForAuth = [
-  '/dashboard/:path*', // '/dashboard', '/dashboard/1', '/dashboard/1/2'
+  // '/dashboard/:path*', // '/dashboard', '/dashboard/1', '/dashboard/1/2'
   '/myaccount/:path+', // '/myaccount/1', '/myaccount/1/2/3'
   '/settings/:path', // '/settings/1'
 ];

@@ -19,7 +19,7 @@ export const BlackTooltip: StoryObj<typeof BlackTooltipContentComp> = {
   render: args => {
     return (
       <TooltipProvider>
-        <Tooltip>
+        <Tooltip open>
           <TooltipTrigger>
             <div>hover me</div>
           </TooltipTrigger>
