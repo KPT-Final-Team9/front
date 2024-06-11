@@ -27,36 +27,43 @@ export default function ContractEditConfirmDialog({
   return (
     <Dialog {...dialogProps}>
       <DialogTrigger>{triggerButton}</DialogTrigger>
-      <DialogContent>
-        <div>
-          <div>
-            <Image
-              src={yellowCheckMark}
-              width={40}
-              height={40}
-              alt="yellow check mark"
-            />
+      <DialogContent className="h-[444px] w-[343px] bg-white p-6">
+        <div className="flex flex-col gap-12">
+          <div className="mt-10 flex flex-col items-center gap-4">
+            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-blue-100">
+              <Image
+                src={yellowCheckMark}
+                width={40}
+                height={40}
+                alt="yellow check mark"
+              />
+            </div>
+            <h4 className="text-h4">{title}</h4>
           </div>
-          <h4>{title}</h4>
-          <div>
-            <div>{roomName}</div>
-            <div>
+          <div className="flex flex-col gap-2.5 rounded-desktop-stroke bg-gray-50 p-2">
+            <div className="text-body1">{roomName}</div>
+            <div className="flex gap-3">
               <div>계약기간</div>
               <div>{contractPeriod}</div>
             </div>
-            <div>
+            <div className="flex gap-3">
               <div>보증금 / 임대료</div>
               <div>{rent}</div>
             </div>
           </div>
         </div>
-        <DialogFooter>
+        <DialogFooter className="flex items-center justify-between">
           <Button
+            className="w-[136px]"
             onClick={onCancelClick}
-            variant="ghost">
+            variant="outline">
             아니요
           </Button>
-          <Button onClick={onSubmitClick}>예</Button>
+          <Button
+            className="w-[136px]"
+            onClick={onSubmitClick}>
+            예
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

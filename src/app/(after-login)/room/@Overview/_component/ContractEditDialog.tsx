@@ -2,14 +2,14 @@
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { LocalIcon } from '@icon/index';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ContractEditDialogContent from './ContractEditDialogContent';
 
 const DUMMY_FROM = new Date('2022-07-30');
 const DUMMY_TO = new Date('2024-07-30');
 
 export default function ContractEditDialog() {
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isDialogOpen, setIsDialogOpen] = useState(true);
   const closeDialog = () => {
     setIsDialogOpen(false);
   };
