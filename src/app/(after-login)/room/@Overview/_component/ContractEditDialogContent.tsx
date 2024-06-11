@@ -57,19 +57,19 @@ export default function ContractEditDialogContent({
   };
 
   const handleAddContractClick = () => {
-    console.log('수정사항 저장됨');
+    console.log(`===== ${roomName} 계약 정보 추가됨 =====`);
     closeDialog();
   };
 
   const handleVacantClick = () => {
-    console.log('공실로 설정됨');
+    console.log(`===== ${roomName} 공실로 설정됨 =====`);
     closeDialog();
     closeConfirnDialog();
   };
 
   const handleSubmitEditClick = () => {
-    console.log('수정사항 저장됨');
-    setContractDialogState(ContractEditState.CONTRACT_INFO);
+    console.log(`===== ${roomName} 수정사항 저장됨 =====`);
+    closeDialog();
   };
 
   const handleCancelRenewalEditClick = () => {
@@ -85,7 +85,7 @@ export default function ContractEditDialogContent({
   };
 
   const handleSumbitRenewalClick = () => {
-    console.log('재계약 저장됨');
+    console.log(`===== ${roomName} 재계약 저장됨 =====`);
     closeDialog();
     closeConfirnDialog();
   };
@@ -225,7 +225,7 @@ export default function ContractEditDialogContent({
               dialogProps={{ open: isConfirmOpen, onOpenChange: setIsConfirmOpen }}
               title={'재계약을 진행하시겠습니까?'}
               roomName={roomName}
-              contractPeriod={formatDateRangeToYYYY_MM_DD(editedFromDate, editedToDate)}
+              contractPeriod={formatDateRangeToYYYY_MM_DD(editedToDate, renewalToDate)}
               rent={`${Number(editedDeposit).toLocaleString()} / ${Number(editedRent).toLocaleString()}만 원`}
               triggerButton={
                 <Button
@@ -259,7 +259,7 @@ export default function ContractEditDialogContent({
             ) : (
               <DateInputAtom
                 mode="single"
-                selected={contractDialogState === ContractEditState.CONTRACT_EDIT ? editedFromDate : fromDate}
+                selected={contractDialogState === ContractEditState.CONTRACT_INFO ? fromDate : editedFromDate}
                 onSelect={handleFromChange}
                 className={cn({
                   'border-green-500': formatDateToYYYY_MM_DD(editedFromDate) !== formatDateToYYYY_MM_DD(fromDate),
@@ -276,7 +276,7 @@ export default function ContractEditDialogContent({
             ) : (
               <DateInputAtom
                 mode="single"
-                selected={contractDialogState === ContractEditState.CONTRACT_EDIT ? editedToDate : toDate}
+                selected={contractDialogState === ContractEditState.CONTRACT_INFO ? toDate : editedToDate}
                 onSelect={handleToChange}
                 className={cn({
                   'border-green-500': formatDateToYYYY_MM_DD(editedToDate) !== formatDateToYYYY_MM_DD(toDate),
@@ -289,13 +289,13 @@ export default function ContractEditDialogContent({
           <Label className="text-body2">보증금 / 임대료</Label>
           <div className="flex items-center gap-3">
             <Input
-              value={contractDialogState === ContractEditState.CONTRACT_EDIT ? editedDeposit : deposit}
+              value={contractDialogState === ContractEditState.CONTRACT_INFO ? deposit : editedDeposit}
               onChange={handleDepositChange}
               className={cn('w-[80px] desktop:w-[100px]', { 'border-green-500': editedDeposit !== deposit })}
             />
             /
             <Input
-              value={contractDialogState === ContractEditState.CONTRACT_EDIT ? editedRent : rent}
+              value={contractDialogState === ContractEditState.CONTRACT_INFO ? rent : editedRent}
               onChange={handleRentChange}
               className={cn('w-[50px] desktop:w-[65px]', { 'border-green-500': editedRent !== rent })}
             />
