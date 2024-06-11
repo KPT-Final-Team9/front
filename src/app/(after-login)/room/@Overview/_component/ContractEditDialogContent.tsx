@@ -15,12 +15,13 @@ export enum ContractEditState {
   VACANT = 'vacanct',
   CONTRACT_INFO = 'contract info',
   CONTRACT_EDIT = 'contract edit',
-  CONTRACT_RENEWAK = 'contract renewal',
+  CONTRACT_RENEWAL = 'contract renewal',
 }
 
 export default function ContractEditDialogContent({
   closeDialog,
   isVacant,
+  roomName,
   fromDate,
   toDate,
   deposit = '',
@@ -28,6 +29,7 @@ export default function ContractEditDialogContent({
 }: {
   closeDialog: () => void;
   isVacant?: boolean;
+  roomName?: string;
   fromDate?: Date;
   toDate?: Date;
   deposit?: string;
@@ -38,6 +40,7 @@ export default function ContractEditDialogContent({
   const [editedToDate, setEditedToDate] = useState<Date | undefined>(toDate);
   const [editedDeposit, setEditedDeposit] = useState<string>(deposit);
   const [editedRent, setEditedRent] = useState<string>(rent);
+  const [renewalToDate, setRenewalTo] = useState<Date | undefined>();
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
 
   const closeConfirnDialog = () => {
@@ -78,7 +81,7 @@ export default function ContractEditDialogContent({
   };
 
   const handleRenewalClick = () => {
-    setContractDialogState(ContractEditState.CONTRACT_RENEWAK);
+    setContractDialogState(ContractEditState.CONTRACT_RENEWAL);
   };
 
   const handleSumbitRenewalClick = () => {
@@ -111,6 +114,7 @@ export default function ContractEditDialogContent({
       setContractDialogState(ContractEditState.CONTRACT_INFO);
     }
   };
+
   const handleDepositChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEditedDeposit(e.target.value);
 
@@ -122,6 +126,7 @@ export default function ContractEditDialogContent({
       setContractDialogState(ContractEditState.CONTRACT_INFO);
     }
   };
+
   const handleRentChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEditedRent(e.target.value);
 
@@ -134,15 +139,29 @@ export default function ContractEditDialogContent({
     }
   };
 
+  const handleRenewalToChange = (newDate: Date | undefined) => {
+    if (!newDate) return;
+    setRenewalTo(newDate);
+  };
+
   const ButtonGroupByState = (state: ContractEditState): React.ReactNode => {
     switch (state) {
       case ContractEditState.VACANT:
         return (
-          <Button
-            onClick={handleAddContractClick}
-            className="px-6 py-3 text-body3 desktop:w-[193px] desktop:py-4 desktop:text-body1">
-            계약 정보 추가
-          </Button>
+          <ContractEditConfirmDialog
+            dialogProps={{ open: isConfirmOpen, onOpenChange: setIsConfirmOpen }}
+            title={'재계약을 진행하시겠습니까?'}
+            roomName={roomName}
+            contractPeriod="2022.07.30 ~ 2024.07.30"
+            rent="1,000 / 65만 원"
+            triggerButton={
+              <Button className="px-6 py-3 text-body3 desktop:w-[193px] desktop:py-4 desktop:text-body1">
+                계약 정보 추가
+              </Button>
+            }
+            onSubmitClick={handleAddContractClick}
+            onCancelClick={() => setIsConfirmOpen(false)}
+          />
         );
       case ContractEditState.CONTRACT_INFO:
         return (
@@ -175,15 +194,21 @@ export default function ContractEditDialogContent({
               className="px-6 py-3 text-body3 desktop:w-[193px] desktop:py-4 desktop:text-body1">
               취소하기
             </Button>
-            <Button
-              onClick={handleSubmitEditClick}
-              variant="secondary"
-              className="px-6 py-3 text-body3 desktop:w-[193px] desktop:py-4 desktop:text-body1">
-              저장하기
-            </Button>
+            <ContractVacantConfirmDialog
+              dialogProps={{ open: isConfirmOpen, onOpenChange: setIsConfirmOpen }}
+              triggerButton={
+                <Button
+                  variant="secondary"
+                  className="px-6 py-3 text-body3 desktop:w-[193px] desktop:py-4 desktop:text-body1">
+                  저장하기
+                </Button>
+              }
+              onSubmitClick={handleSubmitEditClick}
+              onCancelClick={() => setIsConfirmOpen(false)}
+            />
           </>
         );
-      case ContractEditState.CONTRACT_RENEWAK:
+      case ContractEditState.CONTRACT_RENEWAL:
         return (
           <>
             <Button
@@ -195,7 +220,7 @@ export default function ContractEditDialogContent({
             <ContractEditConfirmDialog
               dialogProps={{ open: isConfirmOpen, onOpenChange: setIsConfirmOpen }}
               title={'재계약을 진행하시겠습니까?'}
-              roomName="미왕빌딩 A동 201호"
+              roomName={roomName}
               contractPeriod="2022.07.30 ~ 2024.07.30"
               rent="1,000 / 65만 원"
               triggerButton={
@@ -225,8 +250,8 @@ export default function ContractEditDialogContent({
         <div className="flex flex-col gap-3">
           <Label className="text-body2">계약 기간</Label>
           <div className="flex items-center gap-1 desktop:gap-5">
-            {contractDialogState === ContractEditState.CONTRACT_RENEWAK ? (
-              <div>{formatDateToYYYY_MM_DD(editedFromDate)}</div>
+            {contractDialogState === ContractEditState.CONTRACT_RENEWAL ? (
+              <div>{formatDateToYYYY_MM_DD(editedToDate)}</div>
             ) : (
               <DateInputAtom
                 mode="single"
@@ -238,14 +263,22 @@ export default function ContractEditDialogContent({
               />
             )}
             ~
-            <DateInputAtom
-              mode="single"
-              selected={contractDialogState === ContractEditState.CONTRACT_EDIT ? editedToDate : toDate}
-              onSelect={handleToChange}
-              className={cn({
-                'border-green-500': formatDateToYYYY_MM_DD(editedToDate) !== formatDateToYYYY_MM_DD(toDate),
-              })}
-            />
+            {contractDialogState === ContractEditState.CONTRACT_RENEWAL ? (
+              <DateInputAtom
+                mode="single"
+                selected={renewalToDate}
+                onSelect={handleRenewalToChange}
+              />
+            ) : (
+              <DateInputAtom
+                mode="single"
+                selected={contractDialogState === ContractEditState.CONTRACT_EDIT ? editedToDate : toDate}
+                onSelect={handleToChange}
+                className={cn({
+                  'border-green-500': formatDateToYYYY_MM_DD(editedToDate) !== formatDateToYYYY_MM_DD(toDate),
+                })}
+              />
+            )}
           </div>
         </div>
         <div className="flex flex-col gap-3">

@@ -9,18 +9,18 @@ export default function ContractEditConfirmDialog({
   dialogProps,
   triggerButton,
   title,
-  roomName,
-  contractPeriod,
-  rent,
+  roomName = '-',
+  contractPeriod = '-',
+  rent = '-',
   onSubmitClick,
   onCancelClick,
 }: {
   dialogProps?: DialogProps;
   triggerButton: React.ReactNode;
   title: string;
-  roomName: string;
-  contractPeriod: string;
-  rent: string;
+  roomName?: string;
+  contractPeriod?: string;
+  rent?: string;
   onSubmitClick?: (e: React.MouseEvent) => void;
   onCancelClick?: (e: React.MouseEvent) => void;
 }) {
