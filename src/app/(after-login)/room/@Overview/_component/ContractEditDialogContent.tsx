@@ -89,6 +89,8 @@ export default function ContractEditDialogContent({
     if (!newDate) return;
     setEditedFromDate(newDate);
 
+    // 현재 계약 정보 상태라면 계약 정보 수정 상태로 변경하기 위핸 로직
+    if (contractDialogState !== ContractEditState.CONTRACT_INFO) return;
     if (checkIsDiff(newDate, editedToDate, editedDeposit, editedRent)) {
       setContractDialogState(ContractEditState.CONTRACT_EDIT);
     } else {
@@ -99,6 +101,8 @@ export default function ContractEditDialogContent({
     if (!newDate) return;
     setEditedToDate(newDate);
 
+    // 현재 계약 정보 상태라면 계약 정보 수정 상태로 변경하기 위핸 로직
+    if (contractDialogState !== ContractEditState.CONTRACT_INFO) return;
     if (checkIsDiff(editedFromDate, newDate, editedDeposit, editedRent)) {
       setContractDialogState(ContractEditState.CONTRACT_EDIT);
     } else {
@@ -108,6 +112,8 @@ export default function ContractEditDialogContent({
   const handleDepositChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEditedDeposit(e.target.value);
 
+    // 현재 계약 정보 상태라면 계약 정보 수정 상태로 변경하기 위핸 로직
+    if (contractDialogState !== ContractEditState.CONTRACT_INFO) return;
     if (checkIsDiff(editedFromDate, editedToDate, e.target.value, editedRent)) {
       setContractDialogState(ContractEditState.CONTRACT_EDIT);
     } else {
@@ -117,6 +123,8 @@ export default function ContractEditDialogContent({
   const handleRentChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEditedRent(e.target.value);
 
+    // 현재 계약 정보 상태라면 계약 정보 수정 상태로 변경하기 위핸 로직
+    if (contractDialogState !== ContractEditState.CONTRACT_INFO) return;
     if (checkIsDiff(editedFromDate, editedToDate, editedDeposit, e.target.value)) {
       setContractDialogState(ContractEditState.CONTRACT_EDIT);
     } else {
