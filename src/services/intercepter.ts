@@ -33,17 +33,15 @@ export const baseUrlInterceptor =
       interceptors: {
         request: async args => {
           let url = args[0];
-          console.log('baseUrl start', url);
+
           if (url instanceof URL) {
-            console.log('baseUrl intercept URL', url);
             url.href = `${url.origin}/${publicApiPath}${url.pathname}`;
           }
           if (typeof url === 'string') {
-            console.log('baseUrl intercept string', url);
             url = `/${publicApiPath}${url}`;
           }
           args[0] = url;
-          console.log('baseUrl end', url);
+
           return args;
         },
       },
