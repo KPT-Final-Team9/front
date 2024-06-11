@@ -13,7 +13,7 @@ interface CircleProgressBarProps {
   color?: string;
 }
 
-export default function CircleProgressRating({ percent = 50, color = '#000000' }: CircleProgressBarProps) {
+export default function CircleProgressRating({ percent = 0, color = '#000000' }: CircleProgressBarProps) {
   const result = CircleProgressBarSchema.safeParse({ percent, color });
   // 검증 실패 시 기본값
   const validatedData = result.success ? result.data : { percent: 50, color: '#000000' };

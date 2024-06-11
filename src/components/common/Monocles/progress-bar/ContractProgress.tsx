@@ -1,3 +1,4 @@
+'use client';
 import { Progress } from '@/components/ui/progress';
 import { DashLineIcon } from '@/asset/Icons/index';
 import { z } from 'zod';

@@ -52,7 +52,6 @@ export const TextCustomLabel = ({ formatType = '', ...props }) => {
   } else if (formatType === 'comma') {
     formattedValue = value && parseFloat(value)?.toLocaleString();
   }
-  console.log('formattedValue', formattedValue);
   return (
     <text
       x={parsedX + parsedWidth + 10}
