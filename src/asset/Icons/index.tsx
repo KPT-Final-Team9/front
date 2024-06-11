@@ -39,6 +39,7 @@ import NavRatingDetailIconComp from '@/asset/Icons/nav_rating_detail.svg';
 import NavAccountIconComp from '@/asset/Icons/nav_account.svg';
 import DangerTriangleComp from '@/asset/Icons/danger_triangle.svg';
 import MenuDotsIconComp from '@/asset/Icons/icon-menu-dots.svg';
+import EditIconComp from '@/asset/Icons/icon_edit.svg';
 
 export function XIcon({ ...props }) {
   return <XIconComp {...props} />;
@@ -226,4 +227,8 @@ export function DangerTriangle({ ...props }) {
 
 export function MenuDotsIcon({ ...props }) {
   return <MenuDotsIconComp {...props} />;
+}
+
+export function EditIcon({ ...props }) {
+  return <EditIconComp {...props} />;
 }
