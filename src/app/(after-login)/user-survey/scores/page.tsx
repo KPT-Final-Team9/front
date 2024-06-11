@@ -10,8 +10,9 @@ import { baseApis } from '@/services/api';
 export default function Page({ searchParams }: { searchParams: { id: string } }) {
   /**
    * 라우팅 주소
-   * /user-servey/steps
-   * /user-survey/scores?id=manage ...
+   * /user-survey/scores (내 호실 평가 화면)
+   * /user-survey/scores?id=manage&num={scoreId} (각 호실 평가 입력 화면)
+   * /user-survey/scores?id=done (평가 완료 안내 화면)
    */
 
   interface surveyButtonDataType {
@@ -62,10 +63,11 @@ export default function Page({ searchParams }: { searchParams: { id: string } })
   useEffect(() => {
     async function fetchData() {
       try {
+        let ignore = false;
         const fetchInstance = await baseApis();
         const response = await fetchInstance('/scores/in-progress', {
           cache: 'no-store',
-          method: 'get',
+          method: 'GET',
         }).then(res => res.json());
 
         // 각 항목별 id값 전달을 위해 평가여부 및 score id 데이터 업데이트
@@ -78,16 +80,22 @@ export default function Page({ searchParams }: { searchParams: { id: string } })
             : { ...data, isComplated: true };
         });
 
-        setComplateState(fetchScoreData);
+        if (!ignore) {
+          setComplateState(fetchScoreData);
+        }
+
+        // useEffect componentDidUpdate clean-up 함수
+        return () => {
+          ignore = true;
+        };
       } catch (error) {
         console.error('Error fetching Unsplash data:', error);
       }
     }
 
     fetchData();
-  }, []);
+  }, [scoreId]);
 
-  // TODO: 쿼리별 페이지는 평가 페이지 컴포넌트 구현 후 작업하기
   const renderPage = () => {
     switch (scoreId) {
       case 'manage':
