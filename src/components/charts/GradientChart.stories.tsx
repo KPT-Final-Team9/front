@@ -3,48 +3,48 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 const chartData = [
   {
-    month: 'Jan',
-    score: 40,
+    selected_month: 'Jan',
+    total_avg: 40,
   },
   {
-    month: 'Fed',
-    score: 30,
+    selected_month: 'Fed',
+    total_avg: 30,
   },
   {
-    month: 'Mar',
-    score: 20,
+    selected_month: 'Mar',
+    total_avg: 20,
   },
   {
-    month: 'Apr',
-    score: 40,
+    selected_month: 'Apr',
+    total_avg: 40,
   },
   {
-    month: 'Jun',
-    score: 18,
+    selected_month: 'Jun',
+    total_avg: 18,
   },
   {
-    month: 'Jul',
-    score: 23,
+    selected_month: 'Jul',
+    total_avg: 23,
   },
   {
-    month: 'Aug',
-    score: 34,
+    selected_month: 'Aug',
+    total_avg: 34,
   },
   {
-    month: 'Sep',
-    score: 40,
+    selected_month: 'Sep',
+    total_avg: 40,
   },
   {
-    month: 'Oct',
-    score: 30,
+    selected_month: 'Oct',
+    total_avg: 30,
   },
   {
-    month: 'Nov',
-    score: 20,
+    selected_month: 'Nov',
+    total_avg: 20,
   },
   {
-    month: 'Dec',
-    score: 27,
+    selected_month: 'Dec',
+    total_avg: 27,
   },
 ];
 
@@ -59,13 +59,13 @@ const meta: Meta<typeof GradientChart> = {
     data: {
       control: 'object',
 
-      month: {
+      selected_month: {
         control: 'string',
-        description: 'month',
+        description: 'selected_month',
       },
-      score: {
+      total_avg: {
         control: 'number',
-        description: 'score',
+        description: 'total_avg',
       },
     },
     strokeColor: { control: 'color', description: 'stroke color' },

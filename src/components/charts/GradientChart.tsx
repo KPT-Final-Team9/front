@@ -6,7 +6,7 @@ import { Area, AreaChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'rec
 import GradientTooltip from '@chart/GradientTooltip';
 
 interface chartDataType {
-  month: string;
+  selected_month: string;
   total_avg: number;
 }
 

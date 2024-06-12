@@ -1,5 +1,6 @@
 import ScoreBadge from '@Atoms/badge/ScoreBadge';
 import type { Meta, StoryObj } from '@storybook/react';
+import { ScoreType } from '@/constants';
 
 const meta = {
   title: 'Atoms/Badge/ScoreBadge',
@@ -23,20 +24,20 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     children: '보통 수준',
-    type: 'management',
+    type: ScoreType.MANAGEMENT,
   },
 };
 
 export const Claim: Story = {
   args: {
     children: '보통 수준',
-    type: 'claim',
+    type: ScoreType.CLAIM,
   },
 };
 
 export const Facility: Story = {
   args: {
     children: '보통 수준',
-    type: 'facility',
+    type: ScoreType.FACILITY,
   },
 };

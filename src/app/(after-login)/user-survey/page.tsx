@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 
 import surveyView from '@/asset/images/surveyView.png';
@@ -10,10 +10,15 @@ import { useMidReminderModalStore, useLastReminderModalStore } from '@/app/(afte
 import { LocalIcon } from '@icon/index';
 import { scheduleRegularAlarms } from '@/utils';
 
+import { Button, buttonVariants } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
+import { baseApis } from '@/services/api';
+
 export default function Page() {
   const router = useRouter();
   const { setMidModal } = useMidReminderModalStore();
   const { setLastModal } = useLastReminderModalStore();
+  const [scoreData, setScoreData] = useState(false);
 
   const handleSurveyButtonClick = () => {
     router.push('/user-survey/scores'); // 히스토리 저장을 위해 push로 이동
@@ -23,7 +28,7 @@ export default function Page() {
   useEffect(() => {
     const { middleDate, lastDate, middleDayTest } = scheduleRegularAlarms();
 
-    if (middleDayTest) {
+    if (middleDate) {
       setMidModal(true);
     } else if (lastDate) {
       setLastModal(true);
@@ -32,7 +37,23 @@ export default function Page() {
       setLastModal(false);
     }
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    async function fetchData() {
+      try {
+        const fetchInstance = await baseApis();
+
+        const response = await fetchInstance('/scores/in-progress', {
+          cache: 'no-store',
+          method: 'get',
+        }).then(res => res.json());
+
+        const evaluationStatus = response?.map((data: { completed: boolean }) => data.completed).includes(false);
+        setScoreData(evaluationStatus);
+      } catch (error) {
+        console.error('Error fetching Unsplash data:', error);
+      }
+    }
+
+    fetchData();
   }, []);
 
   return (
@@ -48,15 +69,23 @@ export default function Page() {
         />
 
         {/* 평가 알람 뱃지 */}
-        <div className="absolute left-[75px] top-[490px] z-50 h-[6px] w-[6px] rounded-full bg-primary-badge-new"></div>
+        {scoreData && (
+          <div className="absolute left-[75px] top-[490px] z-50 h-[6px] w-[6px] rounded-full bg-primary-badge-new"></div>
+        )}
 
-        <LocalIcon
-          name={'SurveyIcon'}
-          width={32}
-          height={58}
-          className="absolute left-[49px] top-[495px] cursor-pointer active:scale-[.98]"
+        <Button
           onClick={handleSurveyButtonClick}
-        />
+          disabled={!scoreData}
+          className={cn(
+            buttonVariants({ variant: 'ghost' }),
+            'absolute left-[49px] top-[495px] cursor-pointer bg-transparent p-0 hover:bg-transparent',
+          )}>
+          <LocalIcon
+            name={'SurveyIcon'}
+            width={32}
+            height={58}
+          />
+        </Button>
 
         {/* mobile view GNB */}
         <Image

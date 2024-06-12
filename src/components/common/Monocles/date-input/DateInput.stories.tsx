@@ -1,6 +1,7 @@
 import { Meta, StoryObj } from '@storybook/react';
 import { Popover as PopoverComp, PopoverContent } from '@/components/ui/popover';
 import DateInputComp from '@Monocles/date-input/DateInput';
+import DateInputAtomComp from '@Monocles/date-input/DateInputAtom';
 import PopoverTrigger from '@Monocles/popover-trigger/PopoverTrigger';
 import { LocalIcon } from '@icon/index';
 import { useState } from 'react';
@@ -78,6 +79,19 @@ export const TestDateInput: StoryObj = {
     return (
       <Calendar
         mode="range"
+        selected={date}
+        onSelect={setDate}
+      />
+    );
+  },
+};
+
+export const DateInputAtom: StoryObj = {
+  render: () => {
+    const [date, setDate] = useState<Date | undefined>();
+    return (
+      <DateInputAtomComp
+        mode="single"
         selected={date}
         onSelect={setDate}
       />

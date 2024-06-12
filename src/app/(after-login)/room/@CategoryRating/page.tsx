@@ -1,6 +1,7 @@
 import ScoreTrendChart from '@chart/bar-chart/ScoreTrendChart';
 import ScorePieChart from '@chart/pie-chart/ScorePieChart';
 import { LocalIcon } from '@icon/index';
+import RoomTooltip from '../_component/RoomTooltip';
 const data = [
   { name: '2021 Q1', uv: 100, pv: 20 },
   { name: '2021 Q2', uv: 30, pv: 20 },
@@ -32,10 +33,7 @@ export default function Page() {
         <div className="flex w-full flex-col items-center justify-center gap-5 desktop:pl-5 desktopMaxW:w-[328px]">
           <div className="flex items-center self-start">
             <h4 className="mr-2 text-h4 text-text-primary">평가 항목별 점수</h4>
-            <LocalIcon
-              name="ExclamationMark"
-              className="h-[24px] w-[24px]"
-            />
+            <RoomTooltip content="기간 설정에 따른 항목별 평가 점수를 확인할 수 있어요" />
           </div>
           <div className="flex h-[196px] w-[320px] items-center justify-center">
             <ScorePieChart scoreData={dummyData} />
