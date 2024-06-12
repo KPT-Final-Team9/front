@@ -20,7 +20,7 @@ const LOGIN_INPUT = [
   },
   {
     title: '패스워드',
-    placeholder: '워드패스',
+    placeholder: '패스워드',
     id: AuthInputId.Password,
     type: 'password',
   },
