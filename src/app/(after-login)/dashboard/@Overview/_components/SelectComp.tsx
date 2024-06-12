@@ -6,7 +6,7 @@ import quarterOfYear from 'dayjs/plugin/quarterOfYear';
 import useQuarterStore from '@/app/(after-login)/dashboard/@Overview/_store';
 dayjs.extend(quarterOfYear);
 
-function getQuarterlyDates(fromDate, years) {
+function getQuarterlyDates({ fromDate, years }: { fromDate: dayjs.Dayjs | number; years: number }) {
   const endDate = dayjs(fromDate);
   const startDate = endDate.subtract(years, 'year').startOf('quarter'); // 현재 날짜 기준 2년 전의 분기 시작
   const quarterlyDates = [];
@@ -52,8 +52,7 @@ export default function SelectComp() {
   useEffect(() => {
     const fromDate = dayjs(); // 현재 날짜를 기준으로
     const years = 2; // 2년 전까지
-    const quarterlyDates = getQuarterlyDates(fromDate, years);
-    console.log('quarterlyDates입니다', quarterlyDates);
+    const quarterlyDates = getQuarterlyDates({ fromDate, years });
     setAllQuarters(quarterlyDates);
     // 첫번째 분기 지정
     setSelectedQuarter(quarterlyDates[0]);

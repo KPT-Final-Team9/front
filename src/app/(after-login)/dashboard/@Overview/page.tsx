@@ -13,7 +13,7 @@ import { QueryOptions } from '@/constants/index';
 
 // /api/buildings/{buildingId}/my-quarterly-score
 
-interface QuarterlyData {
+interface quarterlyData {
   complaint_avg: number;
   facility_avg: number;
   management_avg: number;
@@ -23,23 +23,34 @@ interface QuarterlyData {
 }
 
 // 이번분기와 지난분기 평균값 차트컴포넌트에 맞게 매핑하는 함수입니다.
-const mergedData = ({ before, current }) => {
-  console.log(before, current);
+interface Marge {
+  room_id: number;
+  room_name: string;
+  total_avg: number;
+}
+interface mappedData {
+  room_name: string;
+  beforeTotalAvg: number;
+  currentTotalAvg: number | null;
+}
+
+const mergedData = ({ before, current }: { before: Marge[]; current: Marge[] }): mappedData[] => {
   return before.reduce((acc, beforeItem) => {
     const currentItem = current.find(item => item.room_id === beforeItem.room_id);
 
     acc.push({
       room_name: beforeItem.room_name,
       beforeTotalAvg: beforeItem.total_avg,
-      currentTotalAvg: currentItem.total_avg,
+      currentTotalAvg: currentItem ? currentItem.total_avg : null,
     });
     return acc;
-  }, []);
+  }, [] as mappedData[]);
 };
+
 export default function Page() {
-  const { selectedQuarter, allQuarters, setSelectedQuarter, setAllQuarters } = useQuarterStore();
-  const [fetchedQuarters, setFetchedQuarters] = useState<QuarterlyData | undefined>(undefined);
-  const [fetchedMyRoomsQuarter, setFetchedMyRoomsQuarter] = useState();
+  const { selectedQuarter } = useQuarterStore();
+  const [fetchedQuarters, setFetchedQuarters] = useState<quarterlyData | undefined>(undefined);
+  const [fetchedMyRoomsQuarter, setFetchedMyRoomsQuarter] = useState<mappedData[] | undefined>(undefined);
   const searchParams = useSearchParams();
 
   const buildingName = searchParams.get(QueryOptions.BuildingName);
@@ -47,14 +58,14 @@ export default function Page() {
 
   // 분기별 관리 민원 시설, 평균호실점수
   const fetchQuarterlyScore = async (buildingId: string, selectedQuarter: { year: number; quarter: number }) => {
-    return fetchJsonData(
+    return await fetchJsonData(
       `/buildings/${buildingId}/my-quarterly-score?year=${selectedQuarter.year}&quarter=${selectedQuarter.quarter}`,
       { cache: 'no-store', method: 'GET' },
     );
   };
   // 이번분기와 지난분기의 내 호실점수 비교
   const fetchRoomsQuarterlyScore = async (buildingId: string, selectedQuarter: { year: number; quarter: number }) => {
-    return fetchJsonData(
+    return await fetchJsonData(
       `/buildings/${buildingId}/my-rooms-quarterly-score?year=${selectedQuarter.year}&quarter=${selectedQuarter.quarter}`,
       { cache: 'no-store', method: 'GET' },
     );
@@ -69,28 +80,20 @@ export default function Page() {
           fetchQuarterlyScore(buildingId, selectedQuarter),
           fetchRoomsQuarterlyScore(buildingId, selectedQuarter),
         ]);
-
         if (quarterlyScoreResult.status === 'fulfilled') {
-          console.log('빌딩 setFetchedQuarters', quarterlyScoreResult.value);
+          // console.log('빌딩 setFetchedQuarters', quarterlyScoreResult.value);
           setFetchedQuarters(quarterlyScoreResult.value);
         } else {
           console.error('Error fetching quarterly score', quarterlyScoreResult.reason);
         }
 
         if (roomsQuarterlyScoreResult.status === 'fulfilled') {
-          console.log('/my-quarterly-score 엄준식', roomsQuarterlyScoreResult.value);
-          const md = mergedData({
-            before: roomsQuarterlyScoreResult.value.before,
-            current: roomsQuarterlyScoreResult.value.current,
-          });
-          console.log(
-            '/my-quarterly-score 엄준식',
+          setFetchedMyRoomsQuarter(
             mergedData({
               before: roomsQuarterlyScoreResult.value.before,
               current: roomsQuarterlyScoreResult.value.current,
             }),
           );
-          setFetchedMyRoomsQuarter(md);
         } else {
           console.error('Error fetching rooms quarterly score', roomsQuarterlyScoreResult.reason);
         }
@@ -139,7 +142,7 @@ export default function Page() {
             </div>
           </div>
           <div className="relative right-10 mb-[40px] h-[174px]  desktop:right-0 desktop:h-[255px] ">
-            <BarChart chartData={fetchedMyRoomsQuarter} />
+            {fetchedMyRoomsQuarter && <BarChart chartData={fetchedMyRoomsQuarter} />}
           </div>
         </div>
       </div>
