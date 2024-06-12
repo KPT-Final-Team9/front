@@ -28,13 +28,13 @@ const LOGIN_INPUT = [
 
 const LOGIN_TABS = [
   {
-    title: '입주자',
-    value: UserRole.User,
+    title: '소유자',
+    value: UserRole.Owner,
     inputs: LOGIN_INPUT,
   },
   {
-    title: '소유자',
-    value: UserRole.Owner,
+    title: '입주자',
+    value: UserRole.User,
     inputs: LOGIN_INPUT,
   },
   {
