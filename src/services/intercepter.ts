@@ -26,22 +26,23 @@ export const logRequestInterceptor: ReturnFetch = args =>
 
 // baseURL 지정
 export const baseUrlInterceptor =
-  (publicApiPath: string): ReturnFetch =>
+  (apiPath: string): ReturnFetch =>
   args =>
     returnFetch({
       ...args,
       interceptors: {
         request: async args => {
           let url = args[0];
+          console.log('baseUrlInterceptor', args);
 
           if (url instanceof URL) {
-            url.href = `${url.origin}/${publicApiPath}${url.pathname}`;
+            url.href = `${url.origin}/${apiPath}${url.pathname}${url.search}${url.hash}`;
           }
           if (typeof url === 'string') {
-            url = `/${publicApiPath}${url}`;
+            url = `/${apiPath}${url}`;
           }
           args[0] = url;
-
+          console.log('baseUrlInterceptor2', args);
           return args;
         },
       },
