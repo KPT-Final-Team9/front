@@ -7,15 +7,6 @@ export async function baseApis() {
   let headersList = null;
   const userInfo = await getAuth();
 
-  const base = {
-    baseUrl: baseUrl,
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${userInfo.token}`,
-    },
-  };
-
   if (typeof window === 'undefined') {
     // 서버 사이드에서 실행될 때
     const { headers } = await import('next/headers');
@@ -27,6 +18,16 @@ export async function baseApis() {
   } else {
     baseUrl = '/';
   }
+
+  const base = {
+    baseUrl: baseUrl,
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${userInfo.token}`,
+    },
+  };
+
   return apisBaseUrl({
     ...base,
   });
@@ -37,14 +38,6 @@ export async function basePublicApi() {
   let baseUrl = process.env.HOST_URL;
   let headersList = null;
 
-  const base = {
-    baseUrl: baseUrl,
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
-  };
-
   if (typeof window === 'undefined') {
     // 서버 사이드에서 실행될 때
     const { headers } = await import('next/headers');
@@ -56,6 +49,15 @@ export async function basePublicApi() {
   } else {
     baseUrl = '/';
   }
+
+  const base = {
+    baseUrl: baseUrl,
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+  };
+
   return logRequestInterceptor({
     fetch: publicApiBaseUrl({
       ...base,
