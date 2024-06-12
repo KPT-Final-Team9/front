@@ -80,7 +80,8 @@ export default async function Page({ searchParams }: dashboardPageType) {
         </div>
       </div>
     );
-  } catch (error) {
+  } catch (err) {
+    console.log(err);
     // TODO: 패칭 에러시 처리필요
     return <MainRoomCompareLoading />;
   }
