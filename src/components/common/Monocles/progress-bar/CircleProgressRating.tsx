@@ -17,7 +17,6 @@ export default function CircleProgressRating({ percent = 0, color = '#000000' }:
   const result = CircleProgressBarSchema.safeParse({ percent, color });
   // 검증 실패 시 기본값
   const validatedData = result.success ? result.data : { percent: 50, color: '#000000' };
-
   return (
     <>
       <div className="half-circle-progress relative h-[150px] w-[150px] desktop:h-[206px] desktop:w-[206px]">
@@ -29,7 +28,7 @@ export default function CircleProgressRating({ percent = 0, color = '#000000' }:
           <p
             style={{ color: color }}
             className="text-nowrap text-h3 font-extrabold desktop:text-h1">
-            {validatedData.percent}점
+            {validatedData.percent === 0 ? '-' : validatedData.percent}점
           </p>
         </div>
       </div>
