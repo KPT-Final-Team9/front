@@ -63,7 +63,7 @@ export default async function Page({ searchParams }: dashboardPageType) {
     // 대표호실 계약 기간 요청
     const contractPeriodUrl = `/buildings/${buildingId}/rooms/${fetchedRepresentRoom?.id}`;
     const fetchedContractPeriod = await fetchJsonData(contractPeriodUrl, { cache: 'default', method: 'GET' });
-    console.log('fetchedContractPeriod', fetchedContractPeriod);
+    // console.log('fetchedContractPeriod', fetchedContractPeriod);
 
     // 대표호실평가 진행률 요청
     const evaluationProgressUrl = `/buildings/${buildingId}/rooms/${fetchedRepresentRoom?.id}/yearly-score-interval-month?yearMonth=2024-06`;
@@ -111,7 +111,7 @@ export default async function Page({ searchParams }: dashboardPageType) {
       </div>
     );
   } catch (err) {
-    console.log(err);
+    // console.log(err);
     // TODO: 에러시 에러 컴포넌트 따로 반환해야함
     return <MainRoomScheduleLoading />;
   }

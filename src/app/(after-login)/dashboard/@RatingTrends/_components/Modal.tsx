@@ -40,7 +40,7 @@ export function MainRoomSetting() {
     // /buildings/1/rooms/3/setting-represent?page=0&size=1&sort=
     try {
       if (buildingId && roomId) {
-        console.log(buildingId, roomId);
+        // console.log(buildingId, roomId);
         await fetchQuarterlyScore({ buildingId: buildingId, roomId: roomId });
         setIsLoading(false);
         setModal(false);

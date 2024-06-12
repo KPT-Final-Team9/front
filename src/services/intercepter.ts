@@ -33,7 +33,6 @@ export const baseUrlInterceptor =
       interceptors: {
         request: async args => {
           let url = args[0];
-          console.log('baseUrlInterceptor', args);
 
           if (url instanceof URL) {
             url.href = `${url.origin}/${apiPath}${url.pathname}${url.search}${url.hash}`;
@@ -42,7 +41,7 @@ export const baseUrlInterceptor =
             url = `/${apiPath}${url}`;
           }
           args[0] = url;
-          console.log('baseUrlInterceptor2', args);
+
           return args;
         },
       },

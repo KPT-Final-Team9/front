@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import MultiBarChart from '@chart/bar-chart/MultiBarChart';
 
 export default function BarChart({ chartData }: { chartData: object[] }) {
-  console.log(chartData);
+  // console.log(chartData);
   const [size, setSize] = useState(34); // 기본 사이즈를 'small'로 설정합니다.
 
   useEffect(() => {

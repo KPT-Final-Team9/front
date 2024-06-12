@@ -36,13 +36,9 @@ function getQuarterlyDates({ fromDate, years }: { fromDate: dayjs.Dayjs | number
 
 export default function SelectComp() {
   // 셀렉트박스 onChange 함수
-  const { selectedQuarter, allQuarters, setSelectedQuarter, setAllQuarters } = useQuarterStore();
+  const { allQuarters, setSelectedQuarter, setAllQuarters } = useQuarterStore();
 
   const handleBuildingChange = (newOption: { title: string; id: string }) => {
-    console.log('newOption입니다');
-    console.log(newOption);
-    console.log(newOption.title);
-    console.log(allQuarters);
     const matchedQuarter = allQuarters.find(quarter => quarter.id === parseInt(newOption.id));
     if (matchedQuarter) {
       setSelectedQuarter(matchedQuarter);
