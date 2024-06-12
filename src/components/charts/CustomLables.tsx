@@ -47,7 +47,9 @@ export const TextCustomLabel = ({ formatType = '', ...props }) => {
   const parsedWidth = typeof width === 'number' ? width : parseFloat(width || '0');
   const parsedHeight = typeof height === 'number' ? height : parseFloat(height || '0');
   let formattedValue = value;
-  if (formatType === 'percent') {
+  if (!formattedValue || formattedValue === 0) {
+    formattedValue = '-';
+  } else if (formatType === 'percent') {
     formattedValue = `${value}%`;
   } else if (formatType === 'comma') {
     formattedValue = value && parseFloat(value)?.toLocaleString();

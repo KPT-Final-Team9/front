@@ -26,7 +26,6 @@ export default function MultiBarChart({
   const varChartId = useId();
   const filteredChartData = chartData?.length ? Object.keys(chartData[0]).filter(key => key !== categoryKey) : [];
   const tickStyle = { fill: '#9b9b9b', fontSize: 14, fontWeight: 400, transform: 'translate(0, 10)' };
-  console.log(chartData, '차트데이터내부입니다');
   return (
     <ResponsiveContainer
       width="100%"
