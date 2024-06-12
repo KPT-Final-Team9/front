@@ -20,7 +20,7 @@ const LOGIN_INPUT = [
   },
   {
     title: '패스워드',
-    placeholder: '워드패스',
+    placeholder: '패스워드',
     id: AuthInputId.Password,
     type: 'password',
   },
@@ -28,13 +28,13 @@ const LOGIN_INPUT = [
 
 const LOGIN_TABS = [
   {
-    title: '입주자',
-    value: UserRole.User,
+    title: '소유자',
+    value: UserRole.Owner,
     inputs: LOGIN_INPUT,
   },
   {
-    title: '소유자',
-    value: UserRole.Owner,
+    title: '입주자',
+    value: UserRole.User,
     inputs: LOGIN_INPUT,
   },
   {

@@ -37,7 +37,10 @@ export function StarIconButton({ toggle = false, ...props }: StarIconButtonProps
         width={24}
         height={24}
         name="RoundStarIcon"
-        className={cn('hover:fill-[#FFD233]', { 'fill-[#FFD233]': toggle, 'fill-white stroke-[#D1D5DB]': !toggle })}
+        className={cn('transition-colors hover:fill-[#FFD233] active:scale-[.88]', {
+          'fill-[#FFD233]': toggle,
+          'fill-white stroke-[#D1D5DB]': !toggle,
+        })}
       />
     </Button>
   );

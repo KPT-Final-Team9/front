@@ -3,6 +3,8 @@ import React from 'react';
 import { XAxis, YAxis, ResponsiveContainer, BarChart, Bar, LabelList } from 'recharts';
 import { TextCustomLabel as CustomLabel } from '@chart/CustomLables';
 
+export type FormatType = 'percent' | 'comma' | '';
+
 // BUG: Rechart 내부에서 defaultProps 사용으로 인한 error
 
 /**
@@ -21,11 +23,13 @@ export default function SingleCategoryHorizontalBarChart({
   categoryKey,
   accentColor = '#ffb775',
   size = 34,
+  formatType = '',
 }: {
   chartData: object[];
   accentColor?: string;
   categoryKey: string;
   size?: number;
+  formatType?: FormatType;
 }) {
   const filteredChartData = chartData?.length ? Object.keys(chartData[0]).filter(key => key !== categoryKey) : [];
 
@@ -37,7 +41,7 @@ export default function SingleCategoryHorizontalBarChart({
       minWidth={50}
       minHeight={50}>
       <BarChart
-        margin={{ top: 0, right: 50, bottom: 0, left: 0 }}
+        margin={{ top: 0, right: 100, bottom: 0, left: 0 }}
         data={chartData}
         layout="vertical"
         barGap={16}>
@@ -62,7 +66,12 @@ export default function SingleCategoryHorizontalBarChart({
               barSize={size}>
               <LabelList
                 dataKey={val}
-                content={props => <CustomLabel {...props} />}
+                content={props => (
+                  <CustomLabel
+                    formatType={formatType}
+                    {...props}
+                  />
+                )}
               />
             </Bar>
           );
