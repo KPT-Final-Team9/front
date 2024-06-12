@@ -2,7 +2,7 @@ import RoomBadge from '@Atoms/badge/RoomBadge';
 import { ContractProgress } from '@Monocles/progress-bar/ContractProgress';
 import { NextIconButton } from '@Atoms/buttons/NextIconButton';
 import ReviewTrackProgress from '@Monocles/progress-bar/ReviewTrackProgress';
-import { fetchJsonData } from '@/services/api';
+import { fetchJsonData, baseApis } from '@/services/api';
 import { CONTRACT_STATUSES, QueryOptions } from '@/constants/index';
 import { dashboardPageType } from '@/types/common/pageTypes';
 import dayjs from 'dayjs';
@@ -28,10 +28,12 @@ function createContractProgress({
   start_date,
   end_date,
   status,
+  statusDescription,
 }: {
   start_date: string;
   end_date: string;
   status: string;
+  statusDescription: string;
 }) {
   const start = formatDate(start_date);
   const end = formatDate(end_date);
@@ -43,6 +45,7 @@ function createContractProgress({
     current,
     progressPercentage,
     status,
+    statusDescription,
   };
 }
 
@@ -50,26 +53,30 @@ export default async function Page({ searchParams }: dashboardPageType) {
   const buildingName = searchParams && searchParams[QueryOptions.BuildingName];
   const buildingId = searchParams && searchParams[QueryOptions.Id];
 
-  let fetchedRepresentRoom = undefined;
-  let fetchedContractPeriod = undefined;
   // 계약기간
-  let contractDateInfo = undefined;
+
   try {
     // 대표호실 정보 요청
     const representRoomUrl = `/buildings/${buildingId}/rooms/represent`;
-    fetchedRepresentRoom = await fetchJsonData(representRoomUrl, { cache: 'no-store', method: 'GET' });
+    const fetchedRepresentRoom = await fetchJsonData(representRoomUrl, { cache: 'default', method: 'GET' });
 
     // 대표호실 계약 기간 요청
     const contractPeriodUrl = `/buildings/${buildingId}/rooms/${fetchedRepresentRoom?.id}`;
-    fetchedContractPeriod = await fetchJsonData(contractPeriodUrl, { cache: 'no-store', method: 'GET' });
+    const fetchedContractPeriod = await fetchJsonData(contractPeriodUrl, { cache: 'default', method: 'GET' });
+    console.log('fetchedContractPeriod', fetchedContractPeriod);
 
+    // 대표호실평가 진행률 요청
+    const evaluationProgressUrl = `/buildings/${buildingId}/rooms/${fetchedRepresentRoom?.id}/yearly-score-interval-month?yearMonth=2024-06`;
+    const evaluationProgress = await fetchJsonData(evaluationProgressUrl, { cache: 'default', method: 'GET' });
     // 현재 계약 기간과 상태를 나타내는 객체
     const contractStatus = fetchedContractPeriod.contracts?.info_list[0]?.contract_status as string;
 
-    contractDateInfo = createContractProgress({
+    //TODO: status에 따라 값 결정하기 !
+    const contractDateInfo = createContractProgress({
       start_date: fetchedContractPeriod.contracts?.info_list[0]?.start_date,
       end_date: fetchedContractPeriod.contracts?.info_list[0]?.end_date,
-      status: CONTRACT_STATUSES[contractStatus] ? CONTRACT_STATUSES[contractStatus].description : 'UNKNOWN',
+      status: CONTRACT_STATUSES[contractStatus] ? CONTRACT_STATUSES[contractStatus].status : 'UNKNOWN',
+      statusDescription: CONTRACT_STATUSES[contractStatus] ? CONTRACT_STATUSES[contractStatus].description : 'UNKNOWN',
     });
     // 대표호실이름
     const representRoomName = `${buildingName ?? ''} ${fetchedRepresentRoom?.name ?? ''}`;
@@ -96,7 +103,7 @@ export default async function Page({ searchParams }: dashboardPageType) {
           <div>
             <p className="schedule-title">평가 진행률</p>
             <ReviewTrackProgress
-              value={86}
+              value={evaluationProgress?.my[0].evaluation_progress}
               trackFontClass="desktop:text-body4"
             />
           </div>
@@ -104,6 +111,7 @@ export default async function Page({ searchParams }: dashboardPageType) {
       </div>
     );
   } catch (err) {
+    console.log(err);
     // TODO: 에러시 에러 컴포넌트 따로 반환해야함
     return <MainRoomScheduleLoading />;
   }
