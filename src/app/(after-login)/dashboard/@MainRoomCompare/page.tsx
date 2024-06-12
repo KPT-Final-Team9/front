@@ -7,6 +7,7 @@ import MainRoomCompareLoading from '@/app/(after-login)/dashboard/@MainRoomCompa
 import { QueryOptions } from '@/constants/index';
 import { dashboardPageType } from '@/types/common/pageTypes';
 import { LocalIcon } from '@icon/index';
+import { getAuth } from '@/serverActions/index';
 
 // 차트컴포넌트 요구 양식에 맞게 매핑하는 함수입니다.
 function processDataToChartData(data: any): ChartDataItem[] {
@@ -37,6 +38,8 @@ async function fetchJsonData(url: string) {
 }
 
 export default async function Page({ searchParams }: dashboardPageType) {
+  const userInfo = await getAuth();
+
   const buildingId = searchParams && searchParams[QueryOptions.Id];
   const buildingName = searchParams && searchParams[QueryOptions.BuildingName];
   let fetchedRepresentRoom = undefined;
@@ -44,12 +47,27 @@ export default async function Page({ searchParams }: dashboardPageType) {
   let chartData = undefined;
   try {
     // 대표호실 정보 요청
-    const representRoomUrl = `/buildings/${buildingId}/rooms/represent`;
-    fetchedRepresentRoom = await fetchJsonData(representRoomUrl);
+    const representRoomUrl = `${process.env.API_BASE_URL}/api/buildings/${buildingId}/rooms/represent`;
+    const test1 = await fetch(representRoomUrl, {
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    });
+    fetchedRepresentRoom = await test1.json();
 
     // 대표호실 비교분석 데이터
-    const representRoomStatisticsUrl = `/buildings/${buildingId}/rooms/${fetchedRepresentRoom?.id}/contracts/statistic`;
-    fetchedCompareStatistics = await fetchJsonData(representRoomStatisticsUrl);
+    const representRoomStatisticsUrl = `${process.env.API_BASE_URL}/api/buildings/${buildingId}/rooms/${fetchedRepresentRoom?.id}/contracts/statistic`;
+    const test2 = await fetch(representRoomStatisticsUrl, {
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    });
+
+    fetchedCompareStatistics = await test2.json();
 
     // 차트컴포넌트 형식에 맞게 변환
     chartData = processDataToChartData(fetchedCompareStatistics);
