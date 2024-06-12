@@ -70,5 +70,5 @@ export async function fetchJsonData(url: string, requestInit: RequestInit) {
   if (!response.ok) {
     throw new Error(`Error fetching data from ${url}`);
   }
-  return response.json();
+  return await response.json();
 }

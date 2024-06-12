@@ -1,5 +1,10 @@
 export const AVATAR_BUILDING_COLORS = ['bg-blue-700', 'bg-cyan-400', 'bg-orange-300', 'bg-green-500'];
-
+export const AVATAR_BUILDING_GRADIENT = [
+  { strokeColor: '#1158f1', gradientColor: '#c6d0e7' },
+  { strokeColor: '#67E8F9', gradientColor: '#a6edf5' },
+  { strokeColor: '#FFB775', gradientColor: '#f5c89e' },
+  { strokeColor: '#22c55e', gradientColor: '#b5f4cd' },
+];
 export const RENT_DATA = {
   rent: { title: '임대료', color: '#2461e6' },
   renewalRate: { title: '재계약률', color: '#67e8f9' },
@@ -122,3 +127,9 @@ export const CONTRACT_STATUSES: { [key: string]: ContractStatus } = {
   TERMINATED: { status: 'TERMINATED', description: '계약 파기' },
   EXPIRED: { status: 'EXPIRED', description: '계약 만료' },
 };
+
+export enum ScoreType {
+  MANAGEMENT = 'management',
+  CLAIM = 'claim',
+  FACILITY = 'facility',
+}
