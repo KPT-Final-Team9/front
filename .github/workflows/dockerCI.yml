@@ -16,6 +16,11 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME_FRONT }}
           password: ${{ secrets.DOCKERHUB_PASSWORD_FRONT }}
+      - name: Create .env.Local file
+        run: |
+          echo "AUTH_SECRET=${{ secrets.AUTH_SECRET_FRONT }}" >> .env.local
+          echo "HOST_URL=${{ secrets.HOST_URL_FRONT }}" >> .env.local
+          echo "API_BASE_URL=${{ secrets.BASE_URL_FRONT }}" >> .env.local
 
       - name: Build the Docker image
         run: docker build -t ajvls98/nextjs-app .
