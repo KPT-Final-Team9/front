@@ -1,8 +1,10 @@
+'use client';
 import { Progress } from '@/components/ui/progress';
 import { DashLineIcon } from '@/asset/Icons/index';
 import { z } from 'zod';
 import { VariantProps, cva } from 'class-variance-authority';
 import clsx from 'clsx';
+import { CONTRACT_STATUSES } from '@/constants';
 
 // NOTE: api완성전이라 텍스트 고정으로, 추후 기간 계산로직 추가
 
@@ -37,8 +39,11 @@ export function ContractProgress({
   contractDate,
   indicatorColor = 'bg-blue-500', // default bg-blue-500
 }: ContractProgressProps) {
+  // 계약기간 값검증
   const parsedValue = valueSchema.safeParse(value);
   const validValue = parsedValue.success ? parsedValue.data : 0;
+  const displayValue = isNaN(validValue) ? '-' : `${validValue}%`;
+  // console.log(contractDate?.status, 'contractDate');
   const progressPeriodFont = clsx('text-overline', periodFontClassName);
   return (
     <div className="mb-[30px] mr-5 flex flex-col gap-1">
@@ -65,7 +70,7 @@ export function ContractProgress({
           </div>
         </div>
         <div className={clsx(progressPercentageFont({ percentageFont }), percentageFontClassName)}>
-          <p>{value}%</p>
+          <p>{displayValue}</p>
         </div>
       </div>
     </div>

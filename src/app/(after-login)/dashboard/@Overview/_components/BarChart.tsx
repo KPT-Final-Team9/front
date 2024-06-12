@@ -2,14 +2,8 @@
 import React, { useState, useEffect } from 'react';
 import MultiBarChart from '@chart/bar-chart/MultiBarChart';
 
-const chartData = [
-  { name: 'A동 201호', PreQuarter: 100, curQuarter: 20 },
-  { name: 'A동 601호', PreQuarter: 60, curQuarter: 90 },
-  { name: 'A동 701호', PreQuarter: 80, curQuarter: 10 },
-  { name: 'A동 701호', PreQuarter: 40, curQuarter: 30 },
-];
-
-export default function BarChart() {
+export default function BarChart({ chartData }: { chartData: object[] }) {
+  // console.log(chartData);
   const [size, setSize] = useState(34); // 기본 사이즈를 'small'로 설정합니다.
 
   useEffect(() => {
@@ -39,10 +33,14 @@ export default function BarChart() {
   }, []);
 
   return (
-    <MultiBarChart
-      chartData={chartData}
-      categoryKey="name"
-      barSize={size}
-    />
+    <>
+      {chartData && (
+        <MultiBarChart
+          chartData={chartData}
+          categoryKey="room_name"
+          barSize={size}
+        />
+      )}
+    </>
   );
 }

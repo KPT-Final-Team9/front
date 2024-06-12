@@ -27,7 +27,7 @@ const config = {
         'evaluation-gradient': 'linear-gradient(90deg, #FFA3A3 0%, #FFCB96 35.5%, #FFE49D 65.5%, #77D276 99%',
       },
       height: {
-        'gnb': '85px',
+        gnb: '85px',
       },
 
       fontSize: {
@@ -122,9 +122,9 @@ const config = {
         'icon-bg': '#f2f6ff',
         'primary-management': '#77d276',
         'secondary-management': '#cdf4cd',
-        'primay-claim': '#ffb775',
+        'primary-claim': '#ffb775',
         'secondary-claim': '#fff0d0',
-        'primay-facility': '#2563eb',
+        'primary-facility': '#2563eb',
         'secondary-facility': '#e6eeff',
         'primary-rent': '#2563eb',
         'primary-contract': '#67e8f9',

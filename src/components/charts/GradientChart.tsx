@@ -1,13 +1,13 @@
 'use client';
 import React, { useState } from 'react';
 
-import { Area, AreaChart, ResponsiveContainer, Tooltip, YAxis } from 'recharts';
+import { Area, AreaChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 
 import GradientTooltip from '@chart/GradientTooltip';
 
 interface chartDataType {
-  month: string;
-  score: number;
+  selected_month: string;
+  total_avg: number;
 }
 
 interface GradientChartProps {
@@ -21,22 +21,7 @@ export default function GradientChart({
   gradientColor = '#D9E5FF',
   data,
 }: GradientChartProps) {
-  const getMedianValueData = (data: chartDataType[]) => {
-    const sortedData = [...data].sort((a, b) => a.score - b.score);
-    const middleIndex = Math.floor(sortedData.length / 2);
-    return sortedData[middleIndex];
-  };
-
-  const medianValueData = getMedianValueData(data);
-
-  const [tooltipPosition, setTooltipPosition] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
-
-  React.useEffect(() => {
-    const xIndex = data.findLastIndex(d => d.score === medianValueData.score);
-    const x = (xIndex / data.length) * 230; // 너비 237
-    const y = ((100 - medianValueData.score) / 100) * 86 - 35; // 높이 86
-    setTooltipPosition({ x, y });
-  }, []);
+  const gradientId = `colorPv-${gradientColor}`;
 
   return (
     <div className="h-[77px] w-[220px] rounded-[10px] bg-gray-50 desktop:h-[86px] desktop:w-[237px]">
@@ -55,7 +40,7 @@ export default function GradientChart({
           }}>
           <defs>
             <linearGradient
-              id="colorPv"
+              id={gradientId}
               x1="0"
               y1="0"
               x2="0"
@@ -70,102 +55,41 @@ export default function GradientChart({
           <YAxis
             hide={true}
             domain={[0, 100]}
+            dataKey={'total_avg'}
           />
+          <XAxis
+            hide={true}
+            dataKey={'selected_month'}
+          />
+
           <Tooltip
-            active={false}
             cursor={false}
-            allowEscapeViewBox={{ x: true, y: true }}
+            allowEscapeViewBox={{ x: true }}
             wrapperStyle={{ visibility: 'visible' }}
-            content={
-              <GradientTooltip
-                value={medianValueData.score}
-                fill={strokeColor}
-              />
-            }
-            position={{ x: tooltipPosition.x, y: tooltipPosition.y }}
+            content={({ active, payload }) => {
+              if (active && payload && payload.length) {
+                const currentData = payload[0].payload;
+                return (
+                  <GradientTooltip
+                    value={currentData.total_avg}
+                    fill={strokeColor}
+                  />
+                );
+              }
+              return null;
+            }}
           />
 
           <Area
             activeDot={false}
             type="linear"
-            dataKey="score"
+            dataKey="total_avg"
             stroke={strokeColor}
             fillOpacity={1}
-            fill="url(#colorPv)"
+            fill={`url(#${gradientId})`} // 그라디언트 id와 맞춰줘야함
           />
         </AreaChart>
       </ResponsiveContainer>
     </div>
   );
 }
-
-const PrimaryGradient = () => {
-  return (
-    <linearGradient
-      id="colorPv"
-      x1="0"
-      y1="0"
-      x2="0"
-      y2="1">
-      <stop stopColor="#D9E5FF" />
-      <stop
-        offset="1"
-        stopColor="white"
-      />
-    </linearGradient>
-  );
-};
-
-const lightBlueGradient = () => {
-  return (
-    <linearGradient
-      id="paint0_linear_1587_4260"
-      x1="119.5"
-      y1="24.6593"
-      x2="119.5"
-      y2="68"
-      gradientUnits="userSpaceOnUse">
-      <stop stop-color="#D7F8FF" />
-      <stop
-        offset="1"
-        stop-color="white"
-      />
-    </linearGradient>
-  );
-};
-
-const orangeGradient = () => {
-  return (
-    <linearGradient
-      id="paint0_linear_1587_4285"
-      x1="119.5"
-      y1="42.6593"
-      x2="119.5"
-      y2="86"
-      gradientUnits="userSpaceOnUse">
-      <stop stop-color="#FFDBBA" />
-      <stop
-        offset="1"
-        stop-color="white"
-      />
-    </linearGradient>
-  );
-};
-
-const greenGradient = () => {
-  return (
-    <linearGradient
-      id="paint0_linear_1671_6038"
-      x1="110.5"
-      y1="23.6912"
-      x2="110.5"
-      y2="64.0081"
-      gradientUnits="userSpaceOnUse">
-      <stop stop-color="#BBE3BB" />
-      <stop
-        offset="1"
-        stop-color="white"
-      />
-    </linearGradient>
-  );
-};

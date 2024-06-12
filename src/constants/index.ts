@@ -1,5 +1,10 @@
 export const AVATAR_BUILDING_COLORS = ['bg-blue-700', 'bg-cyan-400', 'bg-orange-300', 'bg-green-500'];
-
+export const AVATAR_BUILDING_GRADIENT = [
+  { strokeColor: '#1158f1', gradientColor: '#c6d0e7' },
+  { strokeColor: '#67E8F9', gradientColor: '#a6edf5' },
+  { strokeColor: '#FFB775', gradientColor: '#f5c89e' },
+  { strokeColor: '#22c55e', gradientColor: '#b5f4cd' },
+];
 export const RENT_DATA = {
   rent: { title: '임대료', color: '#2461e6' },
   renewalRate: { title: '재계약률', color: '#67e8f9' },
@@ -38,44 +43,6 @@ export const ROOM_SCORE_EMOJI: RoomScoreEmoji = {
   },
 };
 
-// 버튼 마크업 반복을 피하기 위해 상수로 분리한 데이터.
-// FIXME: 사용하는 컴포넌트에서 타입 적용이 해결안되어 해당 파일에 같이 선언해둠
-export const SURVEY_BUTTON_DATA: surveyButtonDataType[] = [
-  {
-    id: 1,
-    imgName: 'SurveyBtnIcon1',
-    btnTitle: '관리 평가',
-    btnDescription: '호실 관리에 대한 나의 평가를 등록해 주세요',
-    path: '/user-survey/scores?id=manage',
-    isCompleted: false,
-  },
-  {
-    id: 2,
-    imgName: 'SurveyBtnIcon2',
-    btnTitle: '시설 평가',
-    btnDescription: '우리 시설에 대한 나의 점수를 등록해 주세요',
-    path: '/user-survey/scores?id=facility',
-    isCompleted: false,
-  },
-  {
-    id: 3,
-    imgName: 'SurveyBtnIcon3',
-    btnTitle: '민원 평가',
-    btnDescription: '민원 처리에 대한 나의 만족도를 알려주세요',
-    path: '/user-survey/scores?id=complaint',
-    isCompleted: false,
-  },
-];
-
-interface surveyButtonDataType {
-  id: number;
-  imgName: 'SurveyBtnIcon1' | 'SurveyBtnIcon2' | 'SurveyBtnIcon3';
-  btnTitle: string;
-  btnDescription: string;
-  path: string;
-  isCompleted: boolean;
-}
-
 // score slider
 export const SLIDER_COLOR = {
   manage: ['bg-gradient-to-r from-[#98B7FC] to-primary', 'border-primary'],
@@ -101,4 +68,30 @@ export enum AuthInputId {
   Account = 'account',
   Password = 'password',
   PhoneNumber = 'phoneNumber',
+}
+
+// 쿼리스트링 값
+export enum QueryOptions {
+  Id = 'id',
+  BuildingName = 'buildingName',
+}
+
+interface ContractStatus {
+  status: string;
+  description: string;
+}
+
+export const CONTRACT_STATUSES: { [key: string]: ContractStatus } = {
+  PENDING: { status: 'PENDING', description: '계약 대기' },
+  COMPLETED: { status: 'COMPLETED', description: '계약 완료' },
+  CANCELED: { status: 'CANCELED', description: '계약 취소' },
+  IN_PROGRESS: { status: 'IN_PROGRESS', description: '계약 이행' },
+  TERMINATED: { status: 'TERMINATED', description: '계약 파기' },
+  EXPIRED: { status: 'EXPIRED', description: '계약 만료' },
+};
+
+export enum ScoreType {
+  MANAGEMENT = 'management',
+  CLAIM = 'claim',
+  FACILITY = 'facility',
 }

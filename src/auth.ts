@@ -68,7 +68,7 @@ export const {
   },
   callbacks: {
     jwt: async ({ token, user, trigger, session }) => {
-      // console.log('token', token, 'user', user, 'trigger', trigger, 'sessionr', session);
+      // console.log('token', token, 'user', user, 'trigger', trigger, 'session', session);
       if (user) {
         token = { ...token, ...user };
       }

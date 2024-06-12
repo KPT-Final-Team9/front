@@ -24,7 +24,9 @@ export default function HalfCircularProgressRating({ percent = 50, color = '#000
         color={validatedData.color}
       />
       <div className="absolute left-1/2 top-1/4 flex -translate-x-1/2 -translate-y-1 transform flex-col items-center justify-center">
-        <p className="text-[14px] font-extrabold desktop:text-[27px]">{validatedData.percent}점</p>
+        <p className="text-[14px] font-extrabold desktop:text-[27px]">
+          {validatedData.percent === 0 ? '-' : validatedData.percent}점
+        </p>
         <p className="text-[10px] text-text-secondary desktop:text-[14px]">/100점</p>
       </div>
     </>

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { usePathname, useRouter } from 'next/navigation';
 
 interface UseMediaQueryProps {
   defaultSize: number;
@@ -33,4 +34,17 @@ export const UseMediaQuery = ({ defaultSize, changedSize }: UseMediaQueryProps) 
   }, []);
 
   return size;
+};
+
+// ?로 시작하는 쿼리스트링을 받아서 현재 주소에서 해당 쿼리스트링을 포함한 주소로 이동하는 훅
+export const useUpdateUrlWithQuery = () => {
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const pushUrlWithQuery = ({ queryString }: { queryString: string }) => {
+    const newUrl = `${pathname}${queryString}`;
+    router.push(newUrl);
+  };
+
+  return { pushUrlWithQuery };
 };

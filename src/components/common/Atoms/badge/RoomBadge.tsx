@@ -4,7 +4,7 @@ import { Badge } from '@/components/ui/badge';
 import { LocalIcon } from '@icon/index';
 import { cn } from '@/lib/utils';
 
-export default function RoomBadge({ roomName, className }: { roomName: string; className?: string }) {
+export default function RoomBadge({ roomName, className }: { roomName: string | undefined; className?: string }) {
   return (
     <Badge
       className={cn(

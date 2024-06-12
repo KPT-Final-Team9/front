@@ -16,6 +16,7 @@ export const logRequestInterceptor: ReturnFetch = args =>
       },
       response: async (response, requestArgs) => {
         console.log('********* after receiving response *********');
+        console.log(response);
         console.log('url:', requestArgs[0].toString());
         console.log('requestInit:', requestArgs[1], '\n\n');
         return response;
@@ -25,24 +26,22 @@ export const logRequestInterceptor: ReturnFetch = args =>
 
 // baseURL 지정
 export const baseUrlInterceptor =
-  (publicApiPath: string): ReturnFetch =>
+  (apiPath: string): ReturnFetch =>
   args =>
     returnFetch({
       ...args,
       interceptors: {
         request: async args => {
           let url = args[0];
-          console.log('baseUrl start', url);
+
           if (url instanceof URL) {
-            console.log('baseUrl intercept URL', url);
-            url.href = `${url.origin}/${publicApiPath}${url.pathname}`;
+            url.href = `${url.origin}/${apiPath}${url.pathname}${url.search}${url.hash}`;
           }
           if (typeof url === 'string') {
-            console.log('baseUrl intercept string', url);
-            url = `/${publicApiPath}${url}`;
+            url = `/${apiPath}${url}`;
           }
           args[0] = url;
-          console.log('baseUrl end', url);
+
           return args;
         },
       },

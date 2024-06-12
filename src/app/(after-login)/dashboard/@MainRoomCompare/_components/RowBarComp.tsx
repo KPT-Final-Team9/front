@@ -5,10 +5,17 @@ import CommonChartLabel from '@Monocles/chart-label/CommonChartLabel';
 import { UseMediaQuery } from '@/hooks/index';
 import { RENT_DATA } from '@/constants/index';
 import { ChartDataItem } from '@/types/api';
+import { FormatType } from '@chart/bar-chart/SingleCategoryHorizontalBarChart';
 
-const ChartBox = ({ chartData, text, accentColor }: { chartData: any; text: string; accentColor: string }) => {
+const ChartBox = ({ chartData, text, accentColor }: { chartData?: any; text: string; accentColor: string }) => {
   const barChartSize = UseMediaQuery({ defaultSize: 27, changedSize: 21 });
 
+  let formatType: FormatType = '';
+  if (text === '임대료') {
+    formatType = 'comma';
+  } else if (text === '공실률' || text === '재계약률') {
+    formatType = 'percent';
+  }
   return (
     <div className="flex grow  flex-col rounded-box border-[1.5px] p-4">
       <p className="mb-2 text-body1">{text}</p>
@@ -33,6 +40,7 @@ const ChartBox = ({ chartData, text, accentColor }: { chartData: any; text: stri
             chartData={chartData}
             categoryKey="name"
             accentColor={accentColor}
+            formatType={formatType}
           />
         </div>
       </div>
@@ -40,31 +48,18 @@ const ChartBox = ({ chartData, text, accentColor }: { chartData: any; text: stri
   );
 };
 
-export default function RowBarComp({ chartData }: { chartData: ChartDataItem[] }) {
-  useEffect(() => {
-    const awaitTime = new Promise<string>(resolve => {
-      setTimeout(() => {
-        resolve('hello');
-      }, 3000);
-    });
-
-    const fetchData = async () => {
-      const result = await awaitTime;
-    };
-
-    fetchData();
-  }, []);
+export default function RowBarComp({ chartData }: { chartData?: ChartDataItem[] }) {
   const rentDataArray = Object.values(RENT_DATA);
 
   return (
     <div>
       <div className="flex flex-col gap-6 desktop:flex-row">
         {rentDataArray.map((val, index) => {
-          const matchingData = chartData.find(data => data.name === val.title);
+          const matchingData = chartData?.find(data => data.name === val.title);
           return (
             <ChartBox
               key={index}
-              chartData={[chartData[index]]}
+              chartData={chartData && [chartData[index]]}
               text={val.title}
               accentColor={val.color}
             />

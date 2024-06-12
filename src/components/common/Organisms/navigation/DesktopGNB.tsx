@@ -1,12 +1,15 @@
 'use client';
-import React, { Suspense, useEffect, useState } from 'react';
+import React, { Suspense, useEffect, useLayoutEffect, useState } from 'react';
 import { NotiBellButton } from '@Atoms/buttons/NotiBellButton';
 import { Selectbox } from '@Atoms/seletbox/Selectbox';
 import { LocalIcon } from '@icon/index';
 import { cn } from '@/lib/utils';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
+import { baseApis } from '@/services/api';
+import { useUpdateUrlWithQuery } from '@/hooks/index';
+import { QueryOptions } from '@/constants/index';
 
 // 해당 상수는 GNB 내부에 있는것이 가독성이 좋아보여 유지.
 export enum NAV_TYPE {
@@ -102,48 +105,68 @@ interface BuildingData {
   id: number;
   buildingName: string;
 }
-const dummyBuildingData: Array<BuildingData> = [
-  {
-    id: 1,
-    buildingName: '미왕빌딩',
-  },
-  {
-    id: 2,
-    buildingName: '가산드림타워',
-  },
-  {
-    id: 3,
-    buildingName: '더스카이밸리1차',
-  },
-  {
-    id: 4,
-    buildingName: '서울숲더스페이스',
-  },
-];
+
+// 서버에서 받아온 데이터 -> state -> url(push) -> 전체 리렌더링
+
+// 1. url -> state -> 렌더링
+// 2. url 없는 경우 -> default state -> 렌더링
+// 1. url -> state -> 렌더링
+// 2. url 없는 경우 -> server에서 데이터를 가지고 오고 default setState -> 렌더링
+
+// 1. url에 (buildingId) -> state -> 렌더링
+// 2. url 없는 경우 (buildingId가 undefined 인 경우) -> server에서 데이터를 가지고 오고 default setState -> 렌더링
+
+// 1. url이 없다 : undefined -> 기본 값 렌더링
+// 2. url이 있다 : url에 들어있는 buildingId -> 해당 buildingId 렌더링
 
 // 렌더링 최적화를 위해 분리
 function SelectBoxComp() {
-  const [selectBuildingOptions, setSelectBuildingOptions] = useState([{ buildingName: '-', id: 1 }]);
+  const { pushUrlWithQuery } = useUpdateUrlWithQuery();
+  const [selectBuildingOptions, setSelectBuildingOptions] = useState([{ name: '-', id: 1 }]);
   // TODO: 선택된 빌딩 전역 상태로 추가하기
   const [currentSelectBuilding, setCurrentSelectBuilding] = useState<number | undefined>(undefined);
   const selectedBuilding = JSON.stringify(selectBuildingOptions.find(data => data.id === currentSelectBuilding));
 
   const handleBuildingChange = (newOption: { title: string; id: string }) => {
     setCurrentSelectBuilding(parseInt(newOption.id));
+    pushUrlWithQuery({
+      queryString: `?${QueryOptions.Id}=${newOption.id}&${QueryOptions.BuildingName}=${newOption.title}`,
+    });
   };
 
+  async function fetchData() {
+    const fetchInstance = await baseApis();
+    const response = await fetchInstance(`/buildings`, {
+      cache: 'no-store',
+      method: 'GET',
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      return data;
+    } else {
+      throw new Error('데이터를 가져오지 못했습니다.');
+    }
+  }
+
   useEffect(() => {
-    setTimeout(() => {
-      // 데이터가 없다면 기본 '-'로 유지
-      if (dummyBuildingData) {
-        setSelectBuildingOptions(dummyBuildingData);
+    const loadBuildingData = async () => {
+      try {
+        const data = await fetchData();
+        setSelectBuildingOptions(data);
+        pushUrlWithQuery({
+          queryString: `?${QueryOptions.Id}=${data[0]?.id}&${QueryOptions.BuildingName}=${data[0]?.name}`,
+        });
+      } catch (error) {
+        setSelectBuildingOptions([{ name: '-', id: 1 }]);
       }
-    }, 1000);
+    };
+    loadBuildingData();
   }, []);
 
   return (
     <Selectbox
-      optionKey="buildingName"
+      optionKey="name"
       icon="BuildingIcon"
       showIcon={true}
       value={selectedBuilding}
