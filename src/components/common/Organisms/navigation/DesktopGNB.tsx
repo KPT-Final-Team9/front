@@ -4,7 +4,7 @@ import { NotiBellButton } from '@Atoms/buttons/NotiBellButton';
 import { Selectbox } from '@Atoms/seletbox/Selectbox';
 import { LocalIcon } from '@icon/index';
 import { cn } from '@/lib/utils';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { baseApis } from '@/services/api';
@@ -79,8 +79,6 @@ export default function DesktopGNB() {
 function NavListComp() {
   // 경로에따라 li 태그 스타일 조정
   const pathname = usePathname();
-  const searchParams = useSearchParams();
-  console.log(searchParams.toString());
   const navListActive = 'box-border text-text-primary after:bg-primary';
   return (
     <ul className={cn('nav-li hidden flex-row items-center gap-4 text-body1 desktop:flex', GNB_HEIGHT)}>
