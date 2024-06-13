@@ -53,7 +53,9 @@ export default function DesktopGNB() {
               className=" desktop:w-ful h-[36px] w-[73px] desktop:h-full"
               name={'OfficenerMainLogo'}
             />
-            <NavListComp />
+            <Suspense>
+              <NavListComp />
+            </Suspense>
           </div>
           <div className="flex items-center gap-16">
             <Suspense>
