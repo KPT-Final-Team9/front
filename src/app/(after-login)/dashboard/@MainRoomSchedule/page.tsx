@@ -2,7 +2,7 @@ import RoomBadge from '@Atoms/badge/RoomBadge';
 import { ContractProgress } from '@Monocles/progress-bar/ContractProgress';
 import { NextIconButton } from '@Atoms/buttons/NextIconButton';
 import ReviewTrackProgress from '@Monocles/progress-bar/ReviewTrackProgress';
-import { fetchJsonData, baseApis } from '@/services/api';
+import { fetchJsonData, baseApis, fetchServerJsonData } from '@/services/api';
 import { CONTRACT_STATUSES, QueryOptions } from '@/constants/index';
 import { dashboardPageType } from '@/types/common/pageTypes';
 import dayjs from 'dayjs';
@@ -57,17 +57,17 @@ export default async function Page({ searchParams }: dashboardPageType) {
 
   try {
     // 대표호실 정보 요청
-    const representRoomUrl = `/buildings/${buildingId}/rooms/represent`;
-    const fetchedRepresentRoom = await fetchJsonData(representRoomUrl, { cache: 'default', method: 'GET' });
+    const representRoomUrl = `/api/buildings/${buildingId}/rooms/represent`;
+    const fetchedRepresentRoom = await fetchServerJsonData(representRoomUrl, { cache: 'default', method: 'GET' });
     console.log(representRoomUrl);
     // 대표호실 계약 기간 요청
-    const contractPeriodUrl = `/buildings/${buildingId}/rooms/${fetchedRepresentRoom?.id}`;
-    const fetchedContractPeriod = await fetchJsonData(contractPeriodUrl, { cache: 'default', method: 'GET' });
+    const contractPeriodUrl = `/api/buildings/${buildingId}/rooms/${fetchedRepresentRoom?.id}`;
+    const fetchedContractPeriod = await fetchServerJsonData(contractPeriodUrl, { cache: 'default', method: 'GET' });
     // console.log('fetchedContractPeriod', fetchedContractPeriod);
     console.log(contractPeriodUrl);
     // 대표호실평가 진행률 요청
-    const evaluationProgressUrl = `/buildings/${buildingId}/rooms/${fetchedRepresentRoom?.id}/yearly-score-interval-month?yearMonth=2024-06`;
-    const evaluationProgress = await fetchJsonData(evaluationProgressUrl, { cache: 'default', method: 'GET' });
+    const evaluationProgressUrl = `/api/buildings/${buildingId}/rooms/${fetchedRepresentRoom?.id}/yearly-score-interval-month?yearMonth=2024-06`;
+    const evaluationProgress = await fetchServerJsonData(evaluationProgressUrl, { cache: 'default', method: 'GET' });
     // 현재 계약 기간과 상태를 나타내는 객체
     const contractStatus = fetchedContractPeriod.contracts?.info_list[0]?.contract_status as string;
     console.log(evaluationProgressUrl);

@@ -2,7 +2,7 @@ import RoomBadge from '@Atoms/badge/RoomBadge';
 import RowBarComp from '@/app/(after-login)/dashboard/@MainRoomCompare/_components/RowBarComp';
 import { ChartDataItem } from '@/types/api';
 import IndexTooltip from '@/app/(after-login)/dashboard/_components/IndexTooltip';
-import { baseApis } from '@/services/api';
+import { baseApis, fetchServerJsonData } from '@/services/api';
 import MainRoomCompareLoading from '@/app/(after-login)/dashboard/@MainRoomCompare/loading';
 import { QueryOptions } from '@/constants/index';
 import { dashboardPageType } from '@/types/common/pageTypes';
@@ -44,12 +44,15 @@ export default async function Page({ searchParams }: dashboardPageType) {
   let chartData = undefined;
   try {
     // 대표호실 정보 요청
-    const representRoomUrl = `/buildings/${buildingId}/rooms/represent`;
-    fetchedRepresentRoom = await fetchJsonData(representRoomUrl);
+    const representRoomUrl = `/api/buildings/${buildingId}/rooms/represent`;
+    fetchedRepresentRoom = await fetchServerJsonData(representRoomUrl, { cache: 'default', method: 'GET' });
 
     // 대표호실 비교분석 데이터
-    const representRoomStatisticsUrl = `/buildings/${buildingId}/rooms/${fetchedRepresentRoom?.id}/contracts/statistic`;
-    fetchedCompareStatistics = await fetchJsonData(representRoomStatisticsUrl);
+    const representRoomStatisticsUrl = `/api/buildings/${buildingId}/rooms/${fetchedRepresentRoom?.id}/contracts/statistic`;
+    fetchedCompareStatistics = await fetchServerJsonData(representRoomStatisticsUrl, {
+      cache: 'default',
+      method: 'GET',
+    });
 
     // 차트컴포넌트 형식에 맞게 변환
     chartData = processDataToChartData(fetchedCompareStatistics);
