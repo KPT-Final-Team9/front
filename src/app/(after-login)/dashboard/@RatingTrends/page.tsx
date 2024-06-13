@@ -6,7 +6,9 @@ import {
 } from '@/app/(after-login)/dashboard/@RatingTrends/_components/Modal';
 import { dashboardPageType } from '@/types/common/pageTypes';
 import { QueryOptions } from '@/constants/index';
-import { fetchJsonData } from '@/services/api';
+import { getAuth } from '@/serverActions/index';
+import returnFetch from 'return-fetch';
+import { baseApis, fetchServerJsonData } from '@/services/api';
 
 interface AvgByMonth {
   selected_month: string;
@@ -23,19 +25,39 @@ interface RepresentRoom {
   all_avg_by_month_list: AvgByMonth[];
 }
 
+const fetchExtended = returnFetch({
+  baseUrl: 'https://jsonplaceholder.typicode.com',
+  headers: { Accept: 'application/json' },
+  interceptors: {
+    request: async args => {
+      console.log('********* before sending request *********');
+      console.log('url:', args[0].toString());
+      console.log('requestInit:', args[1], '\n\n');
+      return args;
+    },
+
+    response: async (response, requestArgs) => {
+      console.log('********* after receiving response *********');
+      console.log('url:', requestArgs[0].toString());
+      console.log('requestInit:', requestArgs[1], '\n\n');
+      return response;
+    },
+  },
+});
+
 // 모든호실 연간 평균치
 export default async function Page({ searchParams }: dashboardPageType) {
   const buildingName = searchParams && searchParams[QueryOptions.BuildingName];
   const buildingId = searchParams && searchParams[QueryOptions.Id];
 
   try {
-    const representRoomUrl = `/buildings/${buildingId}/rooms/represent`;
-    const representRoom = await fetchJsonData(representRoomUrl, {
+    const representRoomUrl = `/api/buildings/${buildingId}/rooms/represent`;
+    const representRoom = await fetchServerJsonData(representRoomUrl, {
       cache: 'no-store',
       method: 'GET',
     });
-    const roomsYearScoreUrl = `/buildings/${buildingId}/my-rooms-year-score`;
-    const roomsYearScore: RepresentRoom[] = await fetchJsonData(roomsYearScoreUrl, {
+    const roomsYearScoreUrl = `/api/buildings/${buildingId}/my-rooms-year-score`;
+    const roomsYearScore: RepresentRoom[] = await fetchServerJsonData(roomsYearScoreUrl, {
       cache: 'no-store',
       method: 'GET',
     });

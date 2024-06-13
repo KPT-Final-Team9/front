@@ -2,7 +2,7 @@ import RoomBadge from '@Atoms/badge/RoomBadge';
 import RowBarComp from '@/app/(after-login)/dashboard/@MainRoomCompare/_components/RowBarComp';
 import { ChartDataItem } from '@/types/api';
 import IndexTooltip from '@/app/(after-login)/dashboard/_components/IndexTooltip';
-import { baseApis } from '@/services/api';
+import { baseApis, fetchServerJsonData } from '@/services/api';
 import MainRoomCompareLoading from '@/app/(after-login)/dashboard/@MainRoomCompare/loading';
 import { QueryOptions } from '@/constants/index';
 import { dashboardPageType } from '@/types/common/pageTypes';
@@ -85,10 +85,6 @@ export default async function Page({ searchParams }: dashboardPageType) {
         <div className="flex w-[240px] flex-row items-center justify-between">
           <p className=" text-h4">대표 호실 비교분석 서비스</p>
           <IndexTooltip />
-          <LocalIcon
-            name="ExclamationMark"
-            className="h-[24px] w-[24px]"
-          />
         </div>
         <div className="w-fit">
           <RoomBadge roomName={representRoomName} />
@@ -98,7 +94,8 @@ export default async function Page({ searchParams }: dashboardPageType) {
         </div>
       </div>
     );
-  } catch (error) {
+  } catch (err) {
+    console.log(err);
     // TODO: 패칭 에러시 처리필요
     return <MainRoomCompareLoading />;
   }

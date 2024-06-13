@@ -1,5 +1,6 @@
 import { apisBaseUrl, logRequestInterceptor, publicApiBaseUrl } from '@/services/intercepter';
 import { getAuth } from '@/serverActions/index';
+import returnFetch from 'return-fetch';
 
 /*  /api */
 export async function baseApis() {
@@ -64,6 +65,28 @@ export async function basePublicApi() {
 //
 export async function fetchJsonData(url: string, requestInit: RequestInit) {
   const fetchInstance = await baseApis();
+  const response = await fetchInstance(url, requestInit);
+  if (!response.ok) {
+    throw new Error(`Error fetching data from ${url}`);
+  }
+  return await response.json();
+}
+
+export async function apiServerFetch() {
+  const userInfo = await getAuth();
+  const base = {
+    baseUrl: `https://officeback.site`,
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${userInfo.token}`,
+    },
+  };
+  return returnFetch(base);
+}
+
+export async function fetchServerJsonData(url: string, requestInit: RequestInit) {
+  const fetchInstance = await apiServerFetch();
   const response = await fetchInstance(url, requestInit);
   if (!response.ok) {
     throw new Error(`Error fetching data from ${url}`);
