@@ -67,10 +67,6 @@ export default async function Page({ searchParams }: dashboardPageType) {
         <div className="flex w-[240px] flex-row items-center justify-between">
           <p className=" text-h4">대표 호실 비교분석 서비스</p>
           <IndexTooltip />
-          <LocalIcon
-            name="ExclamationMark"
-            className="h-[24px] w-[24px]"
-          />
         </div>
         <div className="w-fit">
           <RoomBadge roomName={representRoomName} />
