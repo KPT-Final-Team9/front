@@ -64,7 +64,6 @@ export default function GradientChart({
 
           <Tooltip
             cursor={false}
-            allowEscapeViewBox={{ x: true }}
             wrapperStyle={{ visibility: 'visible' }}
             content={({ active, payload }) => {
               if (active && payload && payload.length) {

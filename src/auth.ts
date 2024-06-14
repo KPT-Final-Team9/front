@@ -43,6 +43,7 @@ export const {
   auth,
   unstable_update: update, //Beta!!
 } = NextAuth({
+  trustHost: true,
   providers: [
     Credentials({
       authorize: async credentials => {

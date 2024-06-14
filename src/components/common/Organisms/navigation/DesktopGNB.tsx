@@ -4,12 +4,13 @@ import { NotiBellButton } from '@Atoms/buttons/NotiBellButton';
 import { Selectbox } from '@Atoms/seletbox/Selectbox';
 import { LocalIcon } from '@icon/index';
 import { cn } from '@/lib/utils';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { baseApis } from '@/services/api';
 import { useUpdateUrlWithQuery } from '@/hooks/index';
 import { QueryOptions } from '@/constants/index';
+import { Search } from 'lucide-react';
 
 // 해당 상수는 GNB 내부에 있는것이 가독성이 좋아보여 유지.
 export enum NAV_TYPE {
@@ -29,6 +30,7 @@ const GNB_HEIGHT = 'desktop:h-gnb h-[68px] ';
 
 export default function DesktopGNB() {
   const [NotibellCount, setNotibellCount] = useState<number | undefined>(undefined);
+
   useEffect(() => {
     setTimeout(() => {
       // 알람 패치 로직
@@ -51,7 +53,9 @@ export default function DesktopGNB() {
               className=" desktop:w-ful h-[36px] w-[73px] desktop:h-full"
               name={'OfficenerMainLogo'}
             />
-            <NavListComp />
+            <Suspense>
+              <NavListComp />
+            </Suspense>
           </div>
           <div className="flex items-center gap-16">
             <Suspense>
@@ -77,6 +81,8 @@ export default function DesktopGNB() {
 function NavListComp() {
   // 경로에따라 li 태그 스타일 조정
   const pathname = usePathname();
+  const searchParams = useSearchParams();
+  console.log(searchParams.toString());
   const navListActive = 'box-border text-text-primary after:bg-primary';
   return (
     <ul className={cn('nav-li hidden flex-row items-center gap-4 text-body1 desktop:flex', GNB_HEIGHT)}>
@@ -84,7 +90,7 @@ function NavListComp() {
         const item = key as NAV_TYPE;
         return (
           <Link
-            href={NAV_ITEMS[item].path}
+            href={{ pathname: NAV_ITEMS[item].path, query: searchParams.toString() }}
             key={NAV_ITEMS[item].path}
             className={cn(
               'text-nowrap-white relative box-border flex h-full items-center p-3 text-text-disabled transition-colors after:absolute after:bottom-0 after:left-1/2 after:h-[2px] after:w-[70%] after:-translate-x-1/2 after:transform after:transition-colors after:content-[""] hover:cursor-pointer ',
