@@ -2,6 +2,8 @@
 
 ### <div align="center">🏢 스마트 오피스/빌딩 솔루션, '오피스너'의 <br />오피스 소유자 니즈 충족 해결을 위한 프로젝트 </div>
 
+#### <div align="center"> 🏆 패캠 기업연계 7기 우수 프로젝트 선정 🏆 </div>
+
 <br />
 
 > 오피스너는 출시 이후 건물 관리인과 임차인 모두에게 필수적인 서비스를 제공하며 건물 관리 솔루션으로 자리매김했습니다.  
@@ -21,9 +23,15 @@
 
 ## 🔗 프로젝트 링크
 
-|                                                             배포 사이트                                                              |                                                                   깃허브                                                                    |                                                                                          스토리북                                                                                           |
-| :----------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
-| <a href="https://front-alpha-five.vercel.app/login"><img src="https://img.shields.io/badge/오피스너-3761E2?style=flat-square&"/></a> | <a href="https://github.com/KPT-Final-Team9/front"><img src="https://img.shields.io/badge/Front Repository-181717?style=flat-square&"/></a> | <a href="https://66421fd64f35d30603e16002-eexlmnzjxv.chromatic.com/?path=/docs/chart-gradientchart--docs"><img src="https://img.shields.io/badge/Storybook-FF4785?style=flat-square&"/></a> |
+|                                                               배포 사이트                                                                |                                                                   깃허브                                                                    |                                                                                          스토리북                                                                                           |
+| :--------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+| <a href="https://front-alpha-five.vercel.app/dashboard"><img src="https://img.shields.io/badge/오피스너-3761E2?style=flat-square&"/></a> | <a href="https://github.com/KPT-Final-Team9/front"><img src="https://img.shields.io/badge/Front Repository-181717?style=flat-square&"/></a> | <a href="https://66421fd64f35d30603e16002-eexlmnzjxv.chromatic.com/?path=/docs/chart-gradientchart--docs"><img src="https://img.shields.io/badge/Storybook-FF4785?style=flat-square&"/></a> |
+
+<br />
+
+## 🛠️ 기술 스택
+
+![stack](https://github.com/KPT-Final-Team9/front/assets/104605709/9e53cdb5-cb2e-4d63-817e-61384b09b717)
 
 <br />
 
