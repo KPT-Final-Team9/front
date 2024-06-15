@@ -27,6 +27,8 @@
 | :--------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
 | <a href="https://front-alpha-five.vercel.app/dashboard"><img src="https://img.shields.io/badge/오피스너-3761E2?style=flat-square&"/></a> | <a href="https://github.com/KPT-Final-Team9/front"><img src="https://img.shields.io/badge/Front Repository-181717?style=flat-square&"/></a> | <a href="https://66421fd64f35d30603e16002-eexlmnzjxv.chromatic.com/?path=/docs/chart-gradientchart--docs"><img src="https://img.shields.io/badge/Storybook-FF4785?style=flat-square&"/></a> |
 
+- 임시 배포 레포지토리 (<a href="https://github.com/Lamyzm/front">링크</a>)
+
 <br />
 
 ## 🛠️ 기술 스택
