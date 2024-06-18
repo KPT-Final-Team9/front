@@ -6,9 +6,8 @@ import {
 } from '@/app/(after-login)/dashboard/@RatingTrends/_components/Modal';
 import { dashboardPageType } from '@/types/common/pageTypes';
 import { QueryOptions } from '@/constants/index';
-import { getAuth } from '@/serverActions/index';
 import returnFetch from 'return-fetch';
-import { baseApis, fetchServerJsonData } from '@/services/api';
+import { fetchServerJsonData } from '@/services/api';
 
 interface AvgByMonth {
   selected_month: string;
@@ -24,26 +23,6 @@ interface RepresentRoom {
   room_name: string;
   all_avg_by_month_list: AvgByMonth[];
 }
-
-const fetchExtended = returnFetch({
-  baseUrl: 'https://jsonplaceholder.typicode.com',
-  headers: { Accept: 'application/json' },
-  interceptors: {
-    request: async args => {
-      console.log('********* before sending request *********');
-      console.log('url:', args[0].toString());
-      console.log('requestInit:', args[1], '\n\n');
-      return args;
-    },
-
-    response: async (response, requestArgs) => {
-      console.log('********* after receiving response *********');
-      console.log('url:', requestArgs[0].toString());
-      console.log('requestInit:', requestArgs[1], '\n\n');
-      return response;
-    },
-  },
-});
 
 // 모든호실 연간 평균치
 export default async function Page({ searchParams }: dashboardPageType) {
