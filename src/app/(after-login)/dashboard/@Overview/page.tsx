@@ -22,7 +22,6 @@ interface quarterlyData {
   total_avg: number;
 }
 
-// 이번분기와 지난분기 평균값 차트컴포넌트에 맞게 매핑하는 함수입니다.
 interface Marge {
   room_id: number;
   room_name: string;
@@ -34,6 +33,7 @@ interface mappedData {
   currentTotalAvg: number | null;
 }
 
+// 이번분기와 지난분기 평균값 차트컴포넌트에 맞게 매핑하는 함수입니다.
 const mergedData = ({ before, current }: { before: Marge[]; current: Marge[] }): mappedData[] => {
   return before.reduce((acc, beforeItem) => {
     const currentItem = current.find(item => item.room_id === beforeItem.room_id);
