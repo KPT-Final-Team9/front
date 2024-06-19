@@ -24,6 +24,6 @@ interface User {
 export interface CustomSession {
   user: User;
   expires: string;
-  role: string;
+  role: 'ADMIN' | 'USER' | 'OWNER';
   token: string;
 }

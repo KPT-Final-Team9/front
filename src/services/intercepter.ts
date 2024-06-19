@@ -1,6 +1,7 @@
 import returnFetch, { ReturnFetch } from 'return-fetch';
 import { auth } from '@/auth';
 import { CustomSession } from '@/types/auth';
+import { signOut } from 'next-auth/react';
 
 // 로깅
 export const logRequestInterceptor: ReturnFetch = args =>
@@ -68,6 +69,22 @@ export const setJWInterceptor: ReturnFetch = args =>
     },
   });
 
+// 인증정보 삭제
+export const signOutInterceptor: ReturnFetch = args =>
+  returnFetch({
+    ...args,
+    interceptors: {
+      response: async (response, requestArgs) => {
+        console.log('********* signOut response *********');
+        if (response.status === 404) {
+          signOut();
+        }
+        console.log('url:', requestArgs[0].toString());
+        console.log('requestInit:', requestArgs[1], '\n\n');
+        return response;
+      },
+    },
+  });
 /* nextNodeServerApi */
 // authJS 같은 next node server 로직에서 사용하는 api입니다.
 
