@@ -1,4 +1,4 @@
-import { apisBaseUrl, logRequestInterceptor, publicApiBaseUrl } from '@/services/intercepter';
+import { apisBaseUrl, logRequestInterceptor, publicApiBaseUrl, signOutInterceptor } from '@/services/intercepter';
 import { getAuth } from '@/serverActions/index';
 import returnFetch from 'return-fetch';
 
@@ -28,7 +28,7 @@ export async function baseApis() {
   }
 
   return apisBaseUrl({
-    ...base,
+    fetch: signOutInterceptor({ ...base }),
   });
 }
 
@@ -82,7 +82,8 @@ export async function apiServerFetch() {
       Authorization: `Bearer ${userInfo.token}`,
     },
   };
-  return returnFetch(base);
+
+  return signOutInterceptor({ ...base });
 }
 
 export async function fetchServerJsonData(url: string, requestInit: RequestInit) {
