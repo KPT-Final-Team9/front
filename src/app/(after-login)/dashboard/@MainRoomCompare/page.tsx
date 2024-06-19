@@ -25,17 +25,6 @@ function processDataToChartData(data: any): ChartDataItem[] {
     { name: '공실률', myRoom: data.vacancy_rate, diff: data.average_vacancy_rate },
   ];
 }
-async function fetchJsonData(url: string) {
-  const fetchInstance = await baseApis();
-  const response = await fetchInstance(url, {
-    cache: 'no-store',
-    method: 'GET',
-  });
-  if (!response.ok) {
-    throw new Error(`Error fetching data from ${url}`);
-  }
-  return response.json();
-}
 
 export default async function Page({ searchParams }: dashboardPageType) {
   const userInfo = await getAuth();

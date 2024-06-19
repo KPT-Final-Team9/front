@@ -10,7 +10,6 @@ import { Button } from '@/components/ui/button';
 import { baseApis } from '@/services/api';
 import { useUpdateUrlWithQuery } from '@/hooks/index';
 import { QueryOptions } from '@/constants/index';
-import { Search } from 'lucide-react';
 
 // 해당 상수는 GNB 내부에 있는것이 가독성이 좋아보여 유지.
 export enum NAV_TYPE {
@@ -26,7 +25,7 @@ const NAV_ITEMS: NavItemsType = {
   [NAV_TYPE.EVALUATION]: { path: '/room', label: '호실관리' },
   [NAV_TYPE.ROOM_DETAIL]: { path: '/rating-detail', label: '평가상세' },
 };
-const GNB_HEIGHT = 'desktop:h-gnb h-[68px] ';
+const GNB_HEIGHT = 'desktop:h-gnb h-mobileGnbHeight';
 
 export default function DesktopGNB() {
   const [NotibellCount, setNotibellCount] = useState<number | undefined>(undefined);
@@ -42,7 +41,7 @@ export default function DesktopGNB() {
     <>
       <nav
         className={cn(
-          'top-0 z-40 hidden w-full border-b-2 border-stroke bg-white p-[16px] desktop:flex desktop:px-5',
+          'fixed top-0 z-40 w-full border-b-2 border-stroke bg-white p-[16px] desktop:flex desktop:px-5 ',
           GNB_HEIGHT,
         )}>
         <div className="mx-auto flex h-full w-[1440px] items-center justify-between">
