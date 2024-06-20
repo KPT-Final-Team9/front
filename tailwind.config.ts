@@ -1,5 +1,7 @@
 import type { Config } from 'tailwindcss';
 
+const mobileGnbHeight = '68px';
+
 const config = {
   darkMode: ['class'],
   content: ['./pages/**/*.{ts,tsx}', './components/**/*.{ts,tsx}', './app/**/*.{ts,tsx}', './src/**/*.{ts,tsx}'],
@@ -28,8 +30,12 @@ const config = {
       },
       height: {
         gnb: '85px',
+        mobileGnbHeight,
       },
-
+      margin: {
+        mobileGnbHeight,
+        mobileBottomGnbHeight: '85px',
+      },
       fontSize: {
         h1: [
           '40px',

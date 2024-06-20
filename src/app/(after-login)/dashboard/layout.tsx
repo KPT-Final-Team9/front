@@ -13,7 +13,7 @@ export default function Layout({
 }) {
   return (
     <>
-      <main className="flex flex-col items-center pt-10 desktop:justify-start ">
+      <main className="flex flex-col items-center py-10 desktop:justify-start ">
         <section className="flex w-full flex-row max-[1330px]:flex-col desktop:gap-14">
           <article className="mb-[24px] flex w-full">{Overview}</article>
           <aside className="relative mb-[30px] w-full desktop:mb-[30px] desktop:block desktop:h-[700px] min-[1330px]:max-w-[336px]">

@@ -1,11 +1,12 @@
 'use client';
 
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 
 import { cn } from '@/lib/utils';
 import { LocalIcon } from '@icon/index';
 import { Button } from '@/components/ui/button';
+import { Suspense } from 'react';
 
 // DesktopGNB과 동일하게 작성
 export enum NAV_TYPE {
@@ -27,19 +28,20 @@ const NAV_ITEMS: NavItemsType = {
 
 export default function MobileGNB() {
   return (
-    <nav className="h-gnb fixed bottom-0 left-0 right-0 z-40 border-t border-stroke bg-white px-7 desktop:hidden">
-      <NavListComp />
+    <nav className="fixed bottom-0 left-0 right-0 z-40 h-gnb border-t border-stroke bg-white px-7 desktop:hidden">
+      <Suspense>
+        <NavListComp />
+      </Suspense>
     </nav>
   );
 }
 
-// 클릭시 scale 효과 적용(내계정 버튼과 효과 통일함)
 function NavListComp() {
   const pathname = usePathname();
   const navListActive = 'fill-primary text-primary';
-
+  const searchParams = useSearchParams();
   return (
-    <ul className="h-gnb flex min-w-[320px] items-center justify-between gap-7 text-body5">
+    <ul className="flex h-gnb min-w-[320px] items-center justify-between gap-7 text-body5">
       {Object.keys(NAV_ITEMS).map(key => {
         const item = key as NAV_TYPE;
 
@@ -48,7 +50,7 @@ function NavListComp() {
             key={NAV_ITEMS[item].path}
             className="active:scale-[.98]">
             <Link
-              href={NAV_ITEMS[item].path}
+              href={{ pathname: NAV_ITEMS[item].path, query: searchParams.toString() }}
               className={cn('flex flex-col items-center fill-text-disabled text-text-disabled', {
                 [navListActive]: pathname === NAV_ITEMS[item].path,
               })}>
