@@ -28,10 +28,17 @@ export async function middleware(request: NextRequest) {
   // 유저 정보
   const userInfo = (await auth()) as CustomSession;
 
+  // 임시로 유저 정보없을시 인증로직 이동을 위해 대시보드로 이동
+  // TODO: 이후 랜딩페이지 제작시 해당 로직 제거
+  if (!userInfo && pathname === '/') {
+    return NextResponse.redirect(new URL('/dashboard', request.url));
+  }
+
   // user role 이 소유자고 / 일때 dashboard로 리디렉션
   if (userInfo && userInfo.role === 'OWNER' && pathname === '/') {
     return NextResponse.redirect(new URL('/dashboard', request.url));
   }
+
   // 유저토큰 없을시 join으로 리디렉션
   if (isMatch(pathname, matchersForAuth)) {
     return userInfo
